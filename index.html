@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MIK Projekt — Vaš partner za energetska rešenja</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&family=IBM+Plex+Sans:wght@200;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ─── Container ─────────────────────────────────────────────── */
+    .inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 var(--px);
+    }
+
+    :root {
+      --red:       #cc2229;
+      --dark:      #111111;
+      --dark2:     #161616;
+      --gray-bg:   #f5f5f5;
+      --border:    #e6e6e6;
+      --text-muted:#5a5a5a;
+      --text-dim:  #787878;
+      --text-nav:  #3c3c3c;
+      --px:        80px;
+      --transition: 0.2s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      color: var(--dark);
+      background: #fff;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+
+    /* ─── Scroll Animations ────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ─── NAV ──────────────────────────────────────────────────── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 64px;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.3s ease;
+    }
+    .nav .inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav.scrolled {
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .nav-logo img { height: 48px; width: auto; display: block; }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-nav);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      position: relative;
+      transition: color var(--transition);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -3px;
+      width: 0; height: 1px;
+      background: var(--red);
+      transition: width var(--transition);
+    }
+    .nav-links a:hover { color: var(--dark); }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { width: 100%; }
+    .nav-links a.active {
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .nav-cta {
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 11px 20px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background var(--transition), transform var(--transition);
+      white-space: nowrap;
+    }
+    .nav-cta:hover {
+      background: #a81b21;
+      transform: translateY(-1px);
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--dark);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile nav drawer */
+    .nav-drawer {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 24px var(--px);
+      flex-direction: column;
+      gap: 0;
+      z-index: 99;
+      transform: translateY(-10px);
+      opacity: 0;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      pointer-events: none;
+    }
+    .nav-drawer.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+    .nav-drawer a {
+      display: block;
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--text-nav);
+      text-decoration: none;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      transition: color var(--transition);
+    }
+    .nav-drawer a:hover { color: var(--dark); }
+    .nav-drawer a.active { font-weight: 600; color: var(--dark); }
+    .nav-drawer .nav-cta {
+      margin-top: 20px;
+      text-align: center;
+      display: block;
+    }
+
+    /* ─── HERO ─────────────────────────────────────────────────── */
+    .hero-heading { display: flex; flex-direction: column; gap: 0; }
+    .hero-eyebrow {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--red);
+      letter-spacing: 0.06em;
+      line-height: 26px;
+    }
+    .badge-num { color: var(--red); font-weight: 600; }
+
+    .hero {
+      background: var(--gray-bg);
+      height: 480px;
+    }
+    .hero .inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-right: 0;
+      height: 100%;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      width: 540px;
+      flex-shrink: 0;
+    }
+
+    .hero-text { display: flex; flex-direction: column; gap: 16px; }
+
+    .hero-title {
+      font-size: clamp(24px, 2.5vw, 34px);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--dark);
+      letter-spacing: -0.01em;
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      line-height: 1.625;
+      color: var(--text-muted);
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: #fff;
+      border: 1px solid var(--red);
+      border-radius: 4px;
+      padding: 14px 24px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    .btn-primary:hover {
+      background: #a81b21;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(204,34,41,0.3);
+    }
+
+    .btn-secondary {
+      background: #fff;
+      color: var(--dark);
+      border: 1px solid #b4b4b4;
+      border-radius: 4px;
+      padding: 14px 24px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    .btn-secondary:hover {
+      border-color: var(--dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .hero-certs {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .hero-certs-label {
+      font-size: 13px;
+      color: var(--dark);
+    }
+    .hero-cert-tags {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .cert-tag {
+      background: var(--gray-bg);
+      border: 1px solid #d2d2d2;
+      border-radius: 100px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-nav);
+    }
+
+    .hero-image {
+      flex: 1;
+      height: 100%;
+      min-width: 0;
+      position: relative;
+    }
+    .hero-image-wrap {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      border-bottom-left-radius: 99px;
+    }
+    .hero-image-bg {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.6s ease;
+    }
+    .hero-image:hover .hero-image-bg { transform: scale(1.03); }
+
+    .hero-badge {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(245,245,245,0.25);
+      border: 1px solid #d2d2d2;
+      border-radius: 100px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      backdrop-filter: blur(4px);
+      font-size: 14px;
+      color: var(--dark);
+      white-space: nowrap;
+      animation: badge-in 0.8s 0.5s both ease;
+    }
+    @keyframes badge-in {
+      from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+    .badge-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      flex-shrink: 0;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+      50%      { box-shadow: 0 0 0 5px rgba(34,197,94,0); }
+    }
+
+    /* ─── STATS BAR ─────────────────────────────────────────────── */
+    .stats-bar {
+      background: #fff;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .stats-bar .inner {
+      display: flex;
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+
+    .stat {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 0 16px;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+
+    .stat-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--red);
+      letter-spacing: 0.06em;
+    }
+    .stat-value {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: clamp(22px, 2.2vw, 32px);
+      font-weight: 700;
+      color: var(--dark);
+      letter-spacing: 0.02em;
+    }
+    .stat-desc {
+      font-size: 12px;
+      color: var(--text-dim);
+      text-align: center;
+    }
+
+    /* ─── ABOUT ─────────────────────────────────────────────────── */
+    .about {
+      background: var(--gray-bg);
+    }
+    .about .inner {
+      display: flex;
+      align-items: center;
+      gap: 80px;
+      padding-top: 96px;
+      padding-bottom: 96px;
+    }
+
+    .about-image {
+      width: 600px;
+      flex-shrink: 0;
+      height: 400px;
+      overflow: hidden;
+      clip-path: inset(0 round 0 99px 0 0);
+    }
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .about-image:hover img { transform: scale(1.03); }
+
+    .about-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .eyebrow span {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--red);
+      letter-spacing: 0.06em;
+    }
+    .eyebrow-line {
+      width: 16px;
+      height: 1px;
+      background: var(--red);
+    }
+
+    .section-title {
+      font-size: clamp(26px, 2.5vw, 36px);
+      font-weight: 700;
+      line-height: 1.22;
+      color: var(--dark);
+      letter-spacing: -0.01em;
+    }
+
+    .section-body {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin-top: 16px;
+    }
+
+    .btn-outline {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 12px 20px;
+      font-size: 14px;
+      color: var(--dark);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      align-self: flex-start;
+      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    .btn-outline:hover {
+      border-color: #888;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.07);
+    }
+
+    /* ─── SERVICES ──────────────────────────────────────────────── */
+    .services {
+      background: #fff;
+    }
+    .services .inner {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+
+    .services-header { max-width: 560px; }
+
+    .services-grid {
+      display: flex;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .card-featured {
+      width: 336px;
+      flex-shrink: 0;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      display: flex;
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .card-featured:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+    }
+    .card-accent {
+      width: 4px;
+      background: var(--red);
+      flex-shrink: 0;
+    }
+    .card-featured-body {
+      flex: 1;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .services-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .cards-row {
+      display: flex;
+      gap: 16px;
+    }
+
+    .card {
+      flex: 1;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+      cursor: default;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+      border-color: #d0d0d0;
+    }
+    .card-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.2;
+    }
+    .card-desc {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--text-muted);
+    }
+
+    /* ─── TESTIMONIALS ──────────────────────────────────────────── */
+    .testimonials {
+      background: var(--gray-bg);
+    }
+    .testimonials .inner {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+
+    .testimonials-grid {
+      display: flex;
+      gap: 24px;
+    }
+
+    .testimonial-card {
+      flex: 1;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .testimonial-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+    }
+    .testimonial-text {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-nav);
+      flex: 1;
+    }
+    .testimonial-author strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+    .testimonial-author span {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    /* ─── PARTNERS ──────────────────────────────────────────────── */
+    .partners {
+      background: #fff;
+      border-top: 1px solid var(--border);
+    }
+    .partners .inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 48px;
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+
+    .partners-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      text-align: center;
+    }
+    .partners-eyebrow {
+      font-size: 12px;
+      color: var(--red);
+    }
+
+    .partners-logos {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .partners-logos img {
+      height: 48px;
+      object-fit: contain;
+      filter: grayscale(100%);
+      opacity: 0.6;
+      transition: filter var(--transition), opacity var(--transition), transform var(--transition);
+    }
+    .partners-logos img:hover {
+      filter: grayscale(0%);
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    /* ─── CTA ───────────────────────────────────────────────────── */
+    .cta-section {
+      background: var(--dark);
+      text-align: center;
+    }
+    .cta-section .inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      padding-top: 96px;
+      padding-bottom: 96px;
+    }
+    .cta-title {
+      font-size: clamp(24px, 2.5vw, 36px);
+      font-weight: 700;
+      color: #fff;
+    }
+    .cta-subtitle {
+      font-size: 16px;
+      line-height: 1.625;
+      color: #b4b4b4;
+      max-width: 700px;
+    }
+
+    /* ─── FOOTER ────────────────────────────────────────────────── */
+    .footer {
+      background: var(--dark2);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer-content {
+      display: flex;
+      gap: 80px;
+      padding-top: 64px;
+      padding-bottom: 64px;
+    }
+
+    .footer-brand {
+      width: 280px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .footer-brand-logo {
+      height: 32px;
+      width: auto;
+      display: block;
+      align-self: flex-start;
+      filter: brightness(0) invert(1);
+      opacity: 0.9;
+    }
+    .footer-brand p {
+      font-size: 13px;
+      line-height: 1.7;
+      color: #8c8c8c;
+    }
+
+    .footer-cols {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+    }
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .footer-col-title {
+      font-size: 11px;
+      font-weight: 500;
+      color: #646464;
+      letter-spacing: 0.06em;
+    }
+    .footer-col a {
+      font-size: 13px;
+      line-height: 1.5;
+      color: #b4b4b4;
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .footer-col a:hover { color: #fff; }
+
+    .footer-bottom {
+      border-top: 1px solid #282828;
+    }
+    .footer-bottom .inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+    .footer-bottom span,
+    .footer-bottom a {
+      font-size: 12px;
+      color: #505050;
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .footer-bottom a:hover { color: #888; }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      :root { --px: 48px; }
+      .hero-left { width: 440px; }
+      .about .inner { gap: 48px; }
+      .about-image { width: 380px; }
+    }
+
+    @media (max-width: 900px) {
+      :root { --px: 32px; }
+
+      /* Nav */
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .nav-drawer { display: flex; }
+
+      /* Hero */
+      .hero {
+        height: auto;
+      }
+      .hero .inner {
+        flex-direction: column;
+        padding-top: 48px;
+        padding-bottom: 0;
+        padding-right: var(--px);
+        height: auto;
+      }
+      .hero-left {
+        width: 100%;
+        padding-bottom: 40px;
+      }
+      .hero-image {
+        width: 100%;
+        height: 320px;
+      }
+      .hero-image-wrap {
+        border-bottom-left-radius: 48px;
+      }
+      .hero-badge { white-space: normal; text-align: center; }
+
+      /* Stats */
+      .stats-bar .inner {
+        flex-wrap: wrap;
+        gap: 0;
+      }
+      .stat {
+        flex: 1 1 50%;
+        padding: 24px 16px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .stat:nth-child(odd) { border-right: 1px solid var(--border); }
+      .stat:nth-child(3), .stat:nth-child(4) { border-bottom: none; }
+
+      /* About */
+      .about .inner {
+        flex-direction: column;
+        padding-top: 64px;
+        padding-bottom: 64px;
+        gap: 40px;
+      }
+      .about-image {
+        width: 100%;
+        height: 280px;
+        clip-path: inset(0 round 0 48px 0 0);
+      }
+
+      /* Services */
+      .services-grid {
+        flex-direction: column;
+      }
+      .card-featured { width: 100%; }
+      .cards-row { flex-direction: column; }
+
+      /* Testimonials */
+      .testimonials-grid { flex-direction: column; }
+
+      /* Partners */
+      .partners-logos {
+        justify-content: center;
+        gap: 24px;
+      }
+      .partners-logos img { height: 36px; }
+
+      /* Footer */
+      .footer-content {
+        flex-direction: column;
+        gap: 40px;
+        padding-top: 48px;
+        padding-bottom: 48px;
+      }
+      .footer-brand { width: 100%; }
+      .footer-cols { flex-wrap: wrap; gap: 32px; }
+      .footer-bottom .inner { flex-direction: column; gap: 8px; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      :root { --px: 20px; }
+      .hero-title { font-size: 28px; }
+      .stat { flex: 1 1 100%; border-right: none !important; }
+      .stat:nth-child(3) { border-bottom: 1px solid var(--border) !important; }
+      .stat:nth-child(4) { border-bottom: none; }
+      .hero-badge { font-size: 12px; bottom: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ─────────────────────────────────────────────────── -->
+  <nav class="nav" id="nav">
+    <div class="inner">
+      <a class="nav-logo" href="#">
+        <img src="mik-logo-2026.webp" alt="MIK Projekt" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="#hero" class="active">Početna</a></li>
+        <li><a href="about.html">O nama</a></li>
+        <li><a href="#services">Poslovne oblasti</a></li>
+        <li><a href="#testimonials">Reference</a></li>
+        <li><a href="#partners">Download centar</a></li>
+      </ul>
+      <a class="nav-cta" href="#cta">Kontakt</a>
+      <button class="hamburger" id="hamburger" aria-label="Meni">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile drawer -->
+  <div class="nav-drawer" id="navDrawer">
+    <a href="#hero"         class="active" onclick="closeDrawer()">Početna</a>
+    <a href="about.html"                   onclick="closeDrawer()">O nama</a>
+    <a href="#services"                    onclick="closeDrawer()">Poslovne oblasti</a>
+    <a href="#testimonials"                onclick="closeDrawer()">Reference</a>
+    <a href="#partners"                    onclick="closeDrawer()">Download centar</a>
+    <a href="#cta" class="nav-cta"         onclick="closeDrawer()">Kontakt</a>
+  </div>
+
+  <!-- ─── HERO ─────────────────────────────────────────────────── -->
+  <section class="hero" id="hero">
+    <div class="inner">
+    <div class="hero-left">
+      <div class="hero-text">
+        <div class="hero-heading">
+          <span class="hero-eyebrow reveal">OD 1950. GODINE</span>
+          <h1 class="hero-title reveal reveal-delay-1">Kotlovska i termoenergetska postrojenja</h1>
+        </div>
+        <p class="hero-subtitle reveal reveal-delay-2">
+          Od početnog projektovanja do konačnog puštanja u rad, obezbeđujemo sveobuhvatna rešenja za kotlarnice, prilagođena vašim specifičnim zahtevima.
+        </p>
+      </div>
+      <div class="hero-buttons reveal reveal-delay-3">
+        <a class="btn-primary" href="#cta">Zatražite tehničku konsultaciju</a>
+        <a class="btn-secondary" href="#testimonials">Pogledajte reference</a>
+      </div>
+      <div class="hero-certs reveal reveal-delay-3">
+        <span class="hero-certs-label">Posedujemo sve evropske sertifikate:</span>
+        <div class="hero-cert-tags">
+          <span class="cert-tag">ISO 9001</span>
+          <span class="cert-tag">ISO 14001</span>
+          <span class="cert-tag">ISO 45001</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="hero-image-wrap">
+        <div class="hero-image-bg" style="background-image: url('https://workers.paper.design/file-assets/01KJCYX8K3T9ZCBYX65E9AESYD/7PNCMFBJNZDHCNXWSGKN90FD51.png');"></div>
+      </div>
+      <div class="hero-badge">
+        <div class="badge-dot"></div>
+        Instalirano preko <strong class="badge-num">20.000 MW</strong> kapaciteta, sa efikasnošću koja dostiže <strong class="badge-num">98%</strong>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ─── STATS BAR ─────────────────────────────────────────────── -->
+  <section class="stats-bar">
+    <div class="inner">
+    <div class="stat reveal">
+      <span class="stat-label">ISKUSTVO</span>
+      <span class="stat-value">1950</span>
+      <span class="stat-desc">Više od 70 godina iskustva</span>
+    </div>
+    <div class="stat reveal reveal-delay-1">
+      <span class="stat-label">PROJEKTI</span>
+      <span class="stat-value">300+</span>
+      <span class="stat-desc">Industrijski i javni sektor</span>
+    </div>
+    <div class="stat reveal reveal-delay-2">
+      <span class="stat-label">NOX</span>
+      <span class="stat-value">≤30 mg/m³</span>
+      <span class="stat-desc">U skladu sa EU standardima</span>
+    </div>
+    <div class="stat reveal reveal-delay-3">
+      <span class="stat-label">SERTIFIKACIJA</span>
+      <span class="stat-value">20</span>
+      <span class="stat-desc">Svetski priznatih sertifikata</span>
+    </div>
+    </div>
+  </section>
+
+  <!-- ─── ABOUT ─────────────────────────────────────────────────── -->
+  <section class="about" id="about">
+    <div class="inner">
+    <div class="about-image reveal">
+      <img
+        src="https://workers.paper.design/file-assets/01KJCYX8K3T9ZCBYX65E9AESYD/20WMKC7K6HMBZRG3EE9DA7KJJ7.png"
+        alt="O kompaniji MIK"
+      />
+    </div>
+    <div class="about-content">
+      <div class="reveal reveal-delay-1">
+        <div class="eyebrow">
+          <span>O KOMPANIJI</span>
+          <div class="eyebrow-line"></div>
+        </div>
+        <h2 class="section-title">Inženjerski pristup<br/>industrijskoj energetici</h2>
+        <p class="section-body">
+          MIK je specijalizovana inženjerska firma sa višedecenijskim iskustvom u projektovanju, isporuci i održavanju termoenergetskih postrojenja. Radimo sa industrijskim i javnim sektorom na celoj teritoriji Srbije.
+        </p>
+      </div>
+      <a class="btn-outline reveal reveal-delay-2" href="about.html">Više o nama</a>
+    </div>
+    </div>
+  </section>
+
+  <!-- ─── SERVICES ──────────────────────────────────────────────── -->
+  <section class="services" id="services">
+    <div class="inner">
+    <div class="services-header reveal">
+      <h2 class="section-title">Poslovne oblasti</h2>
+      <p class="section-body">Usluge u oblasti industrijske energetike — projektovanje, realizacija, održavanje.</p>
+    </div>
+    <div class="services-grid">
+      <div class="card-featured reveal">
+        <div class="card-accent"></div>
+        <div class="card-featured-body">
+          <span class="card-title" style="font-size:24px;">Kotlovska postrojenja</span>
+          <span class="card-desc">Prodaja, montaža i puštanje u rad parnih i vrelovodnih kotlova.</span>
+        </div>
+      </div>
+      <div class="services-right">
+        <div class="cards-row">
+          <div class="card reveal reveal-delay-1">
+            <span class="card-title">Termoenergetska postrojenja</span>
+            <span class="card-desc">Projektovanje i realizacija termoenergetskih sistema za industriju.</span>
+          </div>
+          <div class="card reveal reveal-delay-2">
+            <span class="card-title">Servis i održavanje</span>
+            <span class="card-desc">Redovno i vanredno održavanje, remont i dijagnostika postrojenja.</span>
+          </div>
+        </div>
+        <div class="cards-row">
+          <div class="card reveal reveal-delay-1">
+            <span class="card-title">Tehničko savetovanje</span>
+            <span class="card-desc">Energetske analize, studije izvodljivosti i optimizacija sistema.</span>
+          </div>
+          <div class="card reveal reveal-delay-2">
+            <span class="card-title">Rezervni delovi i oprema</span>
+            <span class="card-desc">Isporuka originalnih rezervnih delova i prateće opreme.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ─── TESTIMONIALS ──────────────────────────────────────────── -->
+  <section class="testimonials" id="testimonials">
+    <div class="inner">
+    <h2 class="section-title reveal">Reference realizacija</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <p class="testimonial-text">
+          Saradnja sa MIK-om na projektu rekonstrukcije kotlovnice bila je profesionalna od početka do kraja. Rokovi su ispoštovani, i kvalitet izvedenih radova je na najvišem nivou.
+        </p>
+        <div class="testimonial-author">
+          <strong>Petar Nikolić</strong>
+          <span>Tehnički direktor, Fabrika XYZ</span>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-1">
+        <p class="testimonial-text">
+          Angažovali smo MIK za kompletan servis termoenergetskog postrojenja. Njihov tim je pokazao izuzetno poznavanje materije i efikasnost u radu.
+        </p>
+        <div class="testimonial-author">
+          <strong>Jelena Marković</strong>
+          <span>Direktorka, JKP Toplana</span>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-2">
+        <p class="testimonial-text">
+          Pouzdani su partner za sve što se tiče industrijske energetike. Posebno cenimo njihovu dostupnost za hitne intervencije i tehničku podršku.
+        </p>
+        <div class="testimonial-author">
+          <strong>Miloš Jovanović</strong>
+          <span>Glavni inženjer, Energo-sistem d.o.o.</span>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ─── PARTNERS ──────────────────────────────────────────────── -->
+  <section class="partners" id="partners">
+    <div class="inner">
+    <div class="partners-header reveal">
+      <span class="partners-eyebrow">Partneri i dobavljači</span>
+      <h2 class="section-title">Partnerstva koja grade budućnost</h2>
+    </div>
+    <div class="partners-logos reveal reveal-delay-1">
+      <img src="https://workers.paper.design/file-assets/01KJCYX8K3T9ZCBYX65E9AESYD/4HPKKSMVF0RDKBJQ5FWATMHTTE.png" alt="Partner 1" />
+      <img src="https://workers.paper.design/file-assets/01KJCYX8K3T9ZCBYX65E9AESYD/2DX3QYMWCWCC7FAW3QJACT9JRP.png" alt="Partner 2" />
+      <img src="https://workers.paper.design/file-assets/01KJCYX8K3T9ZCBYX65E9AESYD/09SGVT55C8PF723H5FZ86W1TY6.png" alt="Partner 3" />
+      <img src="https://workers.paper.design/file-assets/01KJCYX8K3T9ZCBYX65E9AESYD/1MT615F265JT5QSP8AKX84TQQK.png" alt="Partner 4" />
+      <img src="https://workers.paper.design/file-assets/01KJCYX8K3T9ZCBYX65E9AESYD/5K6VWP8BZ26QRCQBNHBKKQM3C8.png" alt="Partner 5" />
+      <img src="https://workers.paper.design/file-assets/01KJCYX8K3T9ZCBYX65E9AESYD/53TBRS0SWPRM24Q6JSK1QZWBFC.png" alt="Partner 6" />
+      <img src="https://workers.paper.design/file-assets/01KJCYX8K3T9ZCBYX65E9AESYD/35M1SQCPF4TY5FVP4B5RRXSKY2.png" alt="Partner 7" />
+    </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA ───────────────────────────────────────────────────── -->
+  <section class="cta-section" id="cta">
+    <div class="inner">
+    <div class="reveal">
+      <h2 class="cta-title">Tehnička konsultacija i ponuda</h2>
+      <p class="cta-subtitle" style="margin-top:16px;">
+        Projektovanje, isporuka ili održavanje postrojenja. Kontakt za tehničku specifikaciju i cenovnu ponudu.
+      </p>
+    </div>
+    <a class="btn-primary reveal reveal-delay-1" href="mailto:info@mik.rs">Tehnička konsultacija</a>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="inner">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <img src="mik-logo-2026.webp" alt="MIK Projekt" class="footer-brand-logo" />
+        <p>Prodaja, montaža i održavanje kotlova, termoenergetskih postrojenja i industrijskih energetskih sistema.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <span class="footer-col-title">KOMPANIJA</span>
+          <a href="about.html">O nama</a>
+          <a href="#testimonials">Reference</a>
+          <a href="#partners">Download centar</a>
+        </div>
+        <div class="footer-col">
+          <span class="footer-col-title">USLUGE</span>
+          <a href="#services">Kotlovska postrojenja</a>
+          <a href="#services">Termoenergetika</a>
+          <a href="#services">Servis i održavanje</a>
+        </div>
+        <div class="footer-col">
+          <span class="footer-col-title">KONTAKT</span>
+          <a href="#">Beograd, Srbija</a>
+          <a href="mailto:info@mik.rs">info@mik.rs</a>
+          <a href="tel:+38111123456">+381 11 123 4567</a>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="inner">
+        <span>© 2026 MIK. Sva prava zadržana.</span>
+        <a href="#">Politika privatnosti</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── JS ────────────────────────────────────────────────────── -->
+  <script>
+    // Sticky nav shadow
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 10);
+      updateActiveLink();
+    });
+
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const drawer    = document.getElementById('navDrawer');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = hamburger.classList.toggle('open');
+      drawer.classList.toggle('open', isOpen);
+    });
+
+    function closeDrawer() {
+      hamburger.classList.remove('open');
+      drawer.classList.remove('open');
+    }
+
+    // Close drawer on outside click
+    document.addEventListener('click', (e) => {
+      if (!nav.contains(e.target) && !drawer.contains(e.target)) closeDrawer();
+    });
+
+    // Active nav link on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks  = document.querySelectorAll('.nav-links a, .nav-drawer a:not(.nav-cta)');
+
+    function updateActiveLink() {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 120) current = s.id;
+      });
+      navLinks.forEach(a => {
+        a.classList.remove('active');
+        if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+      });
+    }
+
+    // Scroll reveal via IntersectionObserver
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

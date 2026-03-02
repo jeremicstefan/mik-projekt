@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>O nama — MIK Projekt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&family=IBM+Plex+Sans:wght@200;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    .inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 var(--px);
+    }
+
+    :root {
+      --red:       #cc2229;
+      --dark:      #111111;
+      --dark2:     #161616;
+      --gray-bg:   #f5f5f5;
+      --border:    #e6e6e6;
+      --text-muted:#5a5a5a;
+      --text-dim:  #787878;
+      --text-nav:  #3c3c3c;
+      --text-body: #323232;
+      --px:        80px;
+      --transition: 0.2s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      color: var(--dark);
+      background: #fff;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+
+    /* ─── Scroll Animations ────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ─── NAV ──────────────────────────────────────────────────── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 64px;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.3s ease;
+    }
+    .nav.scrolled { box-shadow: 0 2px 16px rgba(0,0,0,0.06); }
+    .nav .inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .nav-logo img { height: 48px; width: auto; display: block; }
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-nav);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      position: relative;
+      transition: color var(--transition);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -3px;
+      width: 0; height: 1px;
+      background: var(--red);
+      transition: width var(--transition);
+    }
+    .nav-links a:hover { color: var(--dark); }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { width: 100%; }
+    .nav-links a.active { font-weight: 600; color: var(--dark); }
+    .nav-cta {
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 11px 20px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background var(--transition), transform var(--transition);
+      white-space: nowrap;
+    }
+    .nav-cta:hover { background: #a81b21; transform: translateY(-1px); }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px; height: 2px;
+      background: var(--dark);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-drawer {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 24px var(--px);
+      flex-direction: column;
+      gap: 0;
+      z-index: 99;
+      transform: translateY(-10px);
+      opacity: 0;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      pointer-events: none;
+    }
+    .nav-drawer.open { transform: translateY(0); opacity: 1; pointer-events: all; }
+    .nav-drawer a {
+      display: block;
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--text-nav);
+      text-decoration: none;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      transition: color var(--transition);
+    }
+    .nav-drawer a:hover { color: var(--dark); }
+    .nav-drawer a.active { font-weight: 600; color: var(--dark); }
+    .nav-drawer .nav-cta { margin-top: 20px; text-align: center; display: block; }
+
+    /* ─── SHARED ─────────────────────────────────────────────────── */
+    .section-title {
+      font-size: clamp(26px, 2.5vw, 36px);
+      font-weight: 700;
+      line-height: 1.22;
+      color: var(--dark);
+      letter-spacing: -0.01em;
+    }
+    .section-body {
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--text-body);
+      margin-top: 16px;
+    }
+    .btn-outline {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--dark);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      white-space: nowrap;
+      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    .btn-outline:hover {
+      border-color: #888;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.07);
+    }
+    .btn-primary {
+      background: var(--red);
+      color: #fff;
+      border: 1px solid var(--red);
+      border-radius: 4px;
+      padding: 14px 24px;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    .btn-primary:hover {
+      background: #a81b21;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(204,34,41,0.3);
+    }
+
+    /* ─── IMAGE PLACEHOLDERS ──────────────────────────────────── */
+    .img-slot {
+      background: #ebebeb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 500;
+      color: #aaa;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ─── HERO ──────────────────────────────────────────────────── */
+    .hero-about {
+      background: var(--gray-bg);
+      padding: 80px 0 72px;
+    }
+    .hero-about .inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 56px;
+    }
+    .hero-about-text {
+      max-width: 704px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .hero-about-heading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+    .hero-about-eyebrow {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--red);
+      letter-spacing: 0.06em;
+      line-height: 26px;
+      display: block;
+    }
+    .hero-about-title {
+      font-size: clamp(32px, 3.3vw, 48px);
+      font-weight: 700;
+      line-height: 1.17;
+      color: var(--dark);
+      letter-spacing: -0.03em;
+      margin-top: 0;
+    }
+    .hero-about-subtitle {
+      font-size: 18px;
+      line-height: 1.44;
+      color: var(--text-body);
+      max-width: 560px;
+    }
+
+    /* Logo evolution */
+    .logo-evolution {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 104px;
+    }
+    .logo-era {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-era-img-wrap {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-era-img-wrap img {
+      max-height: 120px;
+      max-width: 300px;
+      object-fit: contain;
+      filter: grayscale(100%);
+      opacity: 0.5;
+      transition: filter 0.3s ease, opacity 0.3s ease;
+      display: block;
+    }
+    .logo-era-img-wrap img:hover { filter: grayscale(30%); opacity: 0.8; }
+    .logo-era-current .logo-era-img-wrap img {
+      filter: none;
+      opacity: 1;
+      max-height: 120px;
+    }
+    .logo-era-year {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dim);
+      letter-spacing: 0.02em;
+    }
+    .logo-era-current .logo-era-year { color: var(--red); }
+    .logo-era-sep {
+      display: none;
+      width: 1px;
+      height: 40px;
+      background: var(--border);
+      align-self: center;
+      flex-shrink: 0;
+    }
+    /* Current logo text style (fallback) */
+    .logo-text-current {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 20px;
+      color: var(--red);
+      letter-spacing: -0.01em;
+      line-height: 1;
+    }
+    .logo-text-current strong { font-weight: 700; }
+    .logo-text-current span   { font-weight: 200; }
+
+    /* ─── KO SMO MI ─────────────────────────────────────────────── */
+    .who {
+      background: #fff;
+    }
+    .who .inner {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      padding-top: 96px;
+      padding-bottom: 96px;
+    }
+    .who-head { max-width: 752px; }
+    .who-head p + p { margin-top: 16px; }
+    .who-cards {
+      display: flex;
+      gap: 24px;
+    }
+    .who-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: transform var(--transition);
+    }
+    .who-card:hover { transform: translateY(-4px); }
+    .who-card-img {
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+      border-top-left-radius: 80px;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .who-card-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-top-left-radius: 80px;
+      border-top: 3px solid var(--red);
+      border-left: 3px solid var(--red);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .who-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .who-card:hover .who-card-img img { transform: scale(1.04); }
+    .who-card-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.25;
+    }
+    .who-card-desc {
+      font-size: 14px;
+      line-height: 1.57;
+      color: var(--text-muted);
+    }
+
+    /* ─── NAŠ PRISTUP ────────────────────────────────────────────── */
+    .pristup {
+      background: var(--gray-bg);
+    }
+    .pristup .inner {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      padding-top: 96px;
+      padding-bottom: 96px;
+    }
+    .pristup-head { max-width: 752px; }
+    .pristup-cards {
+      display: flex;
+      gap: 16px;
+    }
+    .pristup-card {
+      flex: 1;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .pristup-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+    }
+    .pristup-card-img {
+      width: 100%;
+      height: 180px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .pristup-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: #fff;
+    }
+    .pristup-card-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .pristup-card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.35;
+    }
+    .pristup-card-desc {
+      font-size: 13px;
+      line-height: 1.54;
+      color: var(--text-muted);
+    }
+
+    /* ─── ISTORIJA ───────────────────────────────────────────────── */
+    .istorija {
+      background: #fff;
+    }
+    .istorija .inner {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      padding-top: 96px;
+      padding-bottom: 96px;
+    }
+    .istorija-footer {
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--text-body);
+      max-width: 800px;
+    }
+
+    /* ─── SEQUENTIAL TIMELINE ───────────────────────────────────── */
+    @keyframes dotPop {
+      from { transform: scale(0); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(7px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes growRight {
+      from { transform: scaleX(0); }
+      to   { transform: scaleX(1); }
+    }
+    .seq-timeline {
+      display: flex;
+      align-items: flex-start;
+    }
+    .seq-event {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .seq-connector {
+      display: flex;
+      align-items: center;
+      height: 14px;
+    }
+    .seq-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--red);
+      flex-shrink: 0;
+      transform: scale(0);
+      opacity: 0;
+    }
+    .seq-dot-last {
+      box-shadow: 0 0 0 3px rgba(204,34,41,0.18);
+    }
+    .seq-line {
+      flex: 1;
+      height: 1.5px;
+      background: var(--border);
+      transform-origin: left center;
+      transform: scaleX(0);
+    }
+    .seq-content {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-top: 12px;
+      padding-right: 20px;
+    }
+    .seq-event:last-child .seq-content { padding-right: 0; }
+    .seq-year {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--dark);
+      letter-spacing: -0.01em;
+      opacity: 0;
+      transform: translateY(7px);
+    }
+    .seq-text {
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      opacity: 0;
+      transform: translateY(7px);
+    }
+    /* Animations fire once .seq-ready is added via JS */
+    .seq-timeline.seq-ready .seq-dot {
+      animation: dotPop 0.13s cubic-bezier(0.34, 1.5, 0.64, 1) calc(var(--i) * 500ms) both;
+    }
+    .seq-timeline.seq-ready .seq-year {
+      animation: fadeSlideUp 0.13s ease calc(var(--i) * 500ms + 167ms) both;
+    }
+    .seq-timeline.seq-ready .seq-text {
+      animation: fadeSlideUp 0.13s ease calc(var(--i) * 500ms + 333ms) both;
+    }
+    .seq-timeline.seq-ready .seq-line {
+      animation: growRight 0.15s ease calc(var(--i) * 500ms + 333ms) both;
+    }
+    /* Mobile — vertical, no animation */
+    @media (max-width: 900px) {
+      .seq-timeline { flex-direction: column; gap: 0; }
+      .seq-event { flex-direction: row; gap: 16px; padding-bottom: 28px; }
+      .seq-event:last-child { padding-bottom: 0; }
+      .seq-connector { flex-direction: column; align-items: center; width: 14px; flex-shrink: 0; height: auto; padding-top: 2px; }
+      .seq-line { width: 2px; height: 40px; flex: none; transform-origin: top center; margin-top: 4px; }
+      .seq-content { padding-right: 0; padding-top: 0; }
+      .seq-timeline .seq-dot,
+      .seq-timeline .seq-year,
+      .seq-timeline .seq-text,
+      .seq-timeline .seq-line { animation: none !important; opacity: 1 !important; transform: none !important; }
+    }
+
+    /* ─── REALIZOVANI PROJEKTI ───────────────────────────────────── */
+    .projekti {
+      background: var(--gray-bg);
+    }
+    .projekti .inner {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+      padding-top: 72px;
+      padding-bottom: 72px;
+    }
+    .projekti-text { display: flex; flex-direction: column; gap: 12px; }
+    .projekti-subtitle {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      max-width: 640px;
+    }
+
+    /* ─── NAŠI PRINCIPI RADA ─────────────────────────────────────── */
+    .principi {
+      background: #fff;
+    }
+    .principi .inner {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      padding-top: 96px;
+      padding-bottom: 96px;
+    }
+    .principi-list {
+      display: flex;
+      flex-direction: column;
+      max-width: 640px;
+    }
+    .princip {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .principi-list .princip:first-child { padding-top: 0; }
+    .principi-list .princip:last-child { border-bottom: none; }
+    .princip-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .princip-title::before {
+      content: '•';
+      color: var(--red);
+      font-size: 18px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .princip-desc {
+      font-size: 14px;
+      line-height: 1.57;
+      color: var(--text-muted);
+      padding-left: 16px;
+    }
+
+    /* ─── VIZIJA / MISIJA ────────────────────────────────────────── */
+    .vizija-misija {
+      background: var(--gray-bg);
+    }
+    .vizija-misija .inner {
+      display: flex;
+      gap: 80px;
+      padding-top: 96px;
+      padding-bottom: 96px;
+    }
+    .vm-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .vm-heading {
+      font-size: clamp(22px, 2vw, 28px);
+      font-weight: 700;
+      color: var(--dark);
+      letter-spacing: -0.01em;
+    }
+    .vm-body {
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--text-body);
+    }
+
+    /* ─── SERTIFIKATI ────────────────────────────────────────────── */
+    .sertifikati {
+      background: #fff;
+    }
+    .sertifikati .inner {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      padding-top: 96px;
+      padding-bottom: 96px;
+    }
+    .sert-intro { max-width: 640px; }
+    .sert-intro .section-body { color: var(--text-body); }
+    .sert-list {
+      display: flex;
+      flex-direction: column;
+      max-width: 640px;
+    }
+    .sert-category {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--red);
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+    .sert-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .sert-list .sert-item:first-of-type { padding-top: 0; }
+    .sert-item-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-body);
+      line-height: 1.375;
+    }
+    .sert-item-desc {
+      font-size: 13px;
+      line-height: 1.54;
+      color: var(--text-muted);
+    }
+    .sert-link {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--red);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 8px;
+      transition: opacity var(--transition);
+    }
+    .sert-link:hover { opacity: 0.7; }
+
+    /* ─── CTA ───────────────────────────────────────────────────── */
+    .cta-section {
+      background: var(--dark);
+      text-align: center;
+    }
+    .cta-section .inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      padding-top: 96px;
+      padding-bottom: 96px;
+    }
+    .cta-title {
+      font-size: clamp(24px, 2.5vw, 36px);
+      font-weight: 700;
+      color: #fff;
+    }
+    .cta-subtitle {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #b4b4b4;
+      max-width: 560px;
+      margin-top: 8px;
+    }
+
+    /* ─── FOOTER ────────────────────────────────────────────────── */
+    .footer {
+      background: var(--dark2);
+      display: flex;
+      flex-direction: column;
+    }
+    .footer-content {
+      display: flex;
+      gap: 80px;
+      padding-top: 64px;
+      padding-bottom: 64px;
+    }
+    .footer-brand {
+      width: 280px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .footer-brand-logo { height: 32px; width: auto; display: block; align-self: flex-start; filter: brightness(0) invert(1); opacity: 0.9; }
+    .footer-brand p { font-size: 13px; line-height: 1.7; color: #8c8c8c; }
+    .footer-cols { flex: 1; display: flex; justify-content: space-between; gap: 40px; }
+    .footer-col { display: flex; flex-direction: column; gap: 14px; }
+    .footer-col-title { font-size: 11px; font-weight: 500; color: #646464; letter-spacing: 0.06em; }
+    .footer-col a { font-size: 13px; line-height: 1.5; color: #b4b4b4; text-decoration: none; transition: color var(--transition); }
+    .footer-col a:hover { color: #fff; }
+    .footer-bottom { border-top: 1px solid #282828; }
+    .footer-bottom .inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+    .footer-bottom span,
+    .footer-bottom a { font-size: 12px; color: #505050; text-decoration: none; transition: color var(--transition); }
+    .footer-bottom a:hover { color: #888; }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      :root { --px: 48px; }
+    }
+    @media (max-width: 900px) {
+      :root { --px: 32px; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .nav-drawer { display: flex; }
+
+      .logo-evolution { flex-direction: column; gap: 32px; }
+
+      .who-cards { flex-direction: column; }
+      .who-card-img { height: 220px; }
+
+      .pristup-cards { flex-wrap: wrap; }
+      .pristup-card { flex: 1 1 calc(50% - 8px); }
+
+.vizija-misija .inner { flex-direction: column; gap: 48px; }
+
+      .footer-content { flex-direction: column; gap: 40px; padding-top: 48px; padding-bottom: 48px; }
+      .footer-brand { width: 100%; }
+      .footer-cols { flex-wrap: wrap; gap: 32px; }
+      .footer-bottom .inner { flex-direction: column; gap: 8px; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      :root { --px: 20px; }
+      .pristup-card { flex: 1 1 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ─────────────────────────────────────────────────── -->
+  <nav class="nav" id="nav">
+    <div class="inner">
+      <a class="nav-logo" href="index.html">
+        <img src="mik-logo-2026.webp" alt="MIK Projekt" />
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Početna</a></li>
+        <li><a href="#" class="active">O nama</a></li>
+        <li><a href="index.html#services">Poslovne oblasti</a></li>
+        <li><a href="index.html#testimonials">Reference</a></li>
+        <li><a href="index.html#partners">Download centar</a></li>
+      </ul>
+      <a class="nav-cta" href="#cta">Kontakt</a>
+      <button class="hamburger" id="hamburger" aria-label="Meni">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav-drawer" id="navDrawer">
+    <a href="index.html"                 onclick="closeDrawer()">Početna</a>
+    <a href="#"            class="active" onclick="closeDrawer()">O nama</a>
+    <a href="index.html#services"        onclick="closeDrawer()">Poslovne oblasti</a>
+    <a href="index.html#testimonials"    onclick="closeDrawer()">Reference</a>
+    <a href="index.html#partners"        onclick="closeDrawer()">Download centar</a>
+    <a href="#cta" class="nav-cta"       onclick="closeDrawer()">Kontakt</a>
+  </div>
+
+  <!-- ─── HERO ─────────────────────────────────────────────────── -->
+  <section class="hero-about">
+    <div class="inner">
+      <div class="hero-about-text reveal">
+        <div class="hero-about-heading">
+          <span class="hero-about-eyebrow">70 GODINA ISKUSTVA</span>
+          <h1 class="hero-about-title">Inženjersko nasleđe u<br>industrijskoj energetici</h1>
+        </div>
+        <p class="hero-about-subtitle">
+          Više od 150 realizovanih projekata kotlovskih i termoenergetskih postrojenja u Srbiji i regionu.
+        </p>
+      </div>
+
+      <div class="logo-evolution reveal reveal-delay-1">
+        <!-- Logo 1991 -->
+        <div class="logo-era">
+          <div class="logo-era-img-wrap">
+            <img src="mik-logo-1991.webp" alt="MIK logo 1991" />
+          </div>
+          <span class="logo-era-year">1991.</span>
+        </div>
+        <div class="logo-era-sep"></div>
+        <!-- Logo 2012 -->
+        <div class="logo-era">
+          <div class="logo-era-img-wrap">
+            <img src="mik-logo-2012.webp" alt="MIK logo 2012" />
+          </div>
+          <span class="logo-era-year">2012.</span>
+        </div>
+        <div class="logo-era-sep"></div>
+        <!-- Current logo (2026) -->
+        <div class="logo-era logo-era-current">
+          <div class="logo-era-img-wrap" style="height:120px;">
+            <img src="mik-logo-2026.webp" alt="MIK Projekt logo 2026" />
+          </div>
+          <span class="logo-era-year">2026.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── KO SMO MI ─────────────────────────────────────────────── -->
+  <section class="who" id="who">
+    <div class="inner">
+      <div class="who-head reveal">
+        <h2 class="section-title">Ko smo mi</h2>
+        <p class="section-body">
+          MIK je inženjerska kompanija specijalizovana za projektovanje, izradu, montažu i održavanje kotlovskih i termoenergetskih sistema u industrijskom i javnom objektima.
+        </p>
+        <p class="section-body">
+          Više od sedam decenija učestvujemo u razvoju energetskih postrojenja, sa fokusom na dugoročnu pouzdanost, bezbednost i efikasnost sistema.
+        </p>
+      </div>
+      <div class="who-cards">
+        <!-- SLOT 1: about-service image 1 — Projektovanje i inženjering -->
+        <div class="who-card reveal">
+          <div class="who-card-img">
+            <img src="projektovanje-i-inzenjering.webp" alt="Projektovanje i inženjering" />
+          </div>
+          <div class="who-card-title">Projektovanje i inženjering</div>
+          <p class="who-card-desc">Za projekat zasnovano su na preciznosti, standardima i realnim radnim uslovima.</p>
+        </div>
+        <!-- SLOT 2: about-service image 2 — Realizacija i puštanje u rad -->
+        <div class="who-card reveal reveal-delay-1">
+          <div class="who-card-img">
+            <img src="realizacija-i-pustanje-u-rad.webp" alt="Realizacija i puštanje u rad" />
+          </div>
+          <div class="who-card-title">Realizacija i puštanje u rad</div>
+          <p class="who-card-desc">Isporuka, montaža, ispitivanje i puštanje sistema u rad.</p>
+        </div>
+        <!-- SLOT 3: about-service image 3 — Servis i održavanje -->
+        <div class="who-card reveal reveal-delay-2">
+          <div class="who-card-img">
+            <img src="servis-i-odrzavanje-1.webp" alt="Servis i održavanje" />
+          </div>
+          <div class="who-card-title">Servis i održavanje</div>
+          <p class="who-card-desc">Preventivno, korektivno i ugovoreno održavanje za stabilan rad.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── NAŠ PRISTUP ───────────────────────────────────────────── -->
+  <section class="pristup" id="pristup">
+    <div class="inner">
+      <div class="pristup-head reveal">
+        <h2 class="section-title">Naš pristup</h2>
+        <p class="section-body">
+          Više od sedam decenija iskustva oblikuje načine na koji pristupamo projektovanju, realizaciji i održavanju energetskih sistema.
+        </p>
+      </div>
+      <div class="pristup-cards">
+        <!-- illustration 1 — Tehnička preciznost -->
+        <div class="pristup-card reveal">
+          <div class="pristup-card-img">
+            <img src="tehnicka-preciznost.webp" alt="Tehnička preciznost" />
+          </div>
+          <div class="pristup-card-body">
+            <span class="pristup-card-title">Tehnička preciznost</span>
+            <p class="pristup-card-desc">Svaki sistem zasnovan na proračunima, standardima i realnim radnim uslovima.</p>
+          </div>
+        </div>
+        <!-- illustration 2 — Odgovornost kroz generacije -->
+        <div class="pristup-card reveal reveal-delay-1">
+          <div class="pristup-card-img">
+            <img src="odgovornost-kroz-generacije.webp" alt="Odgovornost kroz generacije" />
+          </div>
+          <div class="pristup-card-body">
+            <span class="pristup-card-title">Odgovornost kroz generacije</span>
+            <p class="pristup-card-desc">Kontinuitet znanja i dugoročna odgovornost prema klijentima i sistemu.</p>
+          </div>
+        </div>
+        <!-- illustration 3 — Kompletna realizacija -->
+        <div class="pristup-card reveal reveal-delay-2">
+          <div class="pristup-card-img">
+            <img src="kompletna-realizacija.webp" alt="Kompletna realizacija" />
+          </div>
+          <div class="pristup-card-body">
+            <span class="pristup-card-title">Kompletna realizacija</span>
+            <p class="pristup-card-desc">Od projektne dokumentacije do finalne montaže i puštanja u pogon.</p>
+          </div>
+        </div>
+        <!-- illustration 4 — Rad na različitim gorivima -->
+        <div class="pristup-card reveal reveal-delay-3">
+          <div class="pristup-card-img">
+            <img src="rad-sa-razlicitim-gorivima.webp" alt="Rad na različitim gorivima" />
+          </div>
+          <div class="pristup-card-body">
+            <span class="pristup-card-title">Rad na različitim gorivima</span>
+            <p class="pristup-card-desc">Prilagodljiva rešenja za prirodni gas, lako ulje, biomasu i višegorivo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ISTORIJA KOMPANIJE ────────────────────────────────────── -->
+  <section class="istorija" id="istorija">
+    <div class="inner">
+      <div class="reveal">
+        <h2 class="section-title">Istorija kompanije</h2>
+      </div>
+      <div class="seq-timeline" id="seqTimeline">
+        <div class="seq-event" style="--i:0">
+          <div class="seq-connector">
+            <div class="seq-dot"></div>
+            <div class="seq-line"></div>
+          </div>
+          <div class="seq-content">
+            <span class="seq-year">1953.</span>
+            <p class="seq-text">Osnivanje radionice specijalizovane za kotlarstvo i energetiku.</p>
+          </div>
+        </div>
+        <div class="seq-event" style="--i:1">
+          <div class="seq-connector">
+            <div class="seq-dot"></div>
+            <div class="seq-line"></div>
+          </div>
+          <div class="seq-content">
+            <span class="seq-year">1966–1980.</span>
+            <p class="seq-text">Unapređenje kapaciteta i ulazak u industriju — kotlovska postrojenja za industrijske klijente.</p>
+          </div>
+        </div>
+        <div class="seq-event" style="--i:2">
+          <div class="seq-connector">
+            <div class="seq-dot"></div>
+            <div class="seq-line"></div>
+          </div>
+          <div class="seq-content">
+            <span class="seq-year">1990.</span>
+            <p class="seq-text">Korporativno restrukturiranje — prilagođavanje tržišnim uslovima.</p>
+          </div>
+        </div>
+        <div class="seq-event" style="--i:3">
+          <div class="seq-connector">
+            <div class="seq-dot"></div>
+            <div class="seq-line"></div>
+          </div>
+          <div class="seq-content">
+            <span class="seq-year">2000.</span>
+            <p class="seq-text">Partnerstvo MIK Projekta s kotlovskim postrojenjima Beograda.</p>
+          </div>
+        </div>
+        <div class="seq-event" style="--i:4">
+          <div class="seq-connector">
+            <div class="seq-dot"></div>
+            <div class="seq-line"></div>
+          </div>
+          <div class="seq-content">
+            <span class="seq-year">2019.</span>
+            <p class="seq-text">Fokus na kompletnu realizaciju — puštanje u pogon termoenergetskih sistema.</p>
+          </div>
+        </div>
+        <div class="seq-event" style="--i:5">
+          <div class="seq-connector">
+            <div class="seq-dot seq-dot-last"></div>
+          </div>
+          <div class="seq-content">
+            <span class="seq-year">2026.</span>
+            <p class="seq-text">Potpuna modernizacija — aktivno delovanje i razvoj sistema.</p>
+          </div>
+        </div>
+      </div>
+      <p class="istorija-footer reveal">
+        Više od sedam decenija rada u oblasti industrijskog grejanja i energetike. Od porodične radionice do kompanije specijalizovane za projektovanje i realizaciju kompleksnih kotlovskih i termoenergetskih postrojenja. Kontinuitet znanja i odgovornosti ostaje temeljni radnjeg rada.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─── REALIZOVANI PROJEKTI ──────────────────────────────────── -->
+  <section class="projekti">
+    <div class="inner">
+      <div class="projekti-text reveal">
+        <h2 class="section-title">Realizovani projekti</h2>
+        <p class="projekti-subtitle">
+          Modernizacija, rekonstrukcija i izgradnja kotlovskih i termoenergetskih postrojenja u industrijskom i javnom sektoru.
+        </p>
+      </div>
+      <a class="btn-outline reveal reveal-delay-1" href="index.html#testimonials">Pogledajte projekte</a>
+    </div>
+  </section>
+
+  <!-- ─── NAŠI PRINCIPI RADA ────────────────────────────────────── -->
+  <section class="principi">
+    <div class="inner">
+      <div class="reveal">
+        <h2 class="section-title">Naši principi rada</h2>
+      </div>
+      <div class="principi-list reveal reveal-delay-1">
+        <div class="princip">
+          <span class="princip-title">Tehnička preciznost</span>
+          <p class="princip-desc">Svi sistemi zasnovani su na proračunima, standardima i realnim uslovima rada.</p>
+        </div>
+        <div class="princip">
+          <span class="princip-title">Pouzdanost sistema</span>
+          <p class="princip-desc">Projektujemo i izvodimo postrojenja sa fokusom na dugoročnu stabilnost i sigurnost.</p>
+        </div>
+        <div class="princip">
+          <span class="princip-title">Odgovornost</span>
+          <p class="princip-desc">Transparentno i odgovorno poslovanje u svim fazama projekta.</p>
+        </div>
+        <div class="princip">
+          <span class="princip-title">Partnerstvo</span>
+          <p class="princip-desc">Dugoročna saradnja sa industrijskim i javnim partnerima.</p>
+        </div>
+        <div class="princip">
+          <span class="princip-title">Efikasnost</span>
+          <p class="princip-desc">Optimizacija potrošnje energije i smanjenje operativnih troškova.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── VIZIJA / MISIJA ───────────────────────────────────────── -->
+  <section class="vizija-misija">
+    <div class="inner">
+      <div class="vm-col reveal">
+        <h2 class="vm-heading">Vizija</h2>
+        <p class="vm-body">
+          Biti pouzdan partner u razvoju kotlovskih i termoenergetskih sistema u Srbiji i širem regionu, pružajući inovativna rešenja i podršku.
+        </p>
+      </div>
+      <div class="vm-col reveal reveal-delay-1">
+        <h2 class="vm-heading">Misija</h2>
+        <p class="vm-body">
+          Projektovati i realizovati energetska postrojenja koja obezbeđuju sigurnost rada, efikasnost i dugoročnu održivost sistema.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SERTIFIKATI I STANDARDI ──────────────────────────────── -->
+  <section class="sertifikati" id="sertifikati">
+    <div class="inner">
+      <div class="sert-intro reveal">
+        <h2 class="section-title">Sertifikati i standardi</h2>
+        <p class="section-body">
+          Radimo u skladu sa međunarodnim standardima kvaliteta, zaštite životne sredine i bezbednosti na radu.
+        </p>
+      </div>
+      <div class="sert-list reveal reveal-delay-1">
+        <div class="sert-category">KVALITET</div>
+        <div class="sert-item">
+          <span class="sert-item-title">ISO 9001:2015 — Sistem upravljanja kvalitetom</span>
+          <p class="sert-item-desc">Sertifikovani prema regulativi i komisije koje potvrđuju usklađenost.</p>
+        </div>
+        <div class="sert-item">
+          <span class="sert-item-title">ISO 14001:2015 — Zaštita životne sredine</span>
+          <p class="sert-item-desc">Upravljanje uticajem na životnu sredinu u svim projektnim sredinama.</p>
+        </div>
+        <div class="sert-category" style="margin-top:24px;">STANDARDI</div>
+        <div class="sert-item">
+          <span class="sert-item-title">ISO 45001:2018 — Bezbednost i zdravlje na radu</span>
+          <p class="sert-item-desc">Sistemi bezbednosti — zaštita u radnim i industrijskim uslovima.</p>
+        </div>
+      </div>
+      <a class="sert-link reveal" href="mailto:info@mik.rs">Pogledajte sertifikate →</a>
+    </div>
+  </section>
+
+  <!-- ─── CTA ───────────────────────────────────────────────────── -->
+  <section class="cta-section" id="cta">
+    <div class="inner">
+      <div class="reveal">
+        <h2 class="cta-title">Tehnička konsultacija</h2>
+        <p class="cta-subtitle">
+          Kontaktirajte nas za tehničku diskusiju o vašem projektu.
+        </p>
+      </div>
+      <a class="btn-primary reveal reveal-delay-1" href="mailto:info@mik.rs">Kontakt</a>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="inner">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img src="mik-logo-2026.webp" alt="MIK Projekt" class="footer-brand-logo" />
+          <p>Prodaja, montaža i održavanje kotlova, termoenergetskih postrojenja i industrijskih energetskih sistema.</p>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <span class="footer-col-title">KOMPANIJA</span>
+            <a href="#">O nama</a>
+            <a href="index.html#testimonials">Reference</a>
+            <a href="index.html#partners">Download centar</a>
+          </div>
+          <div class="footer-col">
+            <span class="footer-col-title">USLUGE</span>
+            <a href="index.html#services">Kotlovska postrojenja</a>
+            <a href="index.html#services">Termoenergetika</a>
+            <a href="index.html#services">Servis i održavanje</a>
+          </div>
+          <div class="footer-col">
+            <span class="footer-col-title">KONTAKT</span>
+            <a href="#">Beograd, Srbija</a>
+            <a href="mailto:info@mik.rs">info@mik.rs</a>
+            <a href="tel:+38111123456">+381 11 123 4567</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="inner">
+        <span>© 2026 MIK. Sva prava zadržana.</span>
+        <a href="#">Politika privatnosti</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─── JS ────────────────────────────────────────────────────── -->
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 10);
+    });
+
+    const hamburger = document.getElementById('hamburger');
+    const drawer    = document.getElementById('navDrawer');
+    hamburger.addEventListener('click', () => {
+      const isOpen = hamburger.classList.toggle('open');
+      drawer.classList.toggle('open', isOpen);
+    });
+    function closeDrawer() {
+      hamburger.classList.remove('open');
+      drawer.classList.remove('open');
+    }
+    document.addEventListener('click', (e) => {
+      if (!nav.contains(e.target) && !drawer.contains(e.target)) closeDrawer();
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Sequential timeline — starts when scrolled into view
+    const seqTimeline = document.getElementById('seqTimeline');
+    if (seqTimeline) {
+      const seqObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('seq-ready');
+            seqObs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      seqObs.observe(seqTimeline);
+    }
+  </script>
+
+</body>
+</html>
