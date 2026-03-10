@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Instalacija i montaža mehaničkih sistema MIK Projekt — stručna montaža i puštanje u rad industrijskih energetskih postrojenja." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instalacija i montaža mehaničkih sistema — MIK Projekt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&family=IBM+Plex+Sans:wght@200;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    .inner { max-width: 1280px; margin: 0 auto; width: 100%; padding: 0 var(--px); }
+    :root {
+      --red: #cc2229; --dark: #111111; --dark2: #161616;
+      --gray-bg: #f5f5f5; --border: #e6e6e6;
+      --text-muted: #5a5a5a; --text-dim: #787878; --text-nav: #3c3c3c;
+      --px: 80px; --transition: 0.2s ease;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'IBM Plex Sans', sans-serif; color: var(--dark); background: #fff; overflow-x: hidden; }
+    img { display: block; max-width: 100%; }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+
+    /* ─── NAV ── */
+    .nav { position: sticky; top: 0; z-index: 100; height: 64px; background: #fff; border-bottom: 1px solid var(--border); transition: box-shadow 0.3s ease; }
+    .nav .inner { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+    .nav.scrolled { box-shadow: 0 2px 16px rgba(0,0,0,0.06); }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .nav-logo img { height: 48px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 40px; align-items: center; list-style: none; }
+    .nav-links a { font-size: 14px; font-weight: 400; color: var(--text-nav); text-decoration: none; letter-spacing: -0.01em; position: relative; transition: color var(--transition); }
+    .nav-links a::after { content: ''; position: absolute; left: 0; bottom: -3px; width: 0; height: 1px; background: var(--red); transition: width var(--transition); }
+    .nav-links a:hover { color: var(--dark); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-links a.active { font-weight: 600; color: var(--dark); }
+    .nav-cta { background: var(--red); color: #fff; border: none; border-radius: 4px; padding: 11px 20px; font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; text-decoration: none; transition: background var(--transition), transform var(--transition); white-space: nowrap; }
+    .nav-cta:hover { background: #a81b21; transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--dark); border-radius: 2px; transition: transform 0.3s ease, opacity 0.3s ease; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-drawer { display: none; position: fixed; top: 64px; left: 0; right: 0; background: #fff; border-bottom: 1px solid var(--border); padding: 24px var(--px); flex-direction: column; gap: 0; z-index: 99; transform: translateY(-10px); opacity: 0; transition: transform 0.25s ease, opacity 0.25s ease; pointer-events: none; }
+    .nav-drawer.open { transform: translateY(0); opacity: 1; pointer-events: all; }
+    .nav-drawer a { display: block; font-size: 16px; font-weight: 400; color: var(--text-nav); text-decoration: none; padding: 14px 0; border-bottom: 1px solid var(--border); transition: color var(--transition); }
+    .nav-drawer a:hover { color: var(--dark); }
+    .nav-drawer a.active { font-weight: 600; color: var(--dark); }
+    .nav-drawer .nav-cta { margin-top: 20px; text-align: center; display: block; }
+
+    /* ─── SHARED ── */
+    .eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .eyebrow span { font-size: 11px; font-weight: 500; color: var(--red); letter-spacing: 0.06em; }
+    .eyebrow-line { width: 16px; height: 1px; background: var(--red); }
+    .section-title { font-size: clamp(26px, 2.5vw, 36px); font-weight: 700; line-height: 1.22; color: var(--dark); letter-spacing: -0.01em; }
+    .section-body { font-size: 15px; line-height: 1.6; color: var(--text-muted); margin-top: 16px; }
+    .btn-primary { background: var(--red); color: #fff; border: 1px solid var(--red); border-radius: 4px; padding: 14px 24px; font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; text-decoration: none; display: inline-block; transition: background var(--transition), transform var(--transition), box-shadow var(--transition); }
+    .btn-primary:hover { background: #a81b21; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(204,34,41,0.3); }
+
+    /* ─── HERO ── */
+    .hero-eyebrow { display: block; font-size: 13px; font-weight: 600; color: var(--red); letter-spacing: 0.06em; line-height: 26px; }
+    .hero-back { font-size: 13px; color: var(--text-dim); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: color var(--transition); }
+    .hero-back:hover { color: var(--red); }
+    .hero-heading { display: flex; flex-direction: column; gap: 0; }
+    .hero { background: var(--gray-bg); height: 480px; }
+    .hero .inner { display: flex; align-items: center; justify-content: space-between; padding-right: 0; height: 100%; }
+    .hero-left { align-self: stretch; padding-top: 28px; display: flex; flex-direction: column; gap: 0; width: 480px; flex-shrink: 0; }
+    .hero-text { flex: 1; display: flex; flex-direction: column; gap: 14px; justify-content: center; }
+    .hero-title { font-size: clamp(24px, 2.5vw, 34px); font-weight: 700; line-height: 1.2; color: var(--dark); letter-spacing: -0.01em; }
+    .hero-subtitle { font-size: 16px; font-weight: 400; line-height: 1.55; color: var(--text-dim); font-style: italic; }
+    .hero-paragraph { font-size: 14px; line-height: 1.7; color: var(--text-muted); max-width: 440px; }
+    .hero-image { flex: 1; height: 100%; min-width: 0; position: relative; }
+    .hero-image-wrap { position: absolute; inset: 0; overflow: hidden; border-bottom-left-radius: 99px; }
+    .hero-image-bg { width: 100%; height: 100%; background: #ebebeb; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 32px 32px; display: flex; align-items: center; justify-content: center; transition: transform 0.6s ease; }
+    .hero-image:hover .hero-image-bg { transform: scale(1.03); }
+    .hero-image-bg span { font-size: 11px; font-weight: 500; color: #aaa; letter-spacing: 0.04em; text-align: center; max-width: 220px; line-height: 1.6; }
+
+    /* ─── FEATURES SECTION ── */
+    .features-section { background: #fff; }
+    .features-section .inner { padding-top: 80px; padding-bottom: 80px; display: flex; flex-direction: column; gap: 48px; }
+    .features-header { max-width: 640px; }
+    .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+    .feature-item { background: #fff; padding: 28px 32px; display: flex; flex-direction: column; gap: 10px; transition: background var(--transition); }
+    .feature-item:hover { background: var(--gray-bg); }
+    .feature-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
+    .feature-title { font-size: 15px; font-weight: 600; color: var(--dark); line-height: 1.3; }
+    .feature-desc { font-size: 13px; line-height: 1.6; color: var(--text-muted); }
+
+    /* ─── SPLIT INFO SECTION ── */
+    .split-section { background: var(--gray-bg); }
+    .split-section .inner { padding-top: 80px; padding-bottom: 96px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .split-col-eyebrow { font-size: 11px; font-weight: 500; color: var(--red); letter-spacing: 0.06em; display: block; margin-bottom: 16px; }
+    .split-col-title { font-size: clamp(20px, 1.8vw, 26px); font-weight: 700; color: var(--dark); line-height: 1.25; letter-spacing: -0.01em; }
+    .split-col-text { font-size: 14px; line-height: 1.7; color: var(--text-muted); margin-top: 16px; }
+    .split-col-list { list-style: none; margin-top: 16px; display: flex; flex-direction: column; gap: 10px; }
+    .split-col-list li { font-size: 14px; line-height: 1.6; color: var(--text-muted); display: flex; align-items: flex-start; gap: 10px; }
+    .split-col-list li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--red); flex-shrink: 0; margin-top: 7px; }
+
+    /* ─── CTA ── */
+    .cta-section { background: var(--dark); text-align: center; }
+    .cta-section .inner { display: flex; flex-direction: column; align-items: center; gap: 32px; padding-top: 96px; padding-bottom: 96px; }
+    .cta-title { font-size: clamp(24px, 2.5vw, 36px); font-weight: 700; color: #fff; }
+    .cta-subtitle { font-size: 16px; line-height: 1.625; color: #b4b4b4; max-width: 700px; }
+
+    /* ─── FOOTER ── */
+    .footer { background: var(--dark2); display: flex; flex-direction: column; }
+    .footer-content { display: flex; gap: 80px; padding-top: 64px; padding-bottom: 64px; }
+    .footer-brand { width: 280px; flex-shrink: 0; display: flex; flex-direction: column; gap: 16px; }
+    .footer-brand-logo { height: 48px; width: auto; display: block; align-self: flex-start; filter: brightness(0) invert(1); opacity: 0.9; }
+    .footer-brand p { font-size: 13px; line-height: 1.7; color: #8c8c8c; }
+    .footer-cols { flex: 1; display: flex; justify-content: space-between; gap: 40px; }
+    .footer-col { display: flex; flex-direction: column; gap: 14px; }
+    .footer-col-title { font-size: 11px; font-weight: 500; color: #646464; letter-spacing: 0.06em; }
+    .footer-col a { font-size: 13px; line-height: 1.5; color: #b4b4b4; text-decoration: none; transition: color var(--transition); }
+    .footer-col a:hover { color: #fff; }
+    .footer-bottom { border-top: 1px solid #282828; }
+    .footer-bottom .inner { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; padding-bottom: 24px; }
+    .footer-bottom span, .footer-bottom a { font-size: 12px; color: #505050; text-decoration: none; transition: color var(--transition); }
+    .footer-bottom a:hover { color: #888; }
+
+    /* ─── MEGA NAV ── */
+    .nav-mega-item { position: relative; }
+    .nav-mega-trigger { display: flex; align-items: center; gap: 5px; font-size: 14px; font-weight: 400; color: var(--text-nav); text-decoration: none; letter-spacing: -0.01em; position: relative; transition: color var(--transition); }
+    .nav-mega-trigger::after { content: ''; position: absolute; left: 0; bottom: -3px; width: 0; height: 1px; background: var(--red); transition: width var(--transition); }
+    .nav-mega-trigger:hover, .nav-mega-item.mega-open .nav-mega-trigger { color: var(--dark); }
+    .nav-mega-trigger.active { font-weight: 600; color: var(--dark); }
+    .nav-mega-trigger.active::after { width: calc(100% - 17px); }
+    .nav-mega-item.mega-open .nav-mega-trigger::after { width: calc(100% - 17px); }
+    .nav-mega-chevron { width: 10px; height: 10px; stroke: currentColor; fill: none; stroke-width: 1.8; flex-shrink: 0; transition: transform 0.2s ease; margin-top: 1px; }
+    .nav-mega-item.mega-open .nav-mega-chevron { transform: rotate(180deg); }
+    .mega-panel { position: fixed; top: 64px; left: 0; right: 0; background: #fff; border-top: 2px solid var(--red); border-bottom: 1px solid var(--border); box-shadow: 0 16px 48px rgba(0,0,0,0.09); z-index: 98; opacity: 0; pointer-events: none; transform: translateY(-6px); transition: opacity 0.18s ease, transform 0.18s ease; }
+    .mega-panel.mega-visible { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .mega-inner-wrap { padding-top: 28px; padding-bottom: 32px; display: flex; flex-direction: column; gap: 18px; }
+    .mega-top { display: flex; align-items: center; justify-content: space-between; }
+    .mega-label { font-size: 11px; font-weight: 500; color: var(--text-dim); letter-spacing: 0.07em; }
+    .mega-all-link { font-size: 13px; font-weight: 500; color: var(--red); text-decoration: none; transition: opacity var(--transition); }
+    .mega-all-link:hover { opacity: 0.7; }
+    .mega-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .mega-item { display: flex; flex-direction: column; gap: 9px; text-decoration: none; color: inherit; border-radius: 4px; padding: 8px 8px 12px; transition: background var(--transition); }
+    .mega-item:hover { background: var(--gray-bg); }
+    .mega-item-img { height: 96px; border-radius: 3px; overflow: hidden; background: #ebebeb; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; }
+    .mega-item-img span { font-size: 11px; font-weight: 500; color: #999; letter-spacing: 0.04em; text-align: center; padding: 0 10px; line-height: 1.4; }
+    .mega-item-name { font-size: 14px; font-weight: 600; color: var(--dark); line-height: 1.2; }
+    .mega-item-desc { font-size: 12px; line-height: 1.55; color: var(--text-muted); }
+
+    /* ─── RESPONSIVE ── */
+    @media (max-width: 1100px) { :root { --px: 48px; } .hero-left { width: 440px; } }
+    @media (max-width: 900px) {
+      :root { --px: 32px; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .nav-drawer { display: flex; }
+      .mega-panel { display: none; }
+      .hero { height: auto; }
+      .hero .inner { flex-direction: column; padding-right: var(--px); padding-top: 48px; padding-bottom: 0; gap: 40px; }
+      .hero-left { width: 100%; }
+      .hero-image { width: 100%; height: 280px; flex-shrink: 0; }
+      .hero-image-wrap { border-bottom-left-radius: 48px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .split-section .inner { grid-template-columns: 1fr; gap: 48px; }
+      .footer-content { flex-direction: column; gap: 40px; padding-top: 48px; padding-bottom: 48px; }
+      .footer-brand { width: 100%; }
+      .footer-cols { flex-wrap: wrap; gap: 32px; }
+      .footer-bottom .inner { flex-direction: column; gap: 8px; text-align: center; }
+    }
+    @media (max-width: 480px) { :root { --px: 20px; } }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="inner">
+      <a class="nav-logo" href="index.html"><img src="assets/mik-logo-2026.webp" alt="MIK Projekt" /></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Početna</a></li>
+        <li><a href="about.html">O nama</a></li>
+        <li class="nav-mega-item" id="megaItem">
+          <a href="usluge.html" class="nav-mega-trigger active" id="megaTrigger">
+            Naše usluge
+            <svg class="nav-mega-chevron" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
+              <polyline points="1,3 5,7 9,3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </li>
+        <li><a href="reference.html">Projekti</a></li>
+        <li><a href="download-centar.html">Download centar</a></li>
+      </ul>
+      <a class="nav-cta" href="index.html#cta">Kontakt</a>
+      <button class="hamburger" id="hamburger" aria-label="Meni"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="mega-panel" id="megaPanel">
+    <div class="inner mega-inner-wrap">
+      <div class="mega-top">
+        <span class="mega-label">POSLOVNE OBLASTI</span>
+        <a href="usluge.html" class="mega-all-link">Sve usluge →</a>
+      </div>
+      <div class="mega-grid">
+        <a class="mega-item" href="usluge-i-odrzavanje.html">
+          <div class="mega-item-img"><span>Usluge i održavanje</span></div>
+          <span class="mega-item-name">Usluge i održavanje</span>
+          <span class="mega-item-desc">Servis i podrška za industrijske kotlove i gorionike</span>
+        </a>
+        <a class="mega-item" href="inzenjerstvo.html">
+          <div class="mega-item-img"><span>Inženjerstvo</span></div>
+          <span class="mega-item-name">Inženjerstvo</span>
+          <span class="mega-item-desc">Projektovanje energetskih i termotehničkih sistema</span>
+        </a>
+        <a class="mega-item" href="kotlovski-sistemi.html">
+          <div class="mega-item-img"><span>Kotlovski sistemi</span></div>
+          <span class="mega-item-name">Kotlovski sistemi</span>
+          <span class="mega-item-desc">Industrijska kotlovska postrojenja za različita goriva</span>
+        </a>
+        <a class="mega-item" href="proizvodnja.html">
+          <div class="mega-item-img"><span>Proizvodnja</span></div>
+          <span class="mega-item-name">Proizvodnja</span>
+          <span class="mega-item-desc">Precizna izrada komponenti i kompleksnih sistema</span>
+        </a>
+        <a class="mega-item" href="instalacija-montaza.html">
+          <div class="mega-item-img"><span>Instalacija sistema</span></div>
+          <span class="mega-item-name">Instalacija sistema</span>
+          <span class="mega-item-desc">Stručna montaža i puštanje u rad postrojenja</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-drawer" id="navDrawer">
+    <a href="index.html" onclick="closeDrawer()">Početna</a>
+    <a href="about.html" onclick="closeDrawer()">O nama</a>
+    <a href="usluge.html" class="active" onclick="closeDrawer()">Naše usluge</a>
+    <a href="reference.html" onclick="closeDrawer()">Projekti</a>
+    <a href="download-centar.html" onclick="closeDrawer()">Download centar</a>
+    <a href="index.html#cta" class="nav-cta" onclick="closeDrawer()">Kontakt</a>
+  </div>
+
+  <!-- ─── HERO ── -->
+  <section class="hero">
+    <div class="inner">
+      <div class="hero-left">
+        <a href="usluge.html" class="hero-back">← Naše usluge</a>
+        <div class="hero-text">
+          <div class="hero-heading">
+            <span class="hero-eyebrow">INSTALACIJA I MONTAŽA</span>
+            <h1 class="hero-title">Instalacija i montaža mehaničkih sistema</h1>
+          </div>
+          <p class="hero-subtitle">Precizna instalacija industrijske opreme i energetskih sistema.</p>
+          <p class="hero-paragraph">MIK Projekt pruža kompletne usluge instalacije i montaže industrijskih kotlova, gorionika i prateće mehaničke opreme, obezbeđujući pouzdan rad i dugoročnu stabilnost sistema.</p>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="hero-image-wrap">
+          <div class="hero-image-bg">
+            <span>Industrial technicians installing large piping and mechanical systems in an energy plant</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── INSTALACIONE USLUGE ── -->
+  <section class="features-section">
+    <div class="inner">
+      <div class="features-header reveal">
+        <div class="eyebrow"><span>USLUGE</span><div class="eyebrow-line"></div></div>
+        <h2 class="section-title">Instalacione usluge</h2>
+        <p class="section-body">Od mehaničke montaže do sistemske integracije — pokrivamo kompletan proces instalacije prema tehničkim zahtevima projekta.</p>
+      </div>
+      <div class="features-grid reveal reveal-delay-1">
+        <div class="feature-item">
+          <div class="feature-dot"></div>
+          <span class="feature-title">Instalacija industrijskih kotlova</span>
+          <p class="feature-desc">Mehanička montaža kotlovskih postrojenja različitih kapaciteta i tipova, uključujući priključivanje medija i pozicioniranje opreme.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-dot"></div>
+          <span class="feature-title">Instalacija gorionika</span>
+          <p class="feature-desc">Montaža i podešavanje industrijskih gorionika za rad na različitim gorivima, sa verifikacijom parametara sagorevanja.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-dot"></div>
+          <span class="feature-title">Montaža mehaničke opreme</span>
+          <p class="feature-desc">Instalacija pumpi, ventila, kompenzatora i cevovoda koji čine prateću infrastrukturu energetskog sistema.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-dot"></div>
+          <span class="feature-title">Instalacija pratećih sistema</span>
+          <p class="feature-desc">Montaža dimovoda, ekspanzionih sistema, opreme za pripremu vode i ostalih prateće infrastrukture postrojenja.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PUŠTANJE U RAD + INTEGRACIJA ── -->
+  <section class="split-section">
+    <div class="inner">
+      <div class="reveal">
+        <div class="eyebrow"><span>PUŠTANJE U RAD</span><div class="eyebrow-line"></div></div>
+        <h3 class="split-col-title">Puštanje u rad</h3>
+        <p class="split-col-text">Naši timovi sprovode kompletno testiranje i optimizaciju sistema kako bi se obezbedio bezbedan i efikasan početak rada postrojenja. Svaki sistem prolazi kroz sistemski protokol verifikacije pre predaje klijentu — od hidrostatskih proba i provere armatura do merenja parametara sagorevanja i finalnog podešavanja regulacije.</p>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="eyebrow"><span>INTEGRACIJA SISTEMA</span><div class="eyebrow-line"></div></div>
+        <h3 class="split-col-title">Integracija sistema</h3>
+        <p class="split-col-text">MIK Projekt obezbeđuje besprekornu integraciju svih komponenti sistema i njihovu potpunu funkcionalnost u okviru postojećih industrijskih postrojenja. Naš pristup podrazumeva koordinaciju sa svim sistemima na lokaciji — od napojne vode i gasnih instalacija do automatizacije i sistema daljinskog nadzora.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA ── -->
+  <section class="cta-section">
+    <div class="inner">
+      <div class="reveal">
+        <h2 class="cta-title">Stručna instalacija industrijskih sistema</h2>
+      </div>
+      <a class="btn-primary reveal reveal-delay-1" href="mailto:info@mik.rs">Kontaktirajte nas</a>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ── -->
+  <footer class="footer">
+    <div class="inner">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img src="assets/mik-logo-2026.webp" alt="MIK Projekt" class="footer-brand-logo" />
+          <p>Prodaja, montaža i održavanje kotlova, termoenergetskih postrojenja i industrijskih energetskih sistema.</p>
+        </div>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <span class="footer-col-title">KOMPANIJA</span>
+            <a href="about.html">O nama</a>
+            <a href="reference.html">Projekti</a>
+            <a href="download-centar.html">Download centar</a>
+          </div>
+          <div class="footer-col">
+            <span class="footer-col-title">USLUGE</span>
+            <a href="inzenjerstvo.html">Inženjerstvo</a>
+            <a href="kotlovski-sistemi.html">Kotlovski sistemi</a>
+            <a href="proizvodnja.html">Proizvodnja</a>
+            <a href="instalacija-montaza.html">Instalacija i montaža</a>
+            <a href="usluge-i-odrzavanje.html">Servis i održavanje</a>
+          </div>
+          <div class="footer-col">
+            <span class="footer-col-title">KONTAKT</span>
+            <a href="#">Beograd, Srbija</a>
+            <a href="mailto:info@mik.rs">info@mik.rs</a>
+            <a href="tel:+38111123456">+381 11 123 4567</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="inner">
+        <span>© 2026 MIK. Sva prava zadržana.</span>
+        <a href="#">Politika privatnosti</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    const hamburger = document.getElementById('hamburger');
+    const drawer = document.getElementById('navDrawer');
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 10); });
+    hamburger.addEventListener('click', () => { const o = hamburger.classList.toggle('open'); drawer.classList.toggle('open', o); });
+    function closeDrawer() { hamburger.classList.remove('open'); drawer.classList.remove('open'); }
+    document.addEventListener('click', (e) => { if (!nav.contains(e.target) && !drawer.contains(e.target)) closeDrawer(); });
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }); }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+    const megaItem = document.getElementById('megaItem');
+    const megaPanel = document.getElementById('megaPanel');
+    if (megaItem && megaPanel) {
+      let t;
+      const open = () => { clearTimeout(t); megaItem.classList.add('mega-open'); megaPanel.classList.add('mega-visible'); };
+      const close = () => { t = setTimeout(() => { megaItem.classList.remove('mega-open'); megaPanel.classList.remove('mega-visible'); }, 120); };
+      megaItem.addEventListener('mouseenter', open); megaItem.addEventListener('mouseleave', close);
+      megaPanel.addEventListener('mouseenter', open); megaPanel.addEventListener('mouseleave', close);
+    }
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
