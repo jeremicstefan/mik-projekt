@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="sr">
+<html lang="en">
 <head>
+    <link rel="icon" type="image/png" href="assets/0_logo/mik-favicon.png">
   <meta charset="UTF-8" />
   <meta name="description" content="Poslovne oblasti MIK Projekt — inženjerstvo, kotlovski sistemi, proizvodnja, instalacija i servis termoenergetskih postrojenja." />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Naše usluge — MIK Projekt</title>
+  <title>Naše usluge | MIK Projekt</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&family=IBM+Plex+Sans:wght@200;400;500;600;700&display=swap" rel="stylesheet" />
@@ -64,8 +65,8 @@
       top: 0;
       z-index: 100;
       height: 64px;
-      background: #fff;
-      border-bottom: 1px solid var(--border);
+      background: #000;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       transition: box-shadow 0.3s ease;
     }
     .nav .inner {
@@ -74,7 +75,7 @@
       align-items: center;
       justify-content: space-between;
     }
-    .nav.scrolled { box-shadow: 0 2px 16px rgba(0,0,0,0.06); }
+    .nav.scrolled { box-shadow: 0 2px 24px rgba(0,0,0,0.4); }
 
     .nav-logo {
       display: flex;
@@ -87,30 +88,39 @@
     .nav-links {
       display: flex;
       gap: 40px;
-      align-items: center;
+      align-items: stretch;
       list-style: none;
+      align-self: stretch;
+    }
+    .nav-links li {
+      display: flex;
+      align-items: center;
+      position: relative;
     }
     .nav-links a {
       font-size: 14px;
       font-weight: 400;
-      color: var(--text-nav);
+      color: rgba(255,255,255,0.72);
       text-decoration: none;
       letter-spacing: -0.01em;
       position: relative;
+      display: flex;
+      align-items: center;
+      align-self: stretch;
       transition: color var(--transition);
     }
     .nav-links a::after {
       content: '';
       position: absolute;
-      left: 0; bottom: -3px;
-      width: 0; height: 1px;
+      left: 0; bottom: 0;
+      width: 0; height: 2px;
       background: var(--red);
       transition: width var(--transition);
     }
-    .nav-links a:hover { color: var(--dark); }
+    .nav-links a:hover { color: rgba(255,255,255,0.88); }
     .nav-links a:hover::after,
     .nav-links a.active::after { width: 100%; }
-    .nav-links a.active { font-weight: 600; color: var(--dark); }
+    .nav-links a.active { font-weight: 600; color: #fff; }
 
     .nav-cta {
       background: var(--red);
@@ -141,7 +151,7 @@
       display: block;
       width: 22px;
       height: 2px;
-      background: var(--dark);
+      background: #fff;
       border-radius: 2px;
       transition: transform 0.3s ease, opacity 0.3s ease;
     }
@@ -184,7 +194,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
     }
     .eyebrow span {
       font-size: 11px;
@@ -200,12 +210,13 @@
       line-height: 1.22;
       color: var(--dark);
       letter-spacing: -0.01em;
+      margin-bottom: 8px;
     }
     .section-body {
       font-size: 15px;
       line-height: 1.6;
       color: var(--text-muted);
-      margin-top: 16px;
+      margin-top: 0;
     }
 
     .btn-primary {
@@ -224,9 +235,8 @@
     }
     .btn-primary:hover {
       background: #a81b21;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(204,34,41,0.3);
-    }
+      transform: translateY(-1px);
+      }
 
     .btn-secondary {
       background: #fff;
@@ -244,9 +254,8 @@
     }
     .btn-secondary:hover {
       border-color: var(--dark);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
+      transform: translateY(-1px);
+      }
 
     /* ─── HERO ─────────────────────────────────────────────────── */
     .hero-eyebrow {
@@ -257,18 +266,17 @@
       letter-spacing: 0.06em;
       line-height: 26px;
     }
-    .hero-heading { display: flex; flex-direction: column; gap: 0; }
+    .hero-heading { display: flex; flex-direction: column; gap: 4px; }
 
     .hero {
-      background: var(--gray-bg);
-      height: 480px;
+      background: #fff;
+      padding-top: 80px;
+      padding-bottom: 80px;
     }
     .hero .inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-right: 0;
-      height: 100%;
     }
 
     .hero-left {
@@ -278,7 +286,7 @@
       width: 540px;
       flex-shrink: 0;
     }
-    .hero-text { display: flex; flex-direction: column; gap: 16px; }
+    .hero-text { display: flex; flex-direction: column; gap: 8px; }
     .hero-title {
       font-size: clamp(24px, 2.5vw, 34px);
       font-weight: 700;
@@ -301,7 +309,7 @@
 
     .hero-image {
       flex: 1;
-      height: 100%;
+      height: 400px;
       min-width: 0;
       position: relative;
     }
@@ -309,16 +317,14 @@
       position: absolute;
       inset: 0;
       overflow: hidden;
+      border-radius: 4px;
       border-bottom-left-radius: 99px;
     }
     .hero-image-bg {
       width: 100%;
       height: 100%;
-      background: #ebebeb;
-      background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 32px 32px;
+      background-size: cover;
+      background-position: center;
       transition: transform 0.6s ease;
     }
     .hero-image:hover .hero-image-bg { transform: scale(1.03); }
@@ -359,7 +365,7 @@
       border-color: #d0d0d0;
     }
     .svc-card-img {
-      height: 200px;
+      height: 240px;
       background: var(--gray-bg);
       border-bottom: 1px solid var(--border);
       background-image:
@@ -415,12 +421,10 @@
       box-shadow: 0 12px 32px rgba(0,0,0,0.08);
     }
     .svc-featured-accent {
-      width: 4px;
-      background: var(--red);
-      flex-shrink: 0;
+      display: none;
     }
     .svc-featured-img {
-      width: 340px;
+      width: calc(50% - 12px);
       flex-shrink: 0;
       background: #ebebeb;
       background-image:
@@ -510,9 +514,7 @@
       width: auto;
       display: block;
       align-self: flex-start;
-      filter: brightness(0) invert(1);
-      opacity: 0.9;
-    }
+      }
     .footer-brand p { font-size: 13px; line-height: 1.7; color: #8c8c8c; }
     .footer-cols { flex: 1; display: flex; justify-content: space-between; gap: 40px; }
     .footer-col { display: flex; flex-direction: column; gap: 14px; }
@@ -548,14 +550,8 @@
       .hamburger { display: flex; }
       .nav-drawer { display: flex; }
 
-      .hero { height: auto; }
-      .hero .inner {
-        flex-direction: column;
-        padding-top: 48px;
-        padding-bottom: 0;
-        padding-right: var(--px);
-        height: auto;
-      }
+      .hero { padding-top: 48px; padding-bottom: 0; }
+      .hero .inner { flex-direction: column; }
       .hero-left { width: 100%; padding-bottom: 40px; }
       .hero-image { width: 100%; height: 320px; }
       .hero-image-wrap { border-bottom-left-radius: 48px; }
@@ -576,34 +572,18 @@
     @media (max-width: 480px) {
       :root { --px: 20px; }
       .hero-title { font-size: 28px; }
+      .svc-card-img { height: 180px; }
     }
 
     /* ─── MEGA NAV ───────────────────────────────────────────── */
     .nav-mega-item { position: relative; }
 
-    .nav-mega-trigger {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 14px;
-      font-weight: 400;
-      color: var(--text-nav);
-      text-decoration: none;
-      letter-spacing: -0.01em;
-      position: relative;
-      transition: color var(--transition);
-    }
-    .nav-mega-trigger::after {
-      content: '';
-      position: absolute;
-      left: 0; bottom: -3px;
-      width: 0; height: 1px;
-      background: var(--red);
-      transition: width var(--transition);
-    }
+    .nav-mega-trigger { display: flex; align-items: center; gap: 5px; font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.72); text-decoration: none; letter-spacing: -0.01em; position: relative; display: flex; align-items: center; align-self: stretch; transition: color var(--transition); }
+    .nav-mega-trigger::after { content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 2px; background: var(--red); transition: width var(--transition); }
     .nav-mega-trigger:hover,
-    .nav-mega-item.mega-open .nav-mega-trigger { color: var(--dark); }
-    .nav-mega-item.mega-open .nav-mega-trigger::after { width: calc(100% - 17px); }
+    .nav-mega-item.mega-open .nav-mega-trigger { color: rgba(255,255,255,0.88); }
+    .nav-mega-trigger:hover::after,
+    .nav-mega-item.mega-open .nav-mega-trigger::after { width: 100%; }
 
     .nav-mega-chevron {
       width: 10px; height: 10px;
@@ -675,16 +655,7 @@
       transition: background var(--transition);
     }
     .mega-item:hover { background: var(--gray-bg); }
-    .mega-item-img {
-      height: 96px;
-      border-radius: 3px;
-      overflow: hidden;
-      background: #ebebeb;
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    .mega-item-img { height: 96px; border-radius: 4px; overflow: hidden; background: #ebebeb; background-size: cover; background-position: center; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; }
     .mega-item-img span {
       font-size: 11px;
       font-weight: 500;
@@ -715,14 +686,14 @@
 <body>
 
   <!-- ─── NAV ─────────────────────────────────────────────────── -->
-  <nav class="nav" id="nav">
+    <nav class="nav" id="nav">
     <div class="inner">
       <a class="nav-logo" href="index.html">
-        <img src="assets/mik-logo-2026.webp" alt="MIK Projekt" />
+        <img src="assets/0_logo/mik-logo-light-no-est.png" alt="MIK Projekt" />
       </a>
       <ul class="nav-links">
         <li><a href="index.html">Početna</a></li>
-        <li><a href="about.html">O nama</a></li>
+        <li><a href="o-nama.html">O nama</a></li>
         <li class="nav-mega-item" id="megaItem">
           <a href="usluge.html" class="nav-mega-trigger active" id="megaTrigger">
             Naše usluge
@@ -731,10 +702,10 @@
             </svg>
           </a>
         </li>
-        <li><a href="reference.html">Projekti</a></li>
-        <li><a href="download-centar.html">Download centar</a></li>
+        <li><a href="projekti.html">Projekti</a></li>
+        <li><a href="dokumentacija.html">Dokumentacija</a></li>
       </ul>
-      <a class="nav-cta" href="mailto:info@mik.rs">Kontakt</a>
+      <a class="nav-cta" href="#cta">Kontakt</a>
       <button class="hamburger" id="hamburger" aria-label="Meni">
         <span></span><span></span><span></span>
       </button>
@@ -749,38 +720,28 @@
         <a href="usluge.html" class="mega-all-link">Sve usluge →</a>
       </div>
       <div class="mega-grid">
-        <a class="mega-item" href="inzenjerstvo.html">
-          <div class="mega-item-img">
-            <span>Inženjerstvo</span>
-          </div>
-          <span class="mega-item-name">Inženjerstvo</span>
-          <span class="mega-item-desc">Projektovanje energetskih i termotehničkih sistema</span>
-        </a>
         <a class="mega-item" href="kotlovski-sistemi.html">
-          <div class="mega-item-img">
-            <span>Kotlovski sistemi</span>
-          </div>
+          <div class="mega-item-img" style="background-image:url('assets/1_navigation/nav_kotlovski-sistem.png'); background-position: calc(50% - 5px) calc(50% + 5%);"></div>
           <span class="mega-item-name">Kotlovski sistemi</span>
           <span class="mega-item-desc">Industrijska kotlovska postrojenja za različita goriva</span>
         </a>
+        <a class="mega-item" href="inzenjerstvo.html">
+          <div class="mega-item-img" style="background-image:url('assets/1_navigation/nav_inzenjerstvo.png'); background-size: 110%; background-repeat: no-repeat;"></div>
+          <span class="mega-item-name">Inženjerstvo</span>
+          <span class="mega-item-desc">Projektovanje energetskih i termotehničkih sistema</span>
+        </a>
         <a class="mega-item" href="proizvodnja.html">
-          <div class="mega-item-img">
-            <span>Proizvodnja</span>
-          </div>
+          <div class="mega-item-img" style="background-image:url('assets/1_navigation/nav_proizvodnja.png')"></div>
           <span class="mega-item-name">Proizvodnja</span>
           <span class="mega-item-desc">Precizna izrada komponenti i kompleksnih sistema</span>
         </a>
         <a class="mega-item" href="instalacija-montaza.html">
-          <div class="mega-item-img">
-            <span>Instalacija sistema</span>
-          </div>
+          <div class="mega-item-img" style="background-image:url('assets/1_navigation/nav_instalacija-sistem.png')"></div>
           <span class="mega-item-name">Instalacija sistema</span>
           <span class="mega-item-desc">Stručna montaža i puštanje u rad postrojenja</span>
         </a>
         <a class="mega-item" href="usluge-i-odrzavanje.html">
-          <div class="mega-item-img">
-            <span>Servis i održavanje</span>
-          </div>
+          <div class="mega-item-img" style="background-image:url('assets/1_navigation/nav_servis_i_odrzavanje.png'); background-size: 70%; background-repeat: no-repeat; background-color: #fff;"></div>
           <span class="mega-item-name">Servis i održavanje</span>
           <span class="mega-item-desc">Dugoročna tehnička podrška i optimizacija sistema</span>
         </a>
@@ -790,12 +751,12 @@
 
   <!-- Mobile drawer -->
   <div class="nav-drawer" id="navDrawer">
-    <a href="index.html"              onclick="closeDrawer()">Početna</a>
-    <a href="about.html"              onclick="closeDrawer()">O nama</a>
+    <a href="index.html" onclick="closeDrawer()">Početna</a>
+    <a href="o-nama.html" onclick="closeDrawer()">O nama</a>
     <a href="usluge.html" class="active" onclick="closeDrawer()">Naše usluge</a>
-    <a href="reference.html" onclick="closeDrawer()">Projekti</a>
-    <a href="download-centar.html" onclick="closeDrawer()">Download centar</a>
-    <a href="mailto:info@mik.rs" class="nav-cta" onclick="closeDrawer()">Kontakt</a>
+    <a href="projekti.html" onclick="closeDrawer()">Projekti</a>
+    <a href="dokumentacija.html" onclick="closeDrawer()">Dokumentacija</a>
+    <a href="#cta" class="nav-cta" onclick="closeDrawer()">Kontakt</a>
   </div>
 
   <!-- ─── HERO ─────────────────────────────────────────────────── -->
@@ -807,19 +768,18 @@
             <span class="hero-eyebrow reveal">ŠTA RADIMO</span>
             <h1 class="hero-title reveal reveal-delay-1">Naše poslovne oblasti</h1>
           </div>
-          <p class="hero-subtitle reveal reveal-delay-2">Od inženjeringa do održavanja energetskih sistema.</p>
           <p class="hero-paragraph reveal reveal-delay-2">
-            Projektujemo, proizvodimo i implementiramo kotlovske i energetske sisteme za industriju — uz kompletnu podršku kroz čitav životni ciklus postrojenja.
+            Od inženjeringa do održavanja energetskih sistema. Projektujemo, proizvodimo i implementiramo kotlovske i energetske sisteme za industriju, uz kompletnu podršku kroz čitav životni ciklus postrojenja.
           </p>
         </div>
         <div class="hero-buttons reveal reveal-delay-3">
           <a class="btn-primary" href="mailto:info@mik.rs">Kontaktirajte nas</a>
-          <a class="btn-secondary" href="about.html">O kompaniji</a>
+          <a class="btn-secondary" href="o-nama.html">O kompaniji</a>
         </div>
       </div>
       <div class="hero-image">
         <div class="hero-image-wrap">
-          <div class="hero-image-bg"></div>
+          <div class="hero-image-bg" style="background-image: url('assets/4_services/services-hero.webp');"></div>
         </div>
       </div>
     </div>
@@ -830,18 +790,14 @@
     <div class="inner">
 
       <div class="usluge-header reveal">
-        <div class="eyebrow">
-          <span>POSLOVNE OBLASTI</span>
-          <div class="eyebrow-line"></div>
-        </div>
-        <h2 class="section-title">Šta nudimo</h2>
-        <p class="section-body">Sveobuhvatna rešenja u industrijskoj energetici — od prvog crteža do dugogodišnje tehničke podrške.</p>
+        <h2 class="section-title">Usluge koje pružamo</h2>
+        <p class="section-body">Sveobuhvatna rešenja u industrijskoj energetici: od prvog crteža do dugogodišnje tehničke podrške.</p>
       </div>
 
       <!-- Row 1 -->
       <div class="svc-row">
         <a class="svc-card reveal" href="inzenjerstvo.html" id="inzenjerstvo">
-          <div class="svc-card-img"></div>
+          <div class="svc-card-img"><img src="assets/4_services/inzenjerstvo.webp" alt="Inženjerstvo" style="width:100%;height:100%;object-fit:cover;"></div>
           <div class="svc-card-body">
             <span class="svc-card-title">Inženjerstvo</span>
             <p class="svc-card-desc">Projektovanje energetskih i termotehničkih sistema zasnovano na decenijama iskustva i više od 2000 realizovanih kotlova.</p>
@@ -849,7 +805,7 @@
           </div>
         </a>
         <a class="svc-card reveal reveal-delay-1" href="kotlovski-sistemi.html" id="kotlovski-sistemi">
-          <div class="svc-card-img"></div>
+          <div class="svc-card-img"><img src="assets/4_services/kotlovski-sistemi.webp" alt="Kotlovski sistemi" style="width:100%;height:100%;object-fit:cover;"></div>
           <div class="svc-card-body">
             <span class="svc-card-title">Kotlovski sistemi</span>
             <p class="svc-card-desc">Razvoj i implementacija industrijskih kotlovskih postrojenja prilagođenih različitim vrstama goriva i potrebama proizvodnje.</p>
@@ -861,7 +817,7 @@
       <!-- Row 2 -->
       <div class="svc-row">
         <a class="svc-card reveal" href="proizvodnja.html" id="proizvodnja">
-          <div class="svc-card-img"></div>
+          <div class="svc-card-img"><img src="assets/4_services/proizvodnja.webp" alt="Proizvodnja" style="width:100%;height:100%;object-fit:cover;"></div>
           <div class="svc-card-body">
             <span class="svc-card-title">Proizvodnja</span>
             <p class="svc-card-desc">Izrada preciznih komponenti i kompleksnih sistema u savremenim proizvodnim kapacitetima.</p>
@@ -869,7 +825,7 @@
           </div>
         </a>
         <a class="svc-card reveal reveal-delay-1" href="instalacija-montaza.html" id="instalacija-sistema">
-          <div class="svc-card-img"></div>
+          <div class="svc-card-img"><img src="assets/4_services/instalacija-sistem.webp" alt="Instalacija sistema" style="width:100%;height:100%;object-fit:cover;"></div>
           <div class="svc-card-body">
             <span class="svc-card-title">Instalacija sistema</span>
             <p class="svc-card-desc">Stručna montaža i puštanje u rad industrijskih energetskih i mašinskih sistema.</p>
@@ -881,10 +837,9 @@
       <!-- Row 3 — Featured -->
       <a class="svc-featured reveal" href="usluge-i-odrzavanje.html" id="servis-i-odrzavanje">
         <div class="svc-featured-accent"></div>
-        <div class="svc-featured-img"></div>
+        <div class="svc-featured-img"><img src="assets/4_services/servis-odrzavanje.webp" alt="Servis i održavanje" style="width:100%;height:100%;object-fit:cover;"></div>
         <div class="svc-featured-body">
-          <span class="svc-featured-eyebrow">KOMPLEKSNA USLUGA</span>
-          <h3 class="svc-featured-title">Servis i održavanje</h3>
+<h3 class="svc-featured-title">Servis i održavanje</h3>
           <p class="svc-featured-desc">Dugoročna tehnička podrška, servis i optimizacija rada kotlova i gorioničkih sistema. Brza reakcija, originalni delovi, stručni timovi na terenu.</p>
           <span class="svc-featured-link">Saznajte više →</span>
         </div>
@@ -911,15 +866,15 @@
     <div class="inner">
       <div class="footer-content">
         <div class="footer-brand">
-          <img src="assets/mik-logo-2026.webp" alt="MIK Projekt" class="footer-brand-logo" />
+          <img src="assets/0_logo/mik-favicon.png" alt="MIK Projekt" class="footer-brand-logo" />
           <p>Prodaja, montaža i održavanje kotlova, termoenergetskih postrojenja i industrijskih energetskih sistema.</p>
         </div>
         <div class="footer-cols">
           <div class="footer-col">
             <span class="footer-col-title">KOMPANIJA</span>
-            <a href="about.html">O nama</a>
-            <a href="reference.html">Projekti</a>
-            <a href="download-centar.html">Download centar</a>
+            <a href="o-nama.html">O nama</a>
+            <a href="projekti.html">Projekti</a>
+            <a href="dokumentacija.html">Dokumentacija</a>
           </div>
           <div class="footer-col">
             <span class="footer-col-title">USLUGE</span>
@@ -997,5 +952,18 @@
   </script>
 
   <script defer src="/_vercel/insights/script.js"></script>
+<script>
+(function(){
+  if(window.location.hash.includes("figmacapture")){
+    var s=document.createElement("style");
+    s.textContent=".reveal,.reveal-delay-1,.reveal-delay-2,.reveal-delay-3,.reveal-delay-4{opacity:1!important;transform:none!important;transition:none!important;}*{animation-duration:0.001s!important;transition-duration:0.001s!important;}";
+    document.head.appendChild(s);
+    document.addEventListener("DOMContentLoaded",function(){
+      document.querySelectorAll(".reveal").forEach(function(el){el.classList.add("visible");});
+    });
+  }
+})();
+</script>
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 </body>
 </html>

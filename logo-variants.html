@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="assets/0_logo/mik-favicon.png">
+  <meta charset="UTF-8">
+  <title>MIK Projekt | Logo Variations</title>
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&family=IBM+Plex+Sans:ital,wght@0,200;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #2c2c2c;
+      font-family: 'IBM Plex Sans', sans-serif;
+      padding: 72px 64px;
+      min-height: 100vh;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 64px;
+      border-bottom: 1px solid #2a2a2a;
+      padding-bottom: 20px;
+    }
+    .page-header h1 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: #444;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .page-header span {
+      font-size: 10px;
+      color: #cc2229;
+      font-family: 'IBM Plex Mono', monospace;
+      letter-spacing: 0.08em;
+    }
+
+    .variants { display: flex; flex-direction: column; gap: 3px; }
+
+    .variant-group { display: flex; flex-direction: column; gap: 3px; }
+    .variant-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 0 10px;
+    }
+    .variant-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      color: #cc2229;
+      letter-spacing: 0.08em;
+    }
+    .variant-name {
+      font-size: 9px;
+      color: #555;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .variant-row { display: flex; gap: 3px; }
+
+    .swatch {
+      flex: 1;
+      padding: 52px 60px;
+      display: flex;
+      align-items: center;
+    }
+    .on-white  { background: #ffffff; }
+    .on-light  { background: #f5f5f5; }
+    .on-dark   { background: #111111; }
+    .on-darker { background: #0a0a0a; }
+
+    /* ──────────────────────────────────────
+       V1 — THE RULE
+       MIK large bold, full-width red line,
+       PROJEKT tracked light below
+    ────────────────────────────────────── */
+    .v1 { display: flex; flex-direction: column; gap: 11px; }
+    .v1-word {
+      font-size: 64px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .v1-line { height: 2px; background: #cc2229; width: 100%; }
+    .v1-sub {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.52em;
+      text-transform: uppercase;
+      padding-left: 3px;
+    }
+    .on-white  .v1-word, .on-light .v1-word  { color: #111; }
+    .on-white  .v1-sub,  .on-light .v1-sub   { color: #777; }
+    .on-dark   .v1-word, .on-darker .v1-word { color: #fff; }
+    .on-dark   .v1-sub,  .on-darker .v1-sub  { color: #666; }
+
+    /* ──────────────────────────────────────
+       V2 — THE BAR
+       Thick red left bar, stacked wordmark
+       Compact — works small
+    ────────────────────────────────────── */
+    .v2 { display: flex; align-items: center; gap: 18px; }
+    .v2-bar { width: 4px; align-self: stretch; background: #cc2229; flex-shrink: 0; }
+    .v2-text { display: flex; flex-direction: column; gap: 4px; }
+    .v2-mik {
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1;
+    }
+    .v2-projekt {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.44em;
+      text-transform: uppercase;
+    }
+    .on-white  .v2-mik, .on-light .v2-mik   { color: #111; }
+    .on-white  .v2-projekt,.on-light .v2-projekt { color: #888; }
+    .on-dark   .v2-mik, .on-darker .v2-mik  { color: #fff; }
+    .on-dark   .v2-projekt,.on-darker .v2-projekt { color: #555; }
+
+    /* ──────────────────────────────────────
+       V3 — THE SPLIT
+       MIK bold / red vertical line / PROJEKT
+       More horizontal, technical drawing feel
+    ────────────────────────────────────── */
+    .v3 { display: flex; align-items: center; gap: 0; }
+    .v3-mik {
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      padding-right: 24px;
+    }
+    .v3-sep {
+      width: 1px;
+      height: 40px;
+      background: #cc2229;
+      flex-shrink: 0;
+    }
+    .v3-right {
+      padding-left: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .v3-tag {
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      color: #cc2229;
+      text-transform: uppercase;
+    }
+    .v3-projekt {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .on-white  .v3-mik, .on-light .v3-mik   { color: #111; }
+    .on-white  .v3-projekt,.on-light .v3-projekt { color: #111; }
+    .on-dark   .v3-mik, .on-darker .v3-mik  { color: #fff; }
+    .on-dark   .v3-projekt,.on-darker .v3-projekt { color: #fff; }
+
+    /* ──────────────────────────────────────
+       V4 — THE DOT
+       MIK · PROJEKT inline with red dot
+       Single-line, works as a wordmark banner
+    ────────────────────────────────────── */
+    .v4 { display: flex; align-items: baseline; gap: 0; }
+    .v4-mik {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .v4-dot {
+      font-size: 36px;
+      font-weight: 700;
+      color: #cc2229;
+      line-height: 1;
+      padding: 0 4px;
+    }
+    .v4-projekt {
+      font-size: 36px;
+      font-weight: 200;
+      letter-spacing: -0.01em;
+      line-height: 1;
+    }
+    .v4-underline {
+      height: 2px;
+      background: linear-gradient(90deg, #cc2229 0%, #cc2229 30%, transparent 30%);
+      margin-top: 8px;
+    }
+    .on-white  .v4-mik, .on-light .v4-mik   { color: #111; }
+    .on-white  .v4-projekt,.on-light .v4-projekt { color: #111; }
+    .on-dark   .v4-mik, .on-darker .v4-mik  { color: #fff; }
+    .on-dark   .v4-projekt,.on-darker .v4-projekt { color: #fff; }
+
+    /* ──────────────────────────────────────
+       V5 — THE BRACKET
+       [MIK] in red brackets, PROJEKT mono below
+    ────────────────────────────────────── */
+    .v5 { display: flex; flex-direction: column; gap: 10px; }
+    .v5-top { display: flex; align-items: center; gap: 0; }
+    .v5-bracket {
+      font-size: 58px;
+      font-weight: 200;
+      line-height: 1;
+      color: #cc2229;
+      letter-spacing: -0.02em;
+    }
+    .v5-mik {
+      font-size: 52px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      padding: 0 6px;
+    }
+    .v5-sub {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      padding-left: 4px;
+    }
+    .on-white .v5-mik, .on-light .v5-mik { color: #111; }
+    .on-white .v5-sub, .on-light .v5-sub  { color: #999; }
+    .on-dark  .v5-mik, .on-darker .v5-mik { color: #fff; }
+    .on-dark  .v5-sub, .on-darker .v5-sub  { color: #555; }
+
+    /* ──────────────────────────────────────
+       V6 — THE SLASH
+       MIK / Projekt inline, red slash, italic Projekt
+    ────────────────────────────────────── */
+    .v6 { display: flex; flex-direction: column; gap: 0; }
+    .v6-row { display: flex; align-items: baseline; gap: 10px; }
+    .v6-mik {
+      font-size: 52px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .v6-slash {
+      font-size: 52px;
+      font-weight: 200;
+      color: #cc2229;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .v6-projekt {
+      font-size: 52px;
+      font-weight: 200;
+      font-style: italic;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .v6-line {
+      height: 1px;
+      background: linear-gradient(90deg, #cc2229 0%, rgba(204,34,41,0.15) 60%, transparent 100%);
+      margin-top: 10px;
+    }
+    .on-white .v6-mik, .on-light .v6-mik { color: #111; }
+    .on-white .v6-projekt,.on-light .v6-projekt { color: #111; }
+    .on-dark  .v6-mik, .on-darker .v6-mik { color: #fff; }
+    .on-dark  .v6-projekt,.on-darker .v6-projekt { color: #fff; }
+
+    /* ──────────────────────────────────────
+       V7 — THE MONO
+       Full IBM Plex Mono, terminal / serial-number feel
+    ────────────────────────────────────── */
+    .v7 { display: flex; flex-direction: column; gap: 6px; }
+    .v7-top { display: flex; align-items: center; gap: 8px; }
+    .v7-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      color: #cc2229;
+      letter-spacing: 0.12em;
+      border: 1px solid #cc2229;
+      padding: 2px 6px;
+      line-height: 1.4;
+      align-self: center;
+    }
+    .v7-mik {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 52px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .v7-sub {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .v7-rule { height: 1px; background: #cc2229; width: 48px; margin-top: 2px; }
+    .on-white .v7-mik, .on-light .v7-mik { color: #111; }
+    .on-white .v7-sub, .on-light .v7-sub  { color: #888; }
+    .on-dark  .v7-mik, .on-darker .v7-mik { color: #fff; }
+    .on-dark  .v7-sub, .on-darker .v7-sub  { color: #555; }
+
+    /* ──────────────────────────────────────
+       V8 — THE STAMP
+       Bordered rectangular container, centered
+       Industrial quality-mark / certification feel
+    ────────────────────────────────────── */
+    .v8-outer {
+      display: inline-flex;
+      position: relative;
+      border: 1.5px solid currentColor;
+      padding: 16px 28px 14px;
+    }
+    .v8-inner { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .v8-mik {
+      font-size: 44px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      line-height: 1;
+    }
+    .v8-divider { display: flex; align-items: center; gap: 8px; width: 100%; }
+    .v8-tick { flex: 1; height: 1px; background: #cc2229; }
+    .v8-dot { width: 4px; height: 4px; border-radius: 50%; background: #cc2229; flex-shrink: 0; }
+    .v8-sub {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.44em;
+      text-transform: uppercase;
+      padding-left: 3px;
+    }
+    /* corner nicks */
+    .v8-outer::before, .v8-outer::after {
+      content: '';
+      position: absolute;
+      width: 8px; height: 8px;
+      background: #1a1a1a;
+    }
+    .v8-outer::before { top: -4px; left: -4px; }
+    .v8-outer::after  { bottom: -4px; right: -4px; }
+    .on-white .v8-outer, .on-light .v8-outer { color: #ccc; }
+    .on-white .v8-outer::before,.on-white .v8-outer::after,
+    .on-light .v8-outer::before,.on-light .v8-outer::after { background: #fff; }
+    .on-white .v8-mik, .on-light .v8-mik { color: #111; }
+    .on-white .v8-sub, .on-light .v8-sub  { color: #888; }
+    .on-dark  .v8-outer,.on-darker .v8-outer { color: #333; }
+    .on-dark  .v8-outer::before,.on-dark .v8-outer::after,
+    .on-darker .v8-outer::before,.on-darker .v8-outer::after { background: #111; }
+    .on-dark  .v8-mik, .on-darker .v8-mik { color: #fff; }
+    .on-dark  .v8-sub, .on-darker .v8-sub  { color: #555; }
+
+    /* ──────────────────────────────────────
+       V9 — THE INVERT
+       Solid red panel, white MIK — for badge/favicon use
+    ────────────────────────────────────── */
+    .v9 { display: flex; align-items: stretch; gap: 0; }
+    .v9-red {
+      background: #cc2229;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+    }
+    .v9-red-word {
+      font-size: 38px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .v9-right {
+      padding: 14px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      border-top: 1px solid;
+      border-bottom: 1px solid;
+      border-right: 1px solid;
+    }
+    .v9-projekt {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    .v9-tagline {
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: #cc2229;
+    }
+    .on-white .v9-right, .on-light .v9-right { border-color: #ddd; }
+    .on-white .v9-projekt,.on-light .v9-projekt { color: #111; }
+    .on-dark  .v9-right,.on-darker .v9-right   { border-color: #2a2a2a; }
+    .on-dark  .v9-projekt,.on-darker .v9-projekt { color: #fff; }
+
+    /* ──────────────────────────────────────
+       V10 — THE WEIGHT
+       Thin weight MIK — inverted expectation,
+       premium / architectural feel
+    ────────────────────────────────────── */
+    .v10 { display: flex; flex-direction: column; gap: 0; }
+    .v10-mik {
+      font-size: 72px;
+      font-weight: 200;
+      letter-spacing: 0.12em;
+      line-height: 1;
+    }
+    .v10-bottom { display: flex; align-items: center; gap: 0; }
+    .v10-line { flex: 1; height: 1px; background: #cc2229; }
+    .v10-projekt {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.44em;
+      text-transform: uppercase;
+      padding-right: 4px;
+    }
+    .on-white .v10-mik,.on-light .v10-mik { color: #111; }
+    .on-white .v10-projekt,.on-light .v10-projekt { color: #111; }
+    .on-dark  .v10-mik,.on-darker .v10-mik { color: #fff; }
+    .on-dark  .v10-projekt,.on-darker .v10-projekt { color: #fff; }
+
+    /* ──────────────────────────────────────
+       V11 — THE FLUSH
+       MIK large left + year tag, PROJEKT right-aligned
+       Opposite corners create visual tension
+    ────────────────────────────────────── */
+    .v11 { display: flex; flex-direction: column; gap: 0; width: 320px; }
+    .v11-top { display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 10px; }
+    .v11-mik {
+      font-size: 56px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .v11-year {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: #cc2229;
+      letter-spacing: 0.1em;
+      padding-bottom: 5px;
+    }
+    .v11-line { height: 2px; background: #cc2229; }
+    .v11-projekt {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.44em;
+      text-transform: uppercase;
+      text-align: right;
+      padding-top: 9px;
+    }
+    .on-white .v11-mik,.on-light .v11-mik { color: #111; }
+    .on-white .v11-projekt,.on-light .v11-projekt { color: #777; }
+    .on-dark  .v11-mik,.on-darker .v11-mik { color: #fff; }
+    .on-dark  .v11-projekt,.on-darker .v11-projekt { color: #555; }
+
+    /* ──────────────────────────────────────
+       V12 — THE LOWERCASE
+       Huge MIK centered, short red dash,
+       "projekt" lowercase italic — fashion meets industrial
+    ────────────────────────────────────── */
+    .v12 { display: flex; flex-direction: column; align-items: center; gap: 0; }
+    .v12-mik {
+      font-size: 72px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      line-height: 1;
+    }
+    .v12-dash { width: 32px; height: 2px; background: #cc2229; margin: 12px 0 10px; }
+    .v12-projekt {
+      font-size: 13px;
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: 0.28em;
+    }
+    .on-white .v12-mik,.on-light .v12-mik { color: #111; }
+    .on-white .v12-projekt,.on-light .v12-projekt { color: #888; }
+    .on-dark  .v12-mik,.on-darker .v12-mik { color: #fff; }
+    .on-dark  .v12-projekt,.on-darker .v12-projekt { color: #666; }
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <h1>MIK Projekt — Logo Variations</h1>
+    <span>#cc2229 · IBM Plex Sans</span>
+  </div>
+
+  <div class="variants">
+
+    <!-- ── V1 ── -->
+    <div class="variant-group">
+      <div class="variant-meta">
+        <span class="variant-num">01</span>
+        <span class="variant-name">The Rule — stacked with full-width line</span>
+      </div>
+      <div class="variant-row">
+        <div class="swatch on-white">
+          <div class="v1">
+            <div class="v1-word">MIK</div>
+            <div class="v1-line"></div>
+            <div class="v1-sub">Projekt</div>
+          </div>
+        </div>
+        <div class="swatch on-dark">
+          <div class="v1">
+            <div class="v1-word">MIK</div>
+            <div class="v1-line"></div>
+            <div class="v1-sub">Projekt</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── V2 ── -->
+    <div class="variant-group" style="margin-top: 32px;">
+      <div class="variant-meta">
+        <span class="variant-num">02</span>
+        <span class="variant-name">The Bar — left accent bar, compact</span>
+      </div>
+      <div class="variant-row">
+        <div class="swatch on-white">
+          <div class="v2">
+            <div class="v2-bar"></div>
+            <div class="v2-text">
+              <div class="v2-mik">MIK</div>
+              <div class="v2-projekt">Projekt</div>
+            </div>
+          </div>
+        </div>
+        <div class="swatch on-dark">
+          <div class="v2">
+            <div class="v2-bar"></div>
+            <div class="v2-text">
+              <div class="v2-mik">MIK</div>
+              <div class="v2-projekt">Projekt</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── V3 ── -->
+    <div class="variant-group" style="margin-top: 32px;">
+      <div class="variant-meta">
+        <span class="variant-num">03</span>
+        <span class="variant-name">The Split — vertical separator, engineering feel</span>
+      </div>
+      <div class="variant-row">
+        <div class="swatch on-white">
+          <div class="v3">
+            <div class="v3-mik">MIK</div>
+            <div class="v3-sep"></div>
+            <div class="v3-right">
+              <span class="v3-tag">od 1955.</span>
+              <span class="v3-projekt">Projekt</span>
+            </div>
+          </div>
+        </div>
+        <div class="swatch on-dark">
+          <div class="v3">
+            <div class="v3-mik">MIK</div>
+            <div class="v3-sep"></div>
+            <div class="v3-right">
+              <span class="v3-tag">od 1955.</span>
+              <span class="v3-projekt">Projekt</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── V4 ── -->
+    <div class="variant-group" style="margin-top: 32px;">
+      <div class="variant-meta">
+        <span class="variant-num">04</span>
+        <span class="variant-name">The Dot — inline wordmark, bold + light contrast</span>
+      </div>
+      <div class="variant-row">
+        <div class="swatch on-white">
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div class="v4">
+              <span class="v4-mik">MIK</span>
+              <span class="v4-dot">·</span>
+              <span class="v4-projekt">Projekt</span>
+            </div>
+            <div class="v4-underline" style="width:160px;"></div>
+          </div>
+        </div>
+        <div class="swatch on-dark">
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div class="v4">
+              <span class="v4-mik">MIK</span>
+              <span class="v4-dot">·</span>
+              <span class="v4-projekt">Projekt</span>
+            </div>
+            <div class="v4-underline" style="width:160px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── V5 ── -->
+    <div class="variant-group" style="margin-top: 32px;">
+      <div class="variant-meta">
+        <span class="variant-num">05</span>
+        <span class="variant-name">The Bracket — [MIK] with red weight-200 brackets</span>
+      </div>
+      <div class="variant-row">
+        <div class="swatch on-white">
+          <div class="v5">
+            <div class="v5-top">
+              <span class="v5-bracket">[</span>
+              <span class="v5-mik">MIK</span>
+              <span class="v5-bracket">]</span>
+            </div>
+            <div class="v5-sub">Projekt</div>
+          </div>
+        </div>
+        <div class="swatch on-dark">
+          <div class="v5">
+            <div class="v5-top">
+              <span class="v5-bracket">[</span>
+              <span class="v5-mik">MIK</span>
+              <span class="v5-bracket">]</span>
+            </div>
+            <div class="v5-sub">Projekt</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── V6 ── -->
+    <div class="variant-group" style="margin-top: 32px;">
+      <div class="variant-meta">
+        <span class="variant-num">06</span>
+        <span class="variant-name">The Slash — bold / italic contrast, fading line</span>
+      </div>
+      <div class="variant-row">
+        <div class="swatch on-white">
+          <div class="v6">
+            <div class="v6-row">
+              <span class="v6-mik">MIK</span>
+              <span class="v6-slash">/</span>
+              <span class="v6-projekt">Projekt</span>
+            </div>
+            <div class="v6-line"></div>
+          </div>
+        </div>
+        <div class="swatch on-dark">
+          <div class="v6">
+            <div class="v6-row">
+              <span class="v6-mik">MIK</span>
+              <span class="v6-slash">/</span>
+              <span class="v6-projekt">Projekt</span>
+            </div>
+            <div class="v6-line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── V7 ── -->
+    <div class="variant-group" style="margin-top: 32px;">
+      <div class="variant-meta">
+        <span class="variant-num">07</span>
+        <span class="variant-name">The Mono — full IBM Plex Mono, serial-number / terminal feel</span>
+      </div>
+      <div class="variant-row">
+        <div class="swatch on-white">
+          <div class="v7">
+            <div class="v7-top">
+              <span class="v7-mik">MIK</span>
+              <span class="v7-tag">EST. 1955</span>
+            </div>
+            <div class="v7-rule"></div>
+            <div class="v7-sub">Projekt</div>
+          </div>
+        </div>
+        <div class="swatch on-dark">
+          <div class="v7">
+            <div class="v7-top">
+              <span class="v7-mik">MIK</span>
+              <span class="v7-tag">EST. 1955</span>
+            </div>
+            <div class="v7-rule"></div>
+            <div class="v7-sub">Projekt</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── V8 ── -->
+    <div class="variant-group" style="margin-top: 32px;">
+      <div class="variant-meta">
+        <span class="variant-num">08</span>
+        <span class="variant-name">The Stamp — bordered container with corner nicks, certification feel</span>
+      </div>
+      <div class="variant-row">
+        <div class="swatch on-white">
+          <div class="v8-outer">
+            <div class="v8-inner">
+              <div class="v8-mik">MIK</div>
+              <div class="v8-divider"><div class="v8-tick"></div><div class="v8-dot"></div><div class="v8-tick"></div></div>
+              <div class="v8-sub">Projekt</div>
+            </div>
+          </div>
+        </div>
+        <div class="swatch on-dark">
+          <div class="v8-outer">
+            <div class="v8-inner">
+              <div class="v8-mik">MIK</div>
+              <div class="v8-divider"><div class="v8-tick"></div><div class="v8-dot"></div><div class="v8-tick"></div></div>
+              <div class="v8-sub">Projekt</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── V9 ── -->
+    <div class="variant-group" style="margin-top: 32px;">
+      <div class="variant-meta">
+        <span class="variant-num">09</span>
+        <span class="variant-name">The Invert — solid red block, white MIK, works as badge</span>
+      </div>
+      <div class="variant-row">
+        <div class="swatch on-white">
+          <div class="v9">
+            <div class="v9-red"><span class="v9-red-word">MIK</span></div>
+            <div class="v9-right">
+              <span class="v9-projekt">Projekt</span>
+              <span class="v9-tagline">od 1955.</span>
+            </div>
+          </div>
+        </div>
+        <div class="swatch on-dark">
+          <div class="v9">
+            <div class="v9-red"><span class="v9-red-word">MIK</span></div>
+            <div class="v9-right">
+              <span class="v9-projekt">Projekt</span>
+              <span class="v9-tagline">od 1955.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── V10 ── -->
+    <div class="variant-group" style="margin-top: 32px;">
+      <div class="variant-meta">
+        <span class="variant-num">10</span>
+        <span class="variant-name">The Weight — ultra-thin MIK, inverts expectation, architectural / premium</span>
+      </div>
+      <div class="variant-row">
+        <div class="swatch on-white">
+          <div class="v10">
+            <div class="v10-mik">MIK</div>
+            <div class="v10-bottom">
+              <span class="v10-projekt">Projekt&nbsp;</span>
+              <div class="v10-line"></div>
+            </div>
+          </div>
+        </div>
+        <div class="swatch on-dark">
+          <div class="v10">
+            <div class="v10-mik">MIK</div>
+            <div class="v10-bottom">
+              <span class="v10-projekt">Projekt&nbsp;</span>
+              <div class="v10-line"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── V11 ── -->
+    <div class="variant-group" style="margin-top: 32px;">
+      <div class="variant-meta">
+        <span class="variant-num">11</span>
+        <span class="variant-name">The Flush — MIK left / year tag / PROJEKT right-aligned, diagonal tension</span>
+      </div>
+      <div class="variant-row">
+        <div class="swatch on-white">
+          <div class="v11">
+            <div class="v11-top">
+              <span class="v11-mik">MIK</span>
+              <span class="v11-year">EST. 1955</span>
+            </div>
+            <div class="v11-line"></div>
+            <div class="v11-projekt">Projekt</div>
+          </div>
+        </div>
+        <div class="swatch on-dark">
+          <div class="v11">
+            <div class="v11-top">
+              <span class="v11-mik">MIK</span>
+              <span class="v11-year">EST. 1955</span>
+            </div>
+            <div class="v11-line"></div>
+            <div class="v11-projekt">Projekt</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── V12 ── -->
+    <div class="variant-group" style="margin-top: 32px;">
+      <div class="variant-meta">
+        <span class="variant-num">12</span>
+        <span class="variant-name">The Lowercase — centered, short red dash, italic lowercase — fashion meets heavy industry</span>
+      </div>
+      <div class="variant-row">
+        <div class="swatch on-white">
+          <div class="v12">
+            <div class="v12-mik">MIK</div>
+            <div class="v12-dash"></div>
+            <div class="v12-projekt">projekt</div>
+          </div>
+        </div>
+        <div class="swatch on-dark">
+          <div class="v12">
+            <div class="v12-mik">MIK</div>
+            <div class="v12-dash"></div>
+            <div class="v12-projekt">projekt</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
