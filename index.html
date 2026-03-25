@@ -657,7 +657,7 @@
       color: var(--text-muted);
     }
 
-    /* Illustration inside cards — fades in within existing white space */
+    /* Illustration inside cards — collapses in default, expands on hover */
     .card-illus-wrap {
       flex: 1;
       display: flex;
@@ -665,10 +665,15 @@
       justify-content: center;
       overflow: hidden;
       opacity: 0;
-      transition: opacity 0.3s ease;
+      max-height: 0;
+      transition: opacity 0.35s ease, max-height 0.4s ease;
       min-height: 0;
     }
-    .card:hover .card-illus-wrap { opacity: 1; }
+    .card:hover .card-illus-wrap,
+    .card.active .card-illus-wrap {
+      opacity: 1;
+      max-height: 220px;
+    }
 
     .card--top .card-illus-wrap { margin-top: 12px; }
     .card--bottom .card-illus-wrap { margin-bottom: 12px; }
@@ -680,6 +685,28 @@
       background: var(--gray-bg);
       background-size: cover;
       background-position: center;
+      transition: transform 0.4s ease;
+    }
+    .card:hover .card-illus-img,
+    .card.active .card-illus-img { transform: scale(1.15); }
+
+    /* Hint peek animation — briefly shows illustration on scroll entry */
+    @keyframes hint-peek {
+      0%   { max-height: 0; opacity: 0; }
+      35%  { max-height: 180px; opacity: 0.85; }
+      65%  { max-height: 180px; opacity: 0.85; }
+      100% { max-height: 0; opacity: 0; }
+    }
+    .card.hint-peek .card-illus-wrap {
+      animation: hint-peek 1.8s ease-in-out forwards;
+    }
+
+    /* Mobile active state (click-to-expand) */
+    .card.active {
+      border-color: #d0d0d0;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+      height: 100%;
+      z-index: 2;
     }
 
     /* ─── TESTIMONIALS ──────────────────────────────────────────── */
@@ -920,24 +947,27 @@
       /* Hero */
       .hero {
         height: auto;
+        padding-top: 40px;
+        padding-bottom: 0;
       }
       .hero .inner {
         flex-direction: column;
-        padding-top: 48px;
-        padding-bottom: 0;
-        padding-right: var(--px);
         height: auto;
       }
       .hero-left {
         width: 100%;
-        padding-bottom: 40px;
+        padding-bottom: 20px;
+        gap: 20px;
       }
       .hero-image {
-        width: 100%;
-        height: 320px;
+        flex: none;
+        width: calc(100% + 2 * var(--px));
+        margin-left: calc(-1 * var(--px));
+        height: 300px;
       }
       .hero-image-wrap {
-        border-bottom-left-radius: 48px;
+        border-radius: 0;
+        border-bottom-left-radius: 56px;
       }
       .hero-badge { white-space: normal; text-align: center; }
 
@@ -993,7 +1023,9 @@
 
     @media (max-width: 480px) {
       :root { --px: 20px; }
+      .hero { padding-top: 28px; }
       .hero-title { font-size: 28px; }
+      .hero-left { gap: 16px; padding-bottom: 16px; }
       .stat { flex: 1 1 100%; }
       .hero-badge { font-size: 12px; bottom: 16px; }
     }
@@ -1320,12 +1352,12 @@
               <span class="card-desc">Redovno i vanredno održavanje, remont i dijagnostika postrojenja.</span>
             </div>
             <div class="card-illus-wrap">
-              <div class="card-illus-img" style="background-image:url('assets/1_navigation/nav_servis_i_odrzavanje.png'); background-size: 81%;"></div>
+              <div class="card-illus-img" style="background-image:url('assets/1_navigation/nav_servis_i_odrzavanje.png');"></div>
             </div>
           </div>
           <div class="card card--bottom reveal reveal-delay-2">
             <div class="card-illus-wrap">
-              <div class="card-illus-img" style="background-image:url('assets/1_navigation/nav_instalacija-sistem.png'); background-size: 90%;"></div>
+              <div class="card-illus-img" style="background-image:url('assets/1_navigation/nav_instalacija-sistem.png');"></div>
             </div>
             <div class="card-text">
               <span class="card-title">Rezervni delovi i oprema</span>
@@ -1502,6 +1534,41 @@
     }, { threshold: 0.12 });
 
     reveals.forEach(el => observer.observe(el));
+
+    // ─── Service cards: click-to-expand on touch devices ────
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+      document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('click', (e) => {
+          const wasActive = card.classList.contains('active');
+          card.closest('.card-col').querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+          if (!wasActive) card.classList.add('active');
+          e.stopPropagation();
+        });
+      });
+      document.addEventListener('click', () => {
+        document.querySelectorAll('.card.active').forEach(c => c.classList.remove('active'));
+      });
+    }
+
+    // ─── Service cards: hint animation on scroll entry ───────
+    const servicesGrid = document.querySelector('.services-grid');
+    if (servicesGrid) {
+      const topCards = Array.from(document.querySelectorAll('.card--top'));
+      const hintObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            topCards.forEach((card, i) => {
+              setTimeout(() => {
+                card.classList.add('hint-peek');
+                setTimeout(() => card.classList.remove('hint-peek'), 2000);
+              }, 500 + i * 250);
+            });
+            hintObs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      hintObs.observe(servicesGrid);
+    }
 
     // ─── Mega nav ────────────────────────────────────────────
     const megaItem  = document.getElementById('megaItem');
