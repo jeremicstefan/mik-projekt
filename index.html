@@ -9,6 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&family=IBM+Plex+Sans:wght@200;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="nav.css?v=9">
+  <link rel="stylesheet" href="footer.css?v=5">
   <style>
     /* ─── Reset & Base ─────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,7 +26,7 @@
     :root {
       --red:       #cc2229;
       --dark:      #111111;
-      --dark2:     #161616;
+      --dark2: #000;
       --gray-bg:   #f5f5f5;
       --border:    #e6e6e6;
       --text-muted:#5a5a5a;
@@ -61,149 +63,10 @@
     .reveal-delay-4 { transition-delay: 0.4s; }
 
     /* ─── NAV ──────────────────────────────────────────────────── */
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      height: 64px;
-      background: #000;
-      transition: box-shadow 0.3s ease;
-    }
-    .nav .inner {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .nav.scrolled {
-      box-shadow: 0 2px 24px rgba(0,0,0,0.4);
-    }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      flex-shrink: 0;
-    }
-    .nav-logo img { height: 48px; width: auto; display: block; }
-
-    .nav-links {
-      display: flex;
-      gap: 40px;
-      align-items: stretch;
-      list-style: none;
-      align-self: stretch;
-    }
-    .nav-links li {
-      display: flex;
-      align-items: center;
-      position: relative;
-    }
-    .nav-links a {
-      font-size: 14px;
-      font-weight: 400;
-      color: rgba(255,255,255,0.72);
-      text-decoration: none;
-      letter-spacing: -0.01em;
-      position: relative;
-      display: flex;
-      align-items: center;
-      align-self: stretch;
-      transition: color var(--transition);
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      left: 0; bottom: 0;
-      width: 0; height: 2px;
-      background: var(--red);
-      transition: width var(--transition);
-    }
-    .nav-links a:hover { color: rgba(255,255,255,0.88); }
-    .nav-links a:hover::after,
-    .nav-links a.active::after { width: 100%; }
-    .nav-links a.active {
-      font-weight: 600;
-      color: #fff;
-    }
-
-    .nav-cta {
-      background: var(--red);
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      padding: 11px 20px;
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background var(--transition), transform var(--transition);
-      white-space: nowrap;
-    }
-    .nav-cta:hover {
-      background: #a81b21;
-      transform: translateY(-1px);
-    }
 
     /* Hamburger */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 4px;
-      background: none;
-      border: none;
-    }
-    .hamburger span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: #fff;
-      border-radius: 2px;
-      transition: transform 0.3s ease, opacity 0.3s ease;
-    }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     /* Mobile nav drawer */
-    .nav-drawer {
-      display: none;
-      position: fixed;
-      top: 64px; left: 0; right: 0;
-      background: #fff;
-      padding: 24px var(--px);
-      flex-direction: column;
-      gap: 0;
-      z-index: 99;
-      transform: translateY(-10px);
-      opacity: 0;
-      transition: transform 0.25s ease, opacity 0.25s ease;
-      pointer-events: none;
-    }
-    .nav-drawer.open {
-      transform: translateY(0);
-      opacity: 1;
-      pointer-events: all;
-    }
-    .nav-drawer a {
-      display: block;
-      font-size: 16px;
-      font-weight: 400;
-      color: var(--text-nav);
-      text-decoration: none;
-      padding: 14px 0;
-      transition: color var(--transition);
-    }
-    .nav-drawer a:hover { color: var(--dark); }
-    .nav-drawer a.active { font-weight: 600; color: var(--dark); }
-    .nav-drawer .nav-cta {
-      margin-top: 20px;
-      text-align: center;
-      display: block;
-    }
 
     /* ─── HERO ─────────────────────────────────────────────────── */
     .hero-heading { display: flex; flex-direction: column; gap: 4px; }
@@ -213,14 +76,14 @@
       font-weight: 600;
       color: var(--red);
       letter-spacing: 0.06em;
-      line-height: 26px;
+      line-height: 32px;
     }
     .badge-num { color: var(--red); font-weight: 600; }
 
     .hero {
       background: #fff;
       padding-top: 80px;
-      padding-bottom: 80px;
+      padding-bottom: 40px;
     }
     .hero .inner {
       display: flex;
@@ -297,24 +160,15 @@
       transform: translateY(-1px);
       }
 
-    .hero-certs {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .hero-certs-label {
-      font-size: 13px;
-      color: var(--dark);
-    }
-    .hero-cert-tags {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+    /* ─── CERTS STRIP ─────────────────────────────────────────────── */
+    .certs-strip { background: #fff; }
+    .certs-strip .inner { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding-top: 0; padding-bottom: 32px; }
+    .certs-strip-label { font-size: 12px; font-weight: 500; color: var(--text-dim); white-space: nowrap; flex-shrink: 0; }
+    .certs-strip-tags { display: flex; gap: 8px; flex-wrap: wrap; }
     .cert-tag {
       background: #fff;
       border-radius: 2px;
-      padding: 6px 12px;
+      padding: 5px 11px;
       font-size: 12px;
       font-weight: 500;
       color: var(--text-nav);
@@ -345,9 +199,8 @@
 
     .hero-badge {
       position: absolute;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
+      bottom: 12px;
+      right: 12px;
       background: rgba(245,245,245,0.25);
       border: 1px solid #d2d2d2;
       border-radius: 100px;
@@ -362,8 +215,12 @@
       animation: badge-in 0.8s 0.5s both ease;
     }
     @keyframes badge-in {
-      from { opacity: 0; transform: translateX(-50%) translateY(8px); }
-      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes badge-in-mobile {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
     .badge-dot {
       width: 8px; height: 8px;
@@ -690,18 +547,7 @@
     .card:hover .card-illus-img,
     .card.active .card-illus-img { transform: scale(1.15); }
 
-    /* Hint peek animation — briefly shows illustration on scroll entry */
-    @keyframes hint-peek {
-      0%   { max-height: 0; opacity: 0; }
-      35%  { max-height: 180px; opacity: 0.85; }
-      65%  { max-height: 180px; opacity: 0.85; }
-      100% { max-height: 0; opacity: 0; }
-    }
-    .card.hint-peek .card-illus-wrap {
-      animation: hint-peek 1.8s ease-in-out forwards;
-    }
-
-    /* Mobile active state (click-to-expand) */
+/* Mobile active state (click-to-expand) */
     .card.active {
       border-color: #d0d0d0;
       box-shadow: 0 8px 32px rgba(0,0,0,0.10);
@@ -722,33 +568,28 @@
     }
 
     .testimonials-grid {
-      display: flex;
-      gap: 24px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
     }
-
     .testimonial-card {
-      flex: 1;
       background: #fff;
-      border: 1px solid var(--border);
+      box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.06), 0px 1px 2px -1px rgba(0,0,0,0.06), 0px 2px 4px 0px rgba(0,0,0,0.04);
       border-radius: 4px;
-      padding: 24px;
+      padding: 28px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      transition: border-color var(--transition), box-shadow var(--transition);
+      gap: 18px;
+      transition: box-shadow var(--transition);
     }
     .testimonial-card:hover {
-      border-color: #d0d0d0;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.08), 0px 4px 12px rgba(0,0,0,0.08);
     }
-    .testimonial-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .testimonial-card-wide {
+      grid-column: 1 / -1;
     }
     .testimonial-logo {
-      height: 24px;
-      flex-shrink: 0;
+      height: 28px;
     }
     .testimonial-logo img {
       height: 100%;
@@ -756,27 +597,56 @@
       display: block;
       object-fit: contain;
     }
-    .testimonial-company {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--dark);
-      line-height: 1.3;
+    /* project bar */
+    .testimonial-project {
+      border-top: 2px solid var(--red);
+      padding-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-top: auto;
     }
+    .testimonial-project-detail {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--dark);
+      line-height: 1.5;
+    }
+    .testimonial-project-type {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--red);
+      letter-spacing: 0.03em;
+      margin-top: 2px;
+    }
+    /* quote */
     .testimonial-text {
       font-size: 13px;
-      line-height: 1.7;
+      line-height: 1.75;
       color: var(--text-nav);
+      font-style: italic;
       flex: 1;
     }
+    /* author */
     .testimonial-author strong {
       display: block;
       font-size: 13px;
       font-weight: 700;
+      font-style: normal;
       color: var(--dark);
     }
-    .testimonial-author span {
+    .testimonial-author .ta-company {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-dim);
+      font-style: normal;
+    }
+    .testimonial-author .ta-meta {
+      display: block;
       font-size: 12px;
       color: var(--text-dim);
+      font-style: normal;
     }
 
     /* ─── PARTNERS ──────────────────────────────────────────────── */
@@ -804,22 +674,36 @@
       color: var(--red);
     }
 
-    .partners-logos {
+    .partners-logos-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      width: 100%;
+    }
+    .partners-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       width: 100%;
       gap: 32px;
-      flex-wrap: wrap;
     }
-    .partners-logos img {
-      height: 48px;
+    .partners-row--horizontal img {
+      height: 38px;
       object-fit: contain;
       filter: grayscale(100%);
       opacity: 0.6;
       transition: filter var(--transition), opacity var(--transition), transform var(--transition);
     }
-    .partners-logos img:hover {
+    .partners-row--square img {
+      height: 62px;
+      object-fit: contain;
+      filter: grayscale(100%);
+      opacity: 0.6;
+      transition: filter var(--transition), opacity var(--transition), transform var(--transition);
+    }
+    .partners-row--square img:nth-child(3),
+    .partners-row--square img:nth-child(4) { height: 42px; }
+    .partners-row img:hover {
       filter: grayscale(0%);
       opacity: 1;
       transform: scale(1.05);
@@ -828,105 +712,104 @@
     /* ─── CTA ───────────────────────────────────────────────────── */
     .cta-section {
       background: var(--dark);
-      text-align: center;
     }
     .cta-section .inner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
       padding-top: 96px;
       padding-bottom: 96px;
     }
+    .cta-left {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      padding-top: 8px;
+    }
     .cta-title {
-      font-size: clamp(24px, 2.5vw, 36px);
+      font-size: clamp(24px, 2.2vw, 38px);
       font-weight: 700;
       color: #fff;
+      line-height: 1.15;
     }
     .cta-subtitle {
-      font-size: 16px;
-      line-height: 1.625;
-      color: #b4b4b4;
-      max-width: 700px;
+      font-size: 15px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.55);
     }
-
-    /* ─── FOOTER ────────────────────────────────────────────────── */
-    .footer {
-      background: var(--dark2);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .footer-content {
-      display: flex;
-      gap: 80px;
-      padding-top: 64px;
-      padding-bottom: 64px;
-    }
-
-    .footer-brand {
-      width: 280px;
-      flex-shrink: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .footer-brand-logo {
-      height: 32px;
-      width: auto;
-      display: block;
-      align-self: flex-start;
-    }
-    .footer-brand p {
-      font-size: 13px;
-      line-height: 1.7;
-      color: #8c8c8c;
-    }
-
-    .footer-cols {
-      flex: 1;
-      display: flex;
-      justify-content: space-between;
-      gap: 40px;
-    }
-    .footer-col {
+    .cta-trust {
+      list-style: none;
       display: flex;
       flex-direction: column;
       gap: 14px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
-    .footer-col-title {
-      font-size: 11px;
-      font-weight: 500;
-      color: #646464;
-      letter-spacing: 0.06em;
-    }
-    .footer-col a {
-      font-size: 13px;
-      line-height: 1.5;
-      color: #b4b4b4;
-      text-decoration: none;
-      transition: color var(--transition);
-    }
-    .footer-col a:hover { color: #fff; }
-
-    .footer-bottom {
-      border-top: 1px solid #282828;
-    }
-    .footer-bottom .inner {
+    .cta-trust li {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding-top: 24px;
-      padding-bottom: 24px;
+      gap: 12px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.65);
     }
-    .footer-bottom span,
-    .footer-bottom a {
-      font-size: 12px;
-      color: #505050;
+    .cta-trust li::before {
+      content: '';
+      display: block;
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      background: var(--red);
+      border-radius: 50%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpolyline points='2,6 5,9 10,3' stroke='white' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    .cta-contact-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .cta-contact-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .cta-contact-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.08em;
+    }
+    .cta-contact-value {
+      font-size: 15px;
+      color: #fff;
       text-decoration: none;
-      transition: color var(--transition);
+      transition: color 0.2s;
     }
-    .footer-bottom a:hover { color: #888; }
+    .cta-contact-value:hover { color: rgba(255,255,255,0.7); }
+    .cta-contact-divider { height: 1px; background: rgba(255,255,255,0.1); }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--red);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      padding: 14px 28px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: background 0.18s, transform 0.18s;
+      margin-top: 8px;
+    }
+    .cta-btn:hover { background: #a81b21; transform: translateY(-1px); }
+
+    /* ─── FOOTER ────────────────────────────────────────────────── */
 
     /* ─── RESPONSIVE ─────────────────────────────────────────────── */
     @media (max-width: 1100px) {
@@ -940,9 +823,6 @@
       :root { --px: 32px; }
 
       /* Nav */
-      .nav-links, .nav-cta { display: none; }
-      .hamburger { display: flex; }
-      .nav-drawer { display: flex; }
 
       /* Hero */
       .hero {
@@ -961,15 +841,13 @@
       }
       .hero-image {
         flex: none;
-        width: calc(100% + 2 * var(--px));
-        margin-left: calc(-1 * var(--px));
-        height: 300px;
+        width: 100%;
+        height: 420px;
       }
       .hero-image-wrap {
-        border-radius: 0;
-        border-bottom-left-radius: 56px;
+        border-radius: 4px;
+        border-bottom-left-radius: 99px;
       }
-      .hero-badge { white-space: normal; text-align: center; }
 
       /* Stats */
       .stats-bar .inner {
@@ -993,222 +871,133 @@
         clip-path: inset(0 round 0 48px 0 0);
       }
 
-      /* Services */
-      .services-grid { flex-direction: column; height: auto; }
-      .card-featured { width: 100%; height: 200px; }
-      .services-right { gap: 12px; }
-      .card-col { height: 280px; }
+      /* Services — mobile: unified horizontal row cards */
+      .services-grid { flex-direction: column; height: auto; gap: 12px; }
+
+      /* Featured card: match regular cards */
+      .card-featured {
+        width: 100%;
+        height: auto;
+        border: 1px solid var(--border);
+      }
+      .card-featured .card-accent { display: block; }
+      .card-featured-body {
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+        padding: 16px;
+      }
+      .card-featured .card-title { font-size: 15px !important; }
+      .card-featured-text { flex: 1; min-width: 0; }
+      .card-featured-illus {
+        display: block;
+        position: static;
+        transform: none;
+        opacity: 1;
+        width: 64px;
+        height: 64px;
+        flex-shrink: 0;
+        border-radius: 0;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: transparent;
+        margin-right: 0;
+      }
+      .card-featured:hover .card-featured-illus { transform: none; opacity: 1; }
+
+      .services-right { flex-direction: column; gap: 12px; }
+      .card-col { position: static; overflow: visible; height: auto; display: flex; flex-direction: column; gap: 12px; }
+
+      .card {
+        position: relative; height: auto; top: auto; bottom: auto; left: auto; right: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .card:hover { height: auto; }
+      .card-text { order: 1; margin-top: 0 !important; }
+      .card--bottom .card-text { margin-top: 0; }
+      .card-illus-wrap {
+        order: 2;
+        opacity: 1;
+        max-height: 120px;
+        margin: 0 !important;
+      }
+      .card-illus-img {
+        height: 120px;
+        background-size: cover;
+      }
 
       /* Testimonials */
-      .testimonials-grid { flex-direction: column; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .testimonial-card-wide { max-width: 100%; }
 
       /* Partners */
-      .partners-logos {
+      .partners-row {
         justify-content: center;
         gap: 24px;
+        flex-wrap: wrap;
       }
-      .partners-logos img { height: 36px; }
+      .partners-row--horizontal img { height: 32px; }
+      .partners-row--square img { height: 50px; }
 
       /* Footer */
-      .footer-content {
-        flex-direction: column;
-        gap: 40px;
-        padding-top: 48px;
-        padding-bottom: 48px;
-      }
-      .footer-brand { width: 100%; }
-      .footer-cols { flex-wrap: wrap; gap: 32px; }
-      .footer-bottom .inner { flex-direction: column; gap: 8px; text-align: center; }
     }
 
     @media (max-width: 480px) {
-      :root { --px: 20px; }
+      :root { --px: 16px; }
       .hero { padding-top: 28px; }
       .hero-title { font-size: 28px; }
       .hero-left { gap: 16px; padding-bottom: 16px; }
+      .hero-image { height: 300px; }
       .stat { flex: 1 1 100%; }
-      .hero-badge { font-size: 12px; bottom: 16px; }
+      .hero-badge {
+        font-size: 12px;
+        white-space: normal;
+        text-align: left;
+        left: auto;
+        right: 16px;
+        bottom: 16px;
+        max-width: 270px;
+        transform: none;
+        border-radius: 16px;
+        align-items: flex-start;
+        animation: badge-in-mobile 0.8s 0.5s both ease;
+      }
+      .hero-badge .badge-dot {
+        width: 6px;
+        height: 6px;
+        margin-top: 5px;
+        flex-shrink: 0;
+      }
     }
 
     /* ─── MEGA NAV ───────────────────────────────────────────── */
-    .nav-mega-item { position: relative; }
 
-    .nav-mega-trigger { display: flex; align-items: center; gap: 5px; font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.72); text-decoration: none; letter-spacing: -0.01em; position: relative; display: flex; align-items: center; align-self: stretch; transition: color var(--transition); }
-    .nav-mega-trigger::after { content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 2px; background: var(--red); transition: width var(--transition); }
-    .nav-mega-trigger:hover,
-    .nav-mega-item.mega-open .nav-mega-trigger { color: rgba(255,255,255,0.88); }
-    .nav-mega-trigger:hover::after,
-    .nav-mega-item.mega-open .nav-mega-trigger::after { width: 100%; }
+    @media (max-width: 860px) {
+    }
 
-    .nav-mega-chevron {
-      width: 10px; height: 10px;
-      stroke: currentColor; fill: none; stroke-width: 1.8;
-      flex-shrink: 0;
-      transition: transform 0.2s ease;
-      margin-top: 1px;
+    /* ─── CTA RESPONSIVE ────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .cta-section .inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        padding-top: 64px;
+        padding-bottom: 64px;
+      }
+      .cta-contact-card { padding: 24px; }
     }
-    .nav-mega-item.mega-open .nav-mega-chevron { transform: rotate(180deg); }
 
-    .mega-panel {
-      position: fixed;
-      top: 64px; left: 0; right: 0;
-      background: #fff;
-      border-top: 2px solid var(--red);
-      border-bottom: 1px solid var(--border);
-      box-shadow: 0 16px 48px rgba(0,0,0,0.09);
-      z-index: 98;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(-6px);
-      transition: opacity 0.18s ease, transform 0.18s ease;
-    }
-    .mega-panel.mega-visible {
-      opacity: 1;
-      pointer-events: all;
-      transform: translateY(0);
-    }
-    .mega-inner-wrap {
-      padding-top: 28px;
-      padding-bottom: 32px;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-    .mega-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .mega-label {
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--text-dim);
-      letter-spacing: 0.07em;
-    }
-    .mega-all-link {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--red);
-      text-decoration: none;
-      transition: opacity var(--transition);
-    }
-    .mega-all-link:hover { opacity: 0.7; }
-
-    .mega-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
-    }
-    .mega-item {
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-      text-decoration: none;
-      color: inherit;
-      border-radius: 4px;
-      padding: 8px 8px 12px;
-      transition: background var(--transition);
-    }
-    .mega-item:hover { background: var(--gray-bg); }
-    .mega-item-img { height: 96px; border-radius: 4px; overflow: hidden; background: #ebebeb; background-size: cover; background-position: center; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; }
-    .mega-item-img span {
-      font-size: 11px;
-      font-weight: 500;
-      color: #999;
-      letter-spacing: 0.04em;
-      text-align: center;
-      padding: 0 10px;
-      line-height: 1.4;
-    }
-    .mega-item-name {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--dark);
-      line-height: 1.2;
-    }
-    .mega-item-desc {
-      font-size: 12px;
-      line-height: 1.55;
-      color: var(--text-muted);
-    }
-    @media (max-width: 900px) { .mega-panel { display: none; } }
+}
   </style>
 </head>
 <body>
 
   <!-- ─── NAV ─────────────────────────────────────────────────── -->
-    <nav class="nav" id="nav">
-    <div class="inner">
-      <a class="nav-logo" href="index.html">
-        <img src="assets/0_logo/mik-logo-light-no-est.png" alt="MIK Projekt" />
-      </a>
-      <ul class="nav-links">
-        <li><a href="index.html" class="active">Početna</a></li>
-        <li><a href="o-nama.html">O nama</a></li>
-        <li class="nav-mega-item" id="megaItem">
-          <a href="usluge.html" class="nav-mega-trigger" id="megaTrigger">
-            Naše usluge
-            <svg class="nav-mega-chevron" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
-              <polyline points="1,3 5,7 9,3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        </li>
-        <li><a href="projekti.html">Projekti</a></li>
-        <li><a href="dokumentacija.html">Dokumentacija</a></li>
-      </ul>
-      <a class="nav-cta" href="#cta">Kontakt</a>
-      <button class="hamburger" id="hamburger" aria-label="Meni">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
-
-  <!-- Mega panel -->
-  <div class="mega-panel" id="megaPanel">
-    <div class="inner mega-inner-wrap">
-      <div class="mega-top">
-        <span class="mega-label">POSLOVNE OBLASTI</span>
-        <a href="usluge.html" class="mega-all-link">Sve usluge →</a>
-      </div>
-      <div class="mega-grid">
-        <a class="mega-item" href="kotlovski-sistemi.html">
-          <div class="mega-item-img" style="background-image:url('assets/1_navigation/nav_kotlovski-sistem.png'); background-position: calc(50% - 5px) calc(50% + 5%);"></div>
-          <span class="mega-item-name">Kotlovski sistemi</span>
-          <span class="mega-item-desc">Industrijska kotlovska postrojenja za različita goriva</span>
-        </a>
-        <a class="mega-item" href="inzenjerstvo.html">
-          <div class="mega-item-img" style="background-image:url('assets/1_navigation/nav_inzenjerstvo.png'); background-size: 110%; background-repeat: no-repeat;"></div>
-          <span class="mega-item-name">Inženjerstvo</span>
-          <span class="mega-item-desc">Projektovanje energetskih i termotehničkih sistema</span>
-        </a>
-        <a class="mega-item" href="proizvodnja.html">
-          <div class="mega-item-img" style="background-image:url('assets/1_navigation/nav_proizvodnja.png')"></div>
-          <span class="mega-item-name">Proizvodnja</span>
-          <span class="mega-item-desc">Precizna izrada komponenti i kompleksnih sistema</span>
-        </a>
-        <a class="mega-item" href="instalacija-montaza.html">
-          <div class="mega-item-img" style="background-image:url('assets/1_navigation/nav_instalacija-sistem.png')"></div>
-          <span class="mega-item-name">Instalacija sistema</span>
-          <span class="mega-item-desc">Stručna montaža i puštanje u rad postrojenja</span>
-        </a>
-        <a class="mega-item" href="usluge-i-odrzavanje.html">
-          <div class="mega-item-img" style="background-image:url('assets/1_navigation/nav_servis_i_odrzavanje.png'); background-size: 70%; background-repeat: no-repeat; background-color: #fff;"></div>
-          <span class="mega-item-name">Servis i održavanje</span>
-          <span class="mega-item-desc">Dugoročna tehnička podrška i optimizacija sistema</span>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Mobile drawer -->
-  <div class="nav-drawer" id="navDrawer">
-    <a href="#hero" class="active" onclick="closeDrawer()">Početna</a>
-    <a href="o-nama.html" onclick="closeDrawer()">O nama</a>
-    <a href="usluge.html" onclick="closeDrawer()">Naše usluge</a>
-    <a href="projekti.html" onclick="closeDrawer()">Projekti</a>
-    <a href="dokumentacija.html" onclick="closeDrawer()">Dokumentacija</a>
-    <a href="#cta" class="nav-cta" onclick="closeDrawer()">Kontakt</a>
-  </div>
+  <div id="nav-root"></div>
+  <script src="nav.js?v=6"></script>
+  <script>MikNav.init('index');</script>
 
   <!-- ─── HERO ─────────────────────────────────────────────────── -->
   <section class="hero" id="hero">
@@ -1227,14 +1016,6 @@
         <a class="btn-primary" href="#cta">Zatražite tehničku konsultaciju</a>
         <a class="btn-secondary" href="projekti.html">Pogledajte reference</a>
       </div>
-      <div class="hero-certs reveal reveal-delay-3">
-        <span class="hero-certs-label">Posedujemo sve evropske sertifikate:</span>
-        <div class="hero-cert-tags">
-          <span class="cert-tag">ISO 9001</span>
-          <span class="cert-tag">ISO 14001</span>
-          <span class="cert-tag">ISO 45001</span>
-        </div>
-      </div>
     </div>
     <div class="hero-image">
       <div class="hero-image-wrap">
@@ -1245,6 +1026,22 @@
         Instalirano preko 20.000 MW kapaciteta, sa efikasnošću koja dostiže 98%
       </div>
     </div>
+    </div>
+  </section>
+
+  <!-- ─── CERTS STRIP ─────────────────────────────────────────────── -->
+  <section class="certs-strip reveal">
+    <div class="inner">
+      <span class="certs-strip-label">Posedujemo sve evropske sertifikate:</span>
+      <div class="certs-strip-tags">
+        <span class="cert-tag">EN 1090 EXC 3</span>
+        <span class="cert-tag">ISO 3834-2</span>
+        <span class="cert-tag">ISO 9001</span>
+        <span class="cert-tag">ISO 14001</span>
+        <span class="cert-tag">ISO 45001</span>
+        <span class="cert-tag">ISO 50001</span>
+        <span class="cert-tag">SCC</span>
+      </div>
     </div>
   </section>
 
@@ -1376,48 +1173,90 @@
     <div class="inner">
     <h2 class="section-title reveal">Klijenti o saradnji</h2>
     <div class="testimonials-grid">
+
+      <!-- 1. British American Tobacco -->
       <div class="testimonial-card reveal">
-        <div class="testimonial-header">
-          <div class="testimonial-logo">
-            <img src="assets/2_landing-page/british-american-tobacco.png" alt="British American Tobacco" />
-          </div>
-        </div>
-        <p class="testimonial-text">
-          Saradnja sa MIK-om na projektu rekonstrukcije kotlovnice bila je profesionalna od početka do kraja. Rokovi su ispoštovani, i kvalitet izvedenih radova je na najvišem nivou.
-        </p>
+        <div class="testimonial-logo"><img src="assets/2_landing-page/british-american-tobacco.webp" alt="British American Tobacco" /></div>
+        <p class="testimonial-text">„Kada smo analizirali gubitke otpadne toplote u našem pogonu u Vranju, tražili smo partnera koji razume i procesnu stranu i tehničku izvodivost. MIK Projekt je od prvog sastanka pristupio projektu kao integralni deo našeg tima. Ugradnja utilizatora je izvedena bez prekida proizvodnog procesa, u planiranom roku. Rezultati su merljivi: povrat ulaganja se oseca već u prvoj sezoni. Ovo nije bila standardna nabavka, bio je to partnerski odnos."</p>
         <div class="testimonial-author">
-          <strong>Petar Nikolić</strong>
-          <span>Tehnički direktor</span>
+          <strong>Tehnički direktor</strong>
+          <span class="ta-company">British American Tobacco</span>
+          <span class="ta-meta">Vranje · 2022.</span>
+        </div>
+        <div class="testimonial-project">
+          <span class="testimonial-project-detail">• Ugradnja utilizatora otpadne toplote</span>
+          <span class="testimonial-project-detail">• 4.54 MW, gas, 9 bar, 175°C</span>
+          <span class="testimonial-project-detail">• Para za industrijsku upotrebu</span>
+          <span class="testimonial-project-type">Modernizacija</span>
         </div>
       </div>
+
+      <!-- 2. Tigar Tyres -->
       <div class="testimonial-card reveal reveal-delay-1">
-        <div class="testimonial-header">
-          <div class="testimonial-logo">
-            <img src="assets/2_landing-page/beogradske-elektrane.png" alt="Beogradske Elektrane" />
-          </div>
-        </div>
-        <p class="testimonial-text">
-          Angažovali smo MIK za kompletan servis termoenergetskog postrojenja. Njihov tim je pokazao izuzetno poznavanje materije i efikasnost u radu.
-        </p>
+        <div class="testimonial-logo"><img src="assets/2_landing-page/tigar-tyres.webp" alt="Tigar Tyres" /></div>
+        <p class="testimonial-text">„Prelazak na gas bio je strateška odluka za naš pogon. Kotao kapaciteta 32 t/h, pritisak 24 bara, radna temperatura 280°C. To su parametri koji ne dozvoljavaju kompromise ni u projektovanju ni u izvedbi. MIK Projekt je preuzeo kompletnu odgovornost: od tehničkog rešenja i projektne dokumentacije do montaže i puštanja u rad. Prelaz je prošao bez zastoja u proizvodnji. Danas kotao radi stabilno, emisije su u granicama nove regulative, a operativni troškovi su vidno niži."</p>
         <div class="testimonial-author">
-          <strong>Jelena Marković</strong>
-          <span>Direktorka</span>
+          <strong>Tehnički direktor</strong>
+          <span class="ta-company">Tigar Tyres</span>
+          <span class="ta-meta">Pirot · 2019.</span>
+        </div>
+        <div class="testimonial-project">
+          <span class="testimonial-project-detail">• Gasifikacija kotla</span>
+          <span class="testimonial-project-detail">• 32 t/h, 24 bar, 280°C</span>
+          <span class="testimonial-project-detail">• Para za industrijsku upotrebu</span>
+          <span class="testimonial-project-type">Modernizacija · prelaz HFO/mazut na gas</span>
         </div>
       </div>
-      <div class="testimonial-card reveal reveal-delay-2">
-        <div class="testimonial-header">
-          <div class="testimonial-logo">
-            <img src="assets/2_landing-page/tigar-tyres.png" alt="Tigar Tyres" />
-          </div>
-        </div>
-        <p class="testimonial-text">
-          Pouzdani su partner za sve što se tiče industrijske energetike. Posebno cenimo njihovu dostupnost za hitne intervencije i tehničku podršku.
-        </p>
+
+      <!-- 3. Beogradske Elektrane -->
+      <div class="testimonial-card reveal">
+        <div class="testimonial-logo" style="height:40px"><img src="assets/2_landing-page/beogradske-elektrane.webp" alt="Beogradske Elektrane" /></div>
+        <p class="testimonial-text">„Sa MIK Projektom sarađujemo više od pet decenija. Kako su se menjali regulatorni zahtevi i standardi emisija, MIK Projekt je bio naš partner za modernizaciju. Od 2019. do 2025. godine zajedno smo realizovali projekte redukcije NOx emisija na svim ključnim kotlarnicama u Beogradu: Dunav, Novi Beograd, Konjarnik, Cerak, Mirijevo, Mladenovac, Borca. Većinu gorionika na našim postrojenjima isporučio je MIK Projekt, i danas ih oni održavaju po važećim ugovorima o održavanju."</p>
         <div class="testimonial-author">
-          <strong>Miloš Jovanović</strong>
-          <span>Glavni inženjer</span>
+          <strong>Tehnički direktor</strong>
+          <span class="ta-company">Beogradske Elektrane</span>
+          <span class="ta-meta">Beograd · višedecenijska saradnja</span>
+        </div>
+        <div class="testimonial-project">
+          <span class="testimonial-project-detail">• 10+ projekata · 1973–2025.</span>
+          <span class="testimonial-project-detail">• Redukcija NOx, modernizacija gorionika, daljinsko grejanje</span>
+          <span class="testimonial-project-detail">• Ukupan kapacitet 1.500+ MW</span>
+          <span class="testimonial-project-type">Višegodišnji servisni ugovor</span>
         </div>
       </div>
+
+      <!-- 4. Novosadska Toplana -->
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="testimonial-logo" style="height:31px"><img src="assets/2_landing-page/novosadska-toplana.webp" alt="Novosadska Toplana" /></div>
+        <p class="testimonial-text">„Sa MIK Projektom sarađujemo već nekoliko decenija, i to nije slučajnost. Naš sistem daljinskog grejanja u Novom Sadu prošao je kroz više faza rasta, modernizacije i prilagođavanja novim energetskim standardima. MIK Projekt bio je uz nas u svakoj od tih faza. Od ugradnje prvih kotlova u toplanama 'Jug' i 'Zapad' još šezdesetih godina, do rekonstrukcija sistema za toplu vodu, uvođenja alternativnih goriva i redukcije NOx emisija. Posebno cenimo što imamo jednog partnera koji razume čitav sistem: od engineering faze do ugradnje i servisiranja."</p>
+        <div class="testimonial-author">
+          <strong>Tehnički direktor</strong>
+          <span class="ta-company">Novosadska Toplana d.o.o.</span>
+          <span class="ta-meta">Novi Sad · višedecenijska saradnja</span>
+        </div>
+        <div class="testimonial-project">
+          <span class="testimonial-project-detail">• Toplane „Jug", „Zapad", „Sever", „Istok", „Petrovaradin"</span>
+          <span class="testimonial-project-detail">• Ukupan instalisani kapacitet: 700+ MW</span>
+          <span class="testimonial-project-type">Ugradnja kotlova · Alternativna goriva · Redukcija NOx</span>
+        </div>
+      </div>
+
+      <!-- 5. Soja Protein -->
+      <div class="testimonial-card testimonial-card-wide reveal">
+        <div class="testimonial-logo" style="height:25px"><img src="assets/2_landing-page/soja-protein.webp" alt="Soja Protein / ADM" /></div>
+        <p class="testimonial-text">„Kada se radi o pari koja napaja industrijsku proizvodnju, nema prostora za kompromise. Naš pogon u Bečeju zahteva pouzdanu i kontinuiranu isporuku pare pod visokim parametrima bez prekida koji bi ugrozili proizvodni proces. MIK Projekt je 2011. godine izveo rekonstrukciju parnog kotla i pokazao da razume industrijske zahteve koji se razlikuju od standardnih komunalnih instalacija. Kada smo 2025. godine imali potrebu za novom rekonstrukcijom — opredelili smo se za isti tim. Rade precizno, znaju naš sistem i ne gube vreme na improvizacije."</p>
+        <div class="testimonial-author">
+          <strong>Tehnički direktor</strong>
+          <span class="ta-company">Soja Protein a.d.</span>
+          <span class="ta-meta">Bečej · 2011. i 2025.</span>
+        </div>
+        <div class="testimonial-project">
+          <span class="testimonial-project-detail">• 2011: Rekonstrukcija parnog kotla</span>
+          <span class="testimonial-project-detail">• 2025: Rekonstrukcija gasne linije i sistema napojne vode</span>
+          <span class="testimonial-project-type">Industrijska para · Rekonstrukcija</span>
+        </div>
+      </div>
+
     </div>
     </div>
   </section>
@@ -1429,14 +1268,23 @@
       <div class="eyebrow" style="justify-content: center;"><span>PARTNERI I DOBAVLJAČI</span><div class="eyebrow-line"></div></div>
       <h2 class="section-title">Partnerstva koja grade budućnost</h2>
     </div>
-    <div class="partners-logos reveal reveal-delay-1">
-      <img src="https://workers.paper.design/file-assets/01KJCYX8K3T9ZCBYX65E9AESYD/4HPKKSMVF0RDKBJQ5FWATMHTTE.png" alt="Partner 1" />
-      <img src="https://workers.paper.design/file-assets/01KJCYX8K3T9ZCBYX65E9AESYD/2DX3QYMWCWCC7FAW3QJACT9JRP.png" alt="Partner 2" />
-      <img src="https://workers.paper.design/file-assets/01KJCYX8K3T9ZCBYX65E9AESYD/09SGVT55C8PF723H5FZ86W1TY6.png" alt="Partner 3" />
-      <img src="https://workers.paper.design/file-assets/01KJCYX8K3T9ZCBYX65E9AESYD/1MT615F265JT5QSP8AKX84TQQK.png" alt="Partner 4" />
-      <img src="https://workers.paper.design/file-assets/01KJCYX8K3T9ZCBYX65E9AESYD/5K6VWP8BZ26QRCQBNHBKKQM3C8.png" alt="Partner 5" />
-      <img src="https://workers.paper.design/file-assets/01KJCYX8K3T9ZCBYX65E9AESYD/53TBRS0SWPRM24Q6JSK1QZWBFC.png" alt="Partner 6" />
-      <img src="https://workers.paper.design/file-assets/01KJCYX8K3T9ZCBYX65E9AESYD/35M1SQCPF4TY5FVP4B5RRXSKY2.png" alt="Partner 7" />
+    <div class="partners-logos-wrap reveal reveal-delay-1">
+      <!-- Row 1: horizontal logos — reorder as needed -->
+      <div class="partners-row partners-row--horizontal">
+        <img src="https://workers.paper.design/file-assets/01KJCYX8K3T9ZCBYX65E9AESYD/4HPKKSMVF0RDKBJQ5FWATMHTTE.png" alt="Partner 1" />
+        <img src="https://workers.paper.design/file-assets/01KJCYX8K3T9ZCBYX65E9AESYD/2DX3QYMWCWCC7FAW3QJACT9JRP.png" alt="Partner 2" />
+        <img src="https://workers.paper.design/file-assets/01KJCYX8K3T9ZCBYX65E9AESYD/09SGVT55C8PF723H5FZ86W1TY6.png" alt="Partner 3" />
+        <img src="assets/2_landing-page/termomont.webp" alt="Termomont" />
+        <img src="assets/2_landing-page/klima-celje.webp" alt="Klima Celje" />
+      </div>
+      <!-- Row 2: squarish logos — reorder as needed -->
+      <div class="partners-row partners-row--square">
+        <img src="https://workers.paper.design/file-assets/01KJCYX8K3T9ZCBYX65E9AESYD/1MT615F265JT5QSP8AKX84TQQK.png" alt="Partner 4" />
+        <img src="https://workers.paper.design/file-assets/01KJCYX8K3T9ZCBYX65E9AESYD/5K6VWP8BZ26QRCQBNHBKKQM3C8.png" alt="Partner 5" />
+        <img src="https://workers.paper.design/file-assets/01KJCYX8K3T9ZCBYX65E9AESYD/53TBRS0SWPRM24Q6JSK1QZWBFC.png" alt="Partner 6" />
+        <img src="https://workers.paper.design/file-assets/01KJCYX8K3T9ZCBYX65E9AESYD/35M1SQCPF4TY5FVP4B5RRXSKY2.png" alt="Partner 7" />
+        <img src="assets/2_landing-page/lamtech.webp" alt="Lamtech" />
+      </div>
     </div>
     </div>
   </section>
@@ -1444,84 +1292,50 @@
   <!-- ─── CTA ───────────────────────────────────────────────────── -->
   <section class="cta-section" id="cta">
     <div class="inner">
-    <div class="reveal">
-      <h2 class="cta-title">Tehnička konsultacija i ponuda</h2>
-      <p class="cta-subtitle" style="margin-top:16px;">
-        Projektovanje, isporuka ili održavanje postrojenja. Kontakt za tehničku specifikaciju i cenovnu ponudu.
-      </p>
-    </div>
-    <a class="btn-primary reveal reveal-delay-1" href="mailto:info@mik.rs">Tehnička konsultacija</a>
+
+      <!-- Left: heading + trust signals -->
+      <div class="cta-left reveal">
+        <div>
+          <div class="eyebrow" style="margin-bottom:20px;"><span>BESPLATNA KONSULTACIJA</span><div class="eyebrow-line" style="background:rgba(255,255,255,0.2);"></div></div>
+          <h2 class="cta-title">Imate projekat?<br>Razgovarajmo.</h2>
+        </div>
+        <p class="cta-subtitle">Opišite nam vašu potrebu. Naš inženjer će vas kontaktirati u roku od jednog radnog dana sa konkretnim odgovorom, bez obaveza.</p>
+        <ul class="cta-trust">
+          <li>Odgovaramo u roku od 24 časa</li>
+          <li>Bez obaveze — samo inženjering</li>
+          <li>Više od 50 godina iskustva</li>
+        </ul>
+      </div>
+
+      <!-- Right: contact card -->
+      <div class="cta-contact-card reveal reveal-delay-1">
+        <div class="cta-contact-item">
+          <span class="cta-contact-label">TELEFON</span>
+          <a class="cta-contact-value" href="tel:+381113065106">+381 11 306 51 06</a>
+        </div>
+        <div class="cta-contact-divider"></div>
+        <div class="cta-contact-item">
+          <span class="cta-contact-label">EMAIL</span>
+          <a class="cta-contact-value" href="mailto:office@mikprojekt.com">office@mikprojekt.com</a>
+        </div>
+        <div class="cta-contact-divider"></div>
+        <div class="cta-contact-item">
+          <span class="cta-contact-label">RADNO VREME</span>
+          <span class="cta-contact-value">Pon – Pet, 08:00 – 16:00</span>
+        </div>
+        <a class="cta-btn" href="kontakt.html">Pošaljite upit &rarr;</a>
+      </div>
+
     </div>
   </section>
 
   <!-- ─── FOOTER ────────────────────────────────────────────────── -->
-  <footer class="footer">
-    <div class="inner">
-    <div class="footer-content">
-      <div class="footer-brand">
-        <img src="assets/0_logo/mik-favicon.png" alt="MIK Projekt" class="footer-brand-logo" />
-        <p>Prodaja, montaža i održavanje kotlova, termoenergetskih postrojenja i industrijskih energetskih sistema.</p>
-      </div>
-      <div class="footer-cols">
-        <div class="footer-col">
-          <span class="footer-col-title">KOMPANIJA</span>
-          <a href="o-nama.html">O nama</a>
-          <a href="projekti.html">Projekti</a>
-          <a href="dokumentacija.html">Dokumentacija</a>
-        </div>
-        <div class="footer-col">
-          <span class="footer-col-title">USLUGE</span>
-          <a href="inzenjerstvo.html">Inženjerstvo</a>
-          <a href="kotlovski-sistemi.html">Kotlovski sistemi</a>
-          <a href="proizvodnja.html">Proizvodnja</a>
-          <a href="instalacija-montaza.html">Instalacija i montaža</a>
-          <a href="usluge-i-odrzavanje.html">Servis i održavanje</a>
-        </div>
-        <div class="footer-col">
-          <span class="footer-col-title">KONTAKT</span>
-          <a href="#">Beograd, Srbija</a>
-          <a href="mailto:info@mik.rs">info@mik.rs</a>
-          <a href="tel:+38111123456">+381 11 123 4567</a>
-        </div>
-      </div>
-    </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="inner">
-        <span>© 2026 MIK. Sva prava zadržana.</span>
-        <a href="#">Politika privatnosti</a>
-      </div>
-    </div>
-  </footer>
+  <div id="footer-root"></div>
+  <script src="footer.js?v=6"></script>
+  <script>MikFooter.init();</script>
 
   <!-- ─── JS ────────────────────────────────────────────────────── -->
   <script>
-    // Sticky nav shadow
-    const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 10);
-    });
-
-    // Hamburger
-    const hamburger = document.getElementById('hamburger');
-    const drawer    = document.getElementById('navDrawer');
-
-    hamburger.addEventListener('click', () => {
-      const isOpen = hamburger.classList.toggle('open');
-      drawer.classList.toggle('open', isOpen);
-    });
-
-    function closeDrawer() {
-      hamburger.classList.remove('open');
-      drawer.classList.remove('open');
-    }
-
-    // Close drawer on outside click
-    document.addEventListener('click', (e) => {
-      if (!nav.contains(e.target) && !drawer.contains(e.target)) closeDrawer();
-    });
-
-
     // Scroll reveal via IntersectionObserver
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
@@ -1550,38 +1364,6 @@
       });
     }
 
-    // ─── Service cards: hint animation on scroll entry ───────
-    const servicesGrid = document.querySelector('.services-grid');
-    if (servicesGrid) {
-      const topCards = Array.from(document.querySelectorAll('.card--top'));
-      const hintObs = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            topCards.forEach((card, i) => {
-              setTimeout(() => {
-                card.classList.add('hint-peek');
-                setTimeout(() => card.classList.remove('hint-peek'), 2000);
-              }, 500 + i * 250);
-            });
-            hintObs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.5 });
-      hintObs.observe(servicesGrid);
-    }
-
-    // ─── Mega nav ────────────────────────────────────────────
-    const megaItem  = document.getElementById('megaItem');
-    const megaPanel = document.getElementById('megaPanel');
-    if (megaItem && megaPanel) {
-      let megaTimer;
-      const openMega  = () => { clearTimeout(megaTimer); megaItem.classList.add('mega-open'); megaPanel.classList.add('mega-visible'); };
-      const closeMega = () => { megaTimer = setTimeout(() => { megaItem.classList.remove('mega-open'); megaPanel.classList.remove('mega-visible'); }, 120); };
-      megaItem.addEventListener('mouseenter', openMega);
-      megaItem.addEventListener('mouseleave', closeMega);
-      megaPanel.addEventListener('mouseenter', openMega);
-      megaPanel.addEventListener('mouseleave', closeMega);
-    }
   </script>
 
   <script defer src="/_vercel/insights/script.js"></script>

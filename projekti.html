@@ -9,11 +9,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&family=IBM+Plex+Sans:wght@200;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="nav.css?v=9">
+  <link rel="stylesheet" href="footer.css?v=5">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     .inner { max-width: 1280px; margin: 0 auto; width: 100%; padding: 0 var(--px); }
     :root {
-      --red: #cc2229; --dark: #111111; --dark2: #1e1e1e;
+      --red: #cc2229; --dark: #111111; --dark2: #000;
       --gray-bg: #f5f5f5; --border: #e6e6e6;
       --text-muted: #5a5a5a; --text-dim: #787878; --text-nav: #3c3c3c;
       --px: 80px; --transition: 0.2s ease;
@@ -28,53 +30,10 @@
     .reveal-delay-2 { transition-delay: 0.2s; }
 
     /* ─── NAV ── */
-    .nav { position: sticky; top: 0; z-index: 100; height: 64px; background: #000; border-bottom: 1px solid rgba(255,255,255,0.08); transition: box-shadow 0.3s ease; }
-    .nav .inner { height: 100%; display: flex; align-items: center; justify-content: space-between; }
-    .nav.scrolled { box-shadow: 0 2px 24px rgba(0,0,0,0.55); }
-    .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
-    .nav-logo img { height: 48px; width: auto; display: block; }
-    .nav-links { display: flex; gap: 40px; align-items: stretch; align-self: stretch; list-style: none; }
-    .nav-links li { display: flex; align-items: center; position: relative; }
-    .nav-links a { font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.72); text-decoration: none; letter-spacing: -0.01em; position: relative; display: flex; align-items: center; align-self: stretch; transition: color var(--transition); }
-    .nav-links a::after { content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 2px; background: var(--red); transition: width var(--transition); }
-    .nav-links a:hover { color: rgba(255,255,255,0.88); }
-    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-    .nav-links a.active { font-weight: 600; color: #fff; }
-    .nav-cta { background: var(--red); color: #fff; border: none; border-radius: 4px; padding: 11px 20px; font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; text-decoration: none; transition: background var(--transition), transform var(--transition); white-space: nowrap; }
-    .nav-cta:hover { background: #a81b21; transform: translateY(-1px); }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
-    .hamburger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: transform 0.3s ease, opacity 0.3s ease; }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    .nav-drawer { display: none; position: fixed; top: 64px; left: 0; right: 0; background: #fff; border-bottom: 1px solid var(--border); padding: 24px var(--px); flex-direction: column; gap: 0; z-index: 99; transform: translateY(-10px); opacity: 0; transition: transform 0.25s ease, opacity 0.25s ease; pointer-events: none; }
-    .nav-drawer.open { transform: translateY(0); opacity: 1; pointer-events: all; }
-    .nav-drawer a { display: block; font-size: 16px; font-weight: 400; color: var(--text-nav); text-decoration: none; padding: 14px 0; border-bottom: 1px solid var(--border); transition: color var(--transition); }
-    .nav-drawer a:hover { color: var(--dark); }
-    .nav-drawer a.active { font-weight: 600; color: var(--dark); }
-    .nav-drawer .nav-cta { margin-top: 20px; text-align: center; display: block; }
 
     /* ─── MEGA NAV ── */
-    .nav-mega-trigger { display: flex; align-items: center; gap: 5px; font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.72); text-decoration: none; letter-spacing: -0.01em; position: relative; display: flex; align-items: center; align-self: stretch; transition: color var(--transition); }
-    .nav-mega-trigger::after { content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 2px; background: var(--red); transition: width var(--transition); }
-    .nav-mega-trigger:hover { color: var(--dark); }
-    .nav-mega-trigger:hover::after { width: calc(100% - 14px); }
-    .nav-mega-chevron { width: 10px; height: 10px; flex-shrink: 0; transition: transform var(--transition); }
-    .mega-open .nav-mega-chevron { transform: rotate(180deg); }
-    .mega-panel { position: fixed; top: 64px; left: 0; right: 0; background: #fff; border-bottom: 1px solid var(--border); z-index: 99; opacity: 0; transform: translateY(-6px); pointer-events: none; transition: opacity 0.18s ease, transform 0.18s ease; }
-    .mega-panel.mega-visible { opacity: 1; transform: translateY(0); pointer-events: all; }
-    .mega-inner-wrap { padding-top: 28px; padding-bottom: 32px; display: flex; flex-direction: column; gap: 18px; }
-    .mega-top { display: flex; align-items: center; justify-content: space-between; }
-    .mega-label { font-size: 11px; font-weight: 600; color: var(--text-dim); letter-spacing: 0.08em; }
-    .mega-all-link { font-size: 13px; color: var(--red); text-decoration: none; font-weight: 500; transition: opacity var(--transition); }
-    .mega-all-link:hover { opacity: 0.75; }
-    .mega-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
-    .mega-item { display: flex; flex-direction: column; gap: 9px; text-decoration: none; padding: 16px; border: 1px solid transparent; border-radius: 4px; transition: border-color var(--transition), background var(--transition); }
-    .mega-item:hover { border-color: var(--border); background: var(--gray-bg); }
-    .mega-item-img { height: 96px; border-radius: 4px; overflow: hidden; background: #ebebeb; background-size: cover; background-position: center; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; }
-    .mega-item-img span { font-size: 10px; color: #bbb; letter-spacing: 0.04em; }
-    .mega-item-name { font-size: 13px; font-weight: 600; color: var(--dark); line-height: 1.3; }
-    .mega-item-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+    @media (max-width: 860px) {
+    }
 
     /* ─── SHARED ── */
     .eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
@@ -84,11 +43,11 @@
     .section-body { font-size: 15px; line-height: 1.6; color: var(--text-muted); margin-top: 0; }
 
     /* ─── PAGE HEADER ── */
-    .page-header { background: var(--dark2); padding: 72px 0 56px; }
+    .page-header { background: #161616; padding: 72px 0 56px; }
     .page-header-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
     .page-header-eyebrow .eyebrow-line { width: 16px; height: 1px; background: var(--red); }
     .page-header-eyebrow span { font-size: 11px; font-weight: 500; color: var(--red); letter-spacing: 0.08em; }
-    .page-header-top { display: flex; align-items: flex-end; justify-content: space-between; gap: 64px; }
+    .page-header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 64px; }
     .page-header-title { font-size: clamp(40px, 4.5vw, 60px); font-weight: 700; line-height: 1.05; color: #fff; letter-spacing: -0.025em; }
     .page-header-body { font-size: 15px; line-height: 1.65; color: #888; max-width: 360px; flex-shrink: 0; }
     .page-header-divider { border: none; border-top: 1px solid #3a3a3a; margin-top: 40px; }
@@ -200,28 +159,13 @@
     .refs-loading-label { font-size: 12px; color: var(--text-dim); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.02em; }
 
     /* ─── FOOTER ── */
-    .footer { background: var(--dark2); color: #fff; }
-    .footer-brand-logo { height: 48px; width: auto; display: block; align-self: flex-start; }
-    .footer-content { display: flex; gap: 80px; padding-top: 64px; padding-bottom: 64px; }
-    .footer-brand { width: 280px; flex-shrink: 0; display: flex; flex-direction: column; gap: 16px; }
-    .footer-brand p { font-size: 13px; line-height: 1.7; color: #888; }
-    .footer-cols { flex: 1; display: flex; justify-content: space-between; gap: 40px; }
-    .footer-col { display: flex; flex-direction: column; gap: 14px; }
-    .footer-col-title { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #555; }
-    .footer-col a { font-size: 13px; color: #999; text-decoration: none; transition: color var(--transition); }
-    .footer-col a:hover { color: #fff; }
-    .footer-bottom { border-top: 1px solid #222; }
-    .footer-bottom .inner { display: flex; align-items: center; justify-content: space-between; padding-top: 20px; padding-bottom: 20px; }
-    .footer-bottom span, .footer-bottom a { font-size: 12px; color: #555; text-decoration: none; }
-    .footer-bottom a:hover { color: #999; }
 
     /* ─── RESPONSIVE ── */
     @media (max-width: 1100px) {
       :root { --px: 48px; }
-      .mega-grid { grid-template-columns: repeat(3, 1fr); }
     }
     /* ─── REFS SUMMARY ── */
-    .refs-summary { background: var(--dark2); padding: 80px 0; opacity: 0; transform: translateY(24px); transition: opacity 0.9s ease, transform 0.9s ease; pointer-events: none; }
+    .refs-summary { background: #161616; padding: 80px 0; opacity: 0; transform: translateY(24px); transition: opacity 0.9s ease, transform 0.9s ease; pointer-events: none; }
     .refs-summary.rs-in { opacity: 1; transform: translateY(0); pointer-events: all; }
     .rs-eyebrow { font-size: 11px; font-weight: 600; color: var(--red); letter-spacing: 0.08em; margin-bottom: 40px; }
     .rs-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid #2a2a2a; }
@@ -232,10 +176,6 @@
 
     @media (max-width: 900px) {
       :root { --px: 32px; }
-      .nav-links, .nav-cta { display: none; }
-      .hamburger { display: flex; }
-      .nav-drawer { display: flex; }
-      .mega-panel { display: none; }
 
       .page-header { padding: 48px 0 40px; }
       .page-header-top { flex-direction: column; align-items: flex-start; gap: 20px; }
@@ -249,10 +189,6 @@
       .rs-grid { grid-template-columns: repeat(2, 1fr); gap: 32px 24px; }
       .rs-stat + .rs-stat { border-left: none; padding-left: 0; }
 
-      .footer-content { flex-direction: column; gap: 40px; padding-top: 48px; padding-bottom: 48px; }
-      .footer-brand { width: 100%; }
-      .footer-cols { flex-wrap: wrap; gap: 32px; }
-      .footer-bottom .inner { flex-direction: column; gap: 8px; text-align: center; }
     }
     @media (max-width: 480px) {
       :root { --px: 20px; }
@@ -346,78 +282,10 @@
 </head>
 <body>
 
-  <nav class="nav" id="nav">
-    <div class="inner">
-      <a class="nav-logo" href="index.html">
-        <img src="assets/0_logo/mik-logo-light-no-est.png" alt="MIK Projekt" />
-      </a>
-      <ul class="nav-links">
-        <li><a href="index.html">Početna</a></li>
-        <li><a href="o-nama.html">O nama</a></li>
-        <li class="nav-mega-item" id="megaItem">
-          <a href="usluge.html" class="nav-mega-trigger" id="megaTrigger">
-            Naše usluge
-            <svg class="nav-mega-chevron" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
-              <polyline points="1,3 5,7 9,3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        </li>
-        <li><a href="projekti.html" class="active">Projekti</a></li>
-        <li><a href="dokumentacija.html">Dokumentacija</a></li>
-      </ul>
-      <a class="nav-cta" href="index.html#cta">Kontakt</a>
-      <button class="hamburger" id="hamburger" aria-label="Meni">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
+  <div id="nav-root"></div>
+  <script src="nav.js?v=6"></script>
+  <script>MikNav.init('projekti');</script>
 
-  <!-- Mega panel -->
-  <div class="mega-panel" id="megaPanel">
-    <div class="inner mega-inner-wrap">
-      <div class="mega-top">
-        <span class="mega-label">POSLOVNE OBLASTI</span>
-        <a href="usluge.html" class="mega-all-link">Sve usluge →</a>
-      </div>
-      <div class="mega-grid">
-        <a class="mega-item" href="kotlovski-sistemi.html">
-          <div class="mega-item-img" style="background-image:url('assets/1_navigation/nav_kotlovski-sistem.png'); background-position: calc(50% - 5px) calc(50% + 5%);"></div>
-          <span class="mega-item-name">Kotlovski sistemi</span>
-          <span class="mega-item-desc">Industrijska kotlovska postrojenja za različita goriva</span>
-        </a>
-        <a class="mega-item" href="inzenjerstvo.html">
-          <div class="mega-item-img" style="background-image:url('assets/1_navigation/nav_inzenjerstvo.png'); background-size: 110%; background-repeat: no-repeat;"></div>
-          <span class="mega-item-name">Inženjerstvo</span>
-          <span class="mega-item-desc">Projektovanje energetskih i termotehničkih sistema</span>
-        </a>
-        <a class="mega-item" href="proizvodnja.html">
-          <div class="mega-item-img" style="background-image:url('assets/1_navigation/nav_proizvodnja.png')"></div>
-          <span class="mega-item-name">Proizvodnja</span>
-          <span class="mega-item-desc">Precizna izrada komponenti i kompleksnih sistema</span>
-        </a>
-        <a class="mega-item" href="instalacija-montaza.html">
-          <div class="mega-item-img" style="background-image:url('assets/1_navigation/nav_instalacija-sistem.png')"></div>
-          <span class="mega-item-name">Instalacija sistema</span>
-          <span class="mega-item-desc">Stručna montaža i puštanje u rad postrojenja</span>
-        </a>
-        <a class="mega-item" href="usluge-i-odrzavanje.html">
-          <div class="mega-item-img" style="background-image:url('assets/1_navigation/nav_servis_i_odrzavanje.png'); background-size: 70%; background-repeat: no-repeat; background-color: #fff;"></div>
-          <span class="mega-item-name">Servis i održavanje</span>
-          <span class="mega-item-desc">Dugoročna tehnička podrška i optimizacija sistema</span>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Mobile drawer -->
-  <div class="nav-drawer" id="navDrawer">
-    <a href="index.html" onclick="closeDrawer()">Početna</a>
-    <a href="o-nama.html" onclick="closeDrawer()">O nama</a>
-    <a href="usluge.html" onclick="closeDrawer()">Naše usluge</a>
-    <a href="projekti.html" class="active" onclick="closeDrawer()">Projekti</a>
-    <a href="dokumentacija.html" onclick="closeDrawer()">Dokumentacija</a>
-    <a href="index.html#cta" class="nav-cta" onclick="closeDrawer()">Kontakt</a>
-  </div>
 
   <!-- ─── PAGE HEADER ── -->
   <section class="page-header">
@@ -603,7 +471,7 @@
         <div class="ref-card reveal" data-fuel="oil-gas">
           <span class="ref-card-year">2023</span>
           <div class="ref-card-body">
-            <span class="ref-card-name">Toplana „Dedinje"</span>
+            <span class="ref-card-name">Vojni objekt Srbija</span>
             <p class="ref-card-desc">Ugradnja mazutne linije</p>
             <div class="ref-card-specs">
               <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Mazut</span>
@@ -619,7 +487,7 @@
           </div>
         </div>
 
-        <div class="ref-card reveal" data-fuel="multi-fuel">
+        <div class="ref-card reveal" data-fuel="oil-gas">
           <span class="ref-card-year">2023</span>
           <div class="ref-card-body">
             <span class="ref-card-name">Toplana „Mladenovac"</span>
@@ -632,9 +500,559 @@
             </div>
           </div>
           <div class="ref-card-meta">
-            <img src="assets/5_reference/fuels_old/visogorivni.svg" class="ref-card-fuel-icon" alt="multi-fuel">
+            <img src="assets/5_reference/fuels_old/nafta.svg" class="ref-card-fuel-icon" alt="oil-gas">
             <span class="ref-card-type">Modernizacija</span>
             <span class="ref-card-capacity">18.2 MW</span>
+          </div>
+        </div>
+
+
+        <!-- ─── BIOMASS ── -->
+        <div class="ref-card reveal" data-fuel="biomass">
+          <span class="ref-card-year">2012</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">Toplana „Petrovaradin"</span>
+            <p class="ref-card-desc">Projektovanje biomas kotla 3.15 MW</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Biomasa</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Gradski toplovod</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/list.svg" class="ref-card-fuel-icon" alt="biomass">
+            <span class="ref-card-type">Projektovanje</span>
+            <span class="ref-card-capacity">3.15 MW</span>
+          </div>
+        </div>
+
+        <!-- ─── COAL ── -->
+        <div class="ref-card reveal" data-fuel="coal">
+          <span class="ref-card-year">2020</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">Toplana „Kruševac"</span>
+            <p class="ref-card-desc">Rekonstrukcija kotlova 30 MW</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Ugalj</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Gradski toplovod</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/ugalj.svg" class="ref-card-fuel-icon" alt="coal">
+            <span class="ref-card-type">Rekonstrukcija</span>
+            <span class="ref-card-capacity">30 MW</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="coal">
+          <span class="ref-card-year">2006</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">Toplana „Kruševac"</span>
+            <p class="ref-card-desc">Ugradnja kotlova 2×16 MW</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Ugalj</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Gradski toplovod</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/ugalj.svg" class="ref-card-fuel-icon" alt="coal">
+            <span class="ref-card-type">Nov sistem</span>
+            <span class="ref-card-capacity">32 MW</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="coal">
+          <span class="ref-card-year">2002</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">Toplana „Čelinac"</span>
+            <p class="ref-card-desc">Konverzija parnog kotla 14 t/h u toplovodni</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Ugalj</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Gradski toplovod</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/ugalj.svg" class="ref-card-fuel-icon" alt="coal">
+            <span class="ref-card-type">Adaptacija</span>
+            <span class="ref-card-capacity">4.5 MW</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="coal">
+          <span class="ref-card-year">1994</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">„Kompo"</span>
+            <p class="ref-card-desc">Ugradnja kotla na ugalj 3.5 MW</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Ugalj</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Industrijska para</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/ugalj.svg" class="ref-card-fuel-icon" alt="coal">
+            <span class="ref-card-type">Nov sistem</span>
+            <span class="ref-card-capacity">3.5 MW</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="coal">
+          <span class="ref-card-year">1991</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">Šećerana „Senta"</span>
+            <p class="ref-card-desc">Rekonstrukcija kotla</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Ugalj</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Industrijski proces</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/ugalj.svg" class="ref-card-fuel-icon" alt="coal">
+            <span class="ref-card-type">Rekonstrukcija</span>
+            <span class="ref-card-capacity">100 t/h</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="coal">
+          <span class="ref-card-year">1989</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">Toplana „Makedonska Kamenica"</span>
+            <p class="ref-card-desc">Ugradnja kotla 80 t/h</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Ugalj</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Gradski toplovod</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/ugalj.svg" class="ref-card-fuel-icon" alt="coal">
+            <span class="ref-card-type">Nov sistem</span>
+            <span class="ref-card-capacity">80 t/h</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="coal">
+          <span class="ref-card-year">1986</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">Toplana „Makedonska Kamenica"</span>
+            <p class="ref-card-desc">Ugradnja kotla 12.5 MW</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Ugalj</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Gradski toplovod</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/ugalj.svg" class="ref-card-fuel-icon" alt="coal">
+            <span class="ref-card-type">Nov sistem</span>
+            <span class="ref-card-capacity">12.5 MW</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="coal">
+          <span class="ref-card-year">1986</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">Toplana „Bijelo Polje"</span>
+            <p class="ref-card-desc">Ugradnja kotla 7 MW</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Ugalj</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Gradski toplovod</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/ugalj.svg" class="ref-card-fuel-icon" alt="coal">
+            <span class="ref-card-type">Nov sistem</span>
+            <span class="ref-card-capacity">7 MW</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="coal">
+          <span class="ref-card-year">1985</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">„Proleter"</span>
+            <p class="ref-card-desc">Ugradnja kotla 50 t/h</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Ugalj</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Industrijska para</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/ugalj.svg" class="ref-card-fuel-icon" alt="coal">
+            <span class="ref-card-type">Nov sistem</span>
+            <span class="ref-card-capacity">50 t/h</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="coal">
+          <span class="ref-card-year">1984</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">Toplana „Trbovlje"</span>
+            <p class="ref-card-desc">Ugradnja kotla 17.4 MW</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Ugalj</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Gradski toplovod</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/ugalj.svg" class="ref-card-fuel-icon" alt="coal">
+            <span class="ref-card-type">Nov sistem</span>
+            <span class="ref-card-capacity">17.4 MW</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="coal">
+          <span class="ref-card-year">1983</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">Toplana „Bor"</span>
+            <p class="ref-card-desc">Ugradnja dva kotla 58 MW</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Ugalj</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Gradski toplovod</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/ugalj.svg" class="ref-card-fuel-icon" alt="coal">
+            <span class="ref-card-type">Nov sistem</span>
+            <span class="ref-card-capacity">116 MW</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="coal">
+          <span class="ref-card-year">1983</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">„Hrastnik"</span>
+            <p class="ref-card-desc">Ugradnja kotla 15 MW</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Ugalj</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Industrijska para</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/ugalj.svg" class="ref-card-fuel-icon" alt="coal">
+            <span class="ref-card-type">Nov sistem</span>
+            <span class="ref-card-capacity">15 MW</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="coal">
+          <span class="ref-card-year">1982</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">Fabrika Automobila</span>
+            <p class="ref-card-desc">Ugradnja dva kotla 10 MW</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Ugalj</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Industrijska para</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/ugalj.svg" class="ref-card-fuel-icon" alt="coal">
+            <span class="ref-card-type">Nov sistem</span>
+            <span class="ref-card-capacity">20 MW</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="coal">
+          <span class="ref-card-year">1982</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">Toplana „Doboj"</span>
+            <p class="ref-card-desc">Ugradnja dva kotla 29 MW</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Ugalj</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Gradski toplovod</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/ugalj.svg" class="ref-card-fuel-icon" alt="coal">
+            <span class="ref-card-type">Nov sistem</span>
+            <span class="ref-card-capacity">58 MW</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="coal">
+          <span class="ref-card-year">1980</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">Toplana „Kruševac"</span>
+            <p class="ref-card-desc">Ugradnja dva kotla 35 MW</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Ugalj</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Gradski toplovod</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/ugalj.svg" class="ref-card-fuel-icon" alt="coal">
+            <span class="ref-card-type">Nov sistem</span>
+            <span class="ref-card-capacity">70 MW</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="coal">
+          <span class="ref-card-year">1962</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">Čeličana „Jesenice"</span>
+            <p class="ref-card-desc">Ugradnja kotla 32 t/h</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Ugalj</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Industrijska para</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/ugalj.svg" class="ref-card-fuel-icon" alt="coal">
+            <span class="ref-card-type">Nov sistem</span>
+            <span class="ref-card-capacity">32 t/h</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="coal">
+          <span class="ref-card-year">1961</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">Rafinerija Šećera „Sremska Mitrovica"</span>
+            <p class="ref-card-desc">Ugradnja kotla 20 t/h</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Ugalj</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Industrijski proces</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/ugalj.svg" class="ref-card-fuel-icon" alt="coal">
+            <span class="ref-card-type">Nov sistem</span>
+            <span class="ref-card-capacity">20 t/h</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="coal">
+          <span class="ref-card-year">1961</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">Termo-električna Stanica „Trbovlje"</span>
+            <p class="ref-card-desc">Ugradnja kotla 60 t/h</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Ugalj</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Proizvodnja energije</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/ugalj.svg" class="ref-card-fuel-icon" alt="coal">
+            <span class="ref-card-type">Nov sistem</span>
+            <span class="ref-card-capacity">60 t/h</span>
+          </div>
+        </div>
+
+        <!-- ─── HEAT RECOVERY ── -->
+        <div class="ref-card reveal" data-fuel="heat-recovery">
+          <span class="ref-card-year">2018</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">„Elemir" Petrohemija</span>
+            <p class="ref-card-desc">Ugradnja utilizatora</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Povrat toplote</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Industrijski proces</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/povrat toplote.svg" class="ref-card-fuel-icon" alt="heat-recovery">
+            <span class="ref-card-type">Modernizacija</span>
+            <span class="ref-card-capacity">75 t/h</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="heat-recovery">
+          <span class="ref-card-year">1985</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">„Straža" Staklara</span>
+            <p class="ref-card-desc">Ugradnja kotla 1.2 MW i 1.7 MW</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Povrat toplote</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Industrijski proces</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/povrat toplote.svg" class="ref-card-fuel-icon" alt="heat-recovery">
+            <span class="ref-card-type">Nov sistem</span>
+            <span class="ref-card-capacity">2.9 MW</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="heat-recovery">
+          <span class="ref-card-year">1982</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">„Paraćin" Fabrika Stakla</span>
+            <p class="ref-card-desc">Ugradnja kotla 2.4 MW</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Povrat toplote</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Industrijski proces</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/povrat toplote.svg" class="ref-card-fuel-icon" alt="heat-recovery">
+            <span class="ref-card-type">Nov sistem</span>
+            <span class="ref-card-capacity">2.4 MW</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="heat-recovery">
+          <span class="ref-card-year">1981</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">Toplana „Lipik"</span>
+            <p class="ref-card-desc">Ugradnja kotla 600 kW</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Povrat toplote</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Gradski toplovod</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/povrat toplote.svg" class="ref-card-fuel-icon" alt="heat-recovery">
+            <span class="ref-card-type">Nov sistem</span>
+            <span class="ref-card-capacity">0.6 MW</span>
+          </div>
+        </div>
+
+        <!-- ─── MULTI-FUEL (additional) ── -->
+        <div class="ref-card reveal" data-fuel="multi-fuel">
+          <span class="ref-card-year">2022</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">Toplana „Zapad"</span>
+            <p class="ref-card-desc">Rekonstrukcija sistema grejanja komunalne vode</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Gas/Bio-ulje</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Gradski toplovod</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/visogorivni.svg" class="ref-card-fuel-icon" alt="multi-fuel">
+            <span class="ref-card-type">Rekonstrukcija</span>
+            <span class="ref-card-capacity">40 MW</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="multi-fuel">
+          <span class="ref-card-year">2013</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">„NIS" Naftna Rafinerija</span>
+            <p class="ref-card-desc">Zamena gorionika na kotlu 110 t/h</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Gas/Mazut</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Industrijska para</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/visogorivni.svg" class="ref-card-fuel-icon" alt="multi-fuel">
+            <span class="ref-card-type">Modernizacija</span>
+            <span class="ref-card-capacity">110 t/h</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="multi-fuel">
+          <span class="ref-card-year">2010</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">Toplana „Zapad"</span>
+            <p class="ref-card-desc">Ugradnja utilizatora</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Gas/Bio-ulje</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Gradski toplovod</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/visogorivni.svg" class="ref-card-fuel-icon" alt="multi-fuel">
+            <span class="ref-card-type">Adaptacija</span>
+            <span class="ref-card-capacity">76.6 MW</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="multi-fuel">
+          <span class="ref-card-year">1995</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">Medicinski Centar „Prizren"</span>
+            <p class="ref-card-desc">Projektovanje kotlovnice</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Gas/Mazut</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Grejanje objekta</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/visogorivni.svg" class="ref-card-fuel-icon" alt="multi-fuel">
+            <span class="ref-card-type">Projektovanje</span>
+            <span class="ref-card-capacity">3.5 MW</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="multi-fuel">
+          <span class="ref-card-year">1995</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">„Uljara Kruševac"</span>
+            <p class="ref-card-desc">Ugradnja kotla 10 t/h na suncokretovu ljusku</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Gas/Biomasa</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Industrijska para</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/visogorivni.svg" class="ref-card-fuel-icon" alt="multi-fuel">
+            <span class="ref-card-type">Nov sistem</span>
+            <span class="ref-card-capacity">10 t/h</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="multi-fuel">
+          <span class="ref-card-year">1971</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">„Meblo"</span>
+            <p class="ref-card-desc">Ugradnja kotla 7 MW</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;Gas/Mazut</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Industrijska para</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/visogorivni.svg" class="ref-card-fuel-icon" alt="multi-fuel">
+            <span class="ref-card-type">Nov sistem</span>
+            <span class="ref-card-capacity">7 MW</span>
+          </div>
+        </div>
+
+        <!-- ─── POWER TO HEAT ── -->
+        <div class="ref-card reveal" data-fuel="power-to-heat">
+          <span class="ref-card-year">1994</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">„Tehnoproces"</span>
+            <p class="ref-card-desc">Ugradnja elektro-kotla ETK 400</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;El. grejanje</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Industrijski proces</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/grejanje-na-struju.svg" class="ref-card-fuel-icon" alt="power-to-heat">
+            <span class="ref-card-type">Nov sistem</span>
+            <span class="ref-card-capacity">0.4 MW</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="power-to-heat">
+          <span class="ref-card-year">1992</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">Železnička stanica „Topčider"</span>
+            <p class="ref-card-desc">Ugradnja elektro-kotla ETK 500</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;El. grejanje</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Grejanje objekta</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/grejanje-na-struju.svg" class="ref-card-fuel-icon" alt="power-to-heat">
+            <span class="ref-card-type">Nov sistem</span>
+            <span class="ref-card-capacity">0.5 MW</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" data-fuel="power-to-heat">
+          <span class="ref-card-year">1979</span>
+          <div class="ref-card-body">
+            <span class="ref-card-name">Toplana „Bajina Bašta"</span>
+            <p class="ref-card-desc">Ugradnja dva kotla 460 kW</p>
+            <div class="ref-card-specs">
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Gorivo</span>&nbsp;El. grejanje</span>
+              <span class="ref-card-spec"><span class="ref-card-spec-label">Primena</span>&nbsp;Gradski toplovod</span>
+            </div>
+          </div>
+          <div class="ref-card-meta">
+            <img src="assets/5_reference/fuels_old/grejanje-na-struju.svg" class="ref-card-fuel-icon" alt="power-to-heat">
+            <span class="ref-card-type">Nov sistem</span>
+            <span class="ref-card-capacity">0.92 MW</span>
           </div>
         </div>
 
@@ -655,11 +1073,12 @@
       <div class="refs-table-wrap reveal">
         <table class="refs-table">
           <colgroup>
-            <col style="width:36%">
-            <col style="width:15%">
-            <col style="width:9%">
-            <col style="width:22%">
-            <col style="width:18%">
+            <col style="width:34%">
+            <col style="width:14%">
+            <col style="width:8%">
+            <col style="width:20%">
+            <col style="width:16%">
+            <col style="width:8%">
           </colgroup>
           <thead>
             <tr>
@@ -668,6 +1087,7 @@
               <th>Godina</th>
               <th>Tip projekta</th>
               <th>Kapacitet</th>
+              <th>Gorivo</th>
             </tr>
           </thead>
           <tbody id="refsBody"></tbody>
@@ -705,65 +1125,13 @@
   </section>
 
   <!-- ─── FOOTER ── -->
-  <footer class="footer">
-    <div class="inner">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <img src="assets/0_logo/mik-favicon.png" alt="MIK Projekt" class="footer-brand-logo" />
-          <p>Prodaja, montaža i održavanje kotlova, termoenergetskih postrojenja i industrijskih energetskih sistema.</p>
-        </div>
-        <div class="footer-cols">
-          <div class="footer-col">
-            <span class="footer-col-title">KOMPANIJA</span>
-            <a href="o-nama.html">O nama</a>
-            <a href="projekti.html">Projekti</a>
-            <a href="dokumentacija.html">Dokumentacija</a>
-          </div>
-          <div class="footer-col">
-            <span class="footer-col-title">USLUGE</span>
-            <a href="inzenjerstvo.html">Inženjerstvo</a>
-            <a href="kotlovski-sistemi.html">Kotlovski sistemi</a>
-            <a href="proizvodnja.html">Proizvodnja</a>
-            <a href="instalacija-montaza.html">Instalacija i montaža</a>
-            <a href="usluge-i-odrzavanje.html">Servis i održavanje</a>
-          </div>
-          <div class="footer-col">
-            <span class="footer-col-title">KONTAKT</span>
-            <a href="#">Beograd, Srbija</a>
-            <a href="mailto:info@mik.rs">info@mik.rs</a>
-            <a href="tel:+38111123456">+381 11 123 4567</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="inner">
-        <span>© 2026 MIK. Sva prava zadržana.</span>
-        <a href="#">Politika privatnosti</a>
-      </div>
-    </div>
-  </footer>
+  <div id="footer-root"></div>
+  <script src="footer.js?v=6"></script>
+  <script>MikFooter.init();</script>
 
   <script>
     // ─── NAV ──
-    const nav = document.getElementById('nav');
-    const hamburger = document.getElementById('hamburger');
-    const drawer = document.getElementById('navDrawer');
-    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 10); });
-    hamburger.addEventListener('click', () => { const o = hamburger.classList.toggle('open'); drawer.classList.toggle('open', o); });
-    function closeDrawer() { hamburger.classList.remove('open'); drawer.classList.remove('open'); }
-    document.addEventListener('click', (e) => { if (!nav.contains(e.target) && !drawer.contains(e.target)) closeDrawer(); });
-
     // ─── MEGA ──
-    const megaItem = document.getElementById('megaItem');
-    const megaPanel = document.getElementById('megaPanel');
-    if (megaItem && megaPanel) {
-      let t;
-      const open = () => { clearTimeout(t); megaItem.classList.add('mega-open'); megaPanel.classList.add('mega-visible'); };
-      const close = () => { t = setTimeout(() => { megaItem.classList.remove('mega-open'); megaPanel.classList.remove('mega-visible'); }, 120); };
-      megaItem.addEventListener('mouseenter', open); megaItem.addEventListener('mouseleave', close);
-      megaPanel.addEventListener('mouseenter', open); megaPanel.addEventListener('mouseleave', close);
-    }
 
     // ─── FUEL FILTER ──
     const fuelBtns = document.querySelectorAll('.fuel-btn');
@@ -788,211 +1156,211 @@
 
     // ─── INFINITE SCROLL TABLE ──
     const ALL_REFS = [
-      { company: 'Toplana \u201eMirijevo\u201c', location: 'Beograd', year: '2023', type: 'Modernizacija', capacity: '122.9 MW' },
-      { company: 'Toplana \u201eKrivi Vir\u201c', location: 'Ni\u0161', year: '2023', type: 'Modernizacija', capacity: '127.7 MW' },
-      { company: 'British American Tobacco', location: 'Vranje', year: '2022', type: 'Modernizacija', capacity: '4.54 MW' },
-      { company: 'Toplana \u201eBor\u201c', location: 'Bor', year: '2022', type: 'Rekonstrukcija', capacity: '58 MW' },
-      { company: 'Toplana \u201eCerak\u201c', location: 'Beograd', year: '2022', type: 'Modernizacija', capacity: '232.6 MW + 20 t/h' },
-      { company: 'Toplana \u201eZapad\u201c', location: 'Novi Sad', year: '2022', type: 'Rekonstrukcija', capacity: '40 MW' },
-      { company: 'Toplana \u201e\u0160i\u0161ka\u201c', location: 'Ljubljana / SL', year: '2022', type: 'Rekonstrukcija', capacity: '116 MW' },
-      { company: 'KC \u201eSrbija\u201c', location: 'Beograd', year: '2021', type: 'Modernizacija', capacity: '40.4 MW' },
-      { company: 'Toplana \u201eValjevo\u201c', location: 'Valjevo', year: '2021', type: 'Modernizacija', capacity: '50 MW' },
-      { company: 'Toplana \u201eVo\u017edovac\u201c', location: 'Beograd', year: '2020', type: 'Modernizacija', capacity: '232.6 MW + 20 t/h' },
-      { company: 'Toplana \u201eKru\u0161evac\u201c', location: 'Kru\u0161evac', year: '2020', type: 'Rekonstrukcija', capacity: '30 MW' },
-      { company: 'Toplana \u201eJug\u201c', location: 'Novi Sad', year: '2019', type: 'Nov sistem', capacity: '8 MW' },
-      { company: 'Tigar Tyres', location: 'Pirot', year: '2019', type: 'Modernizacija', capacity: '32 t/h' },
-      { company: 'Toplana \u201eDunav\u201c', location: 'Beograd', year: '2019', type: 'Modernizacija', capacity: '348.9 MW + 20 t/h' },
-      { company: 'Toplana \u201eNovi Beograd\u201c', location: 'Beograd', year: '2019', type: 'Rekonstrukcija', capacity: '232 MW' },
-      { company: 'Toplana \u201eKonjarnik\u201c', location: 'Beograd', year: '2019', type: 'Modernizacija', capacity: '232.6 MW + 20 t/h' },
-      { company: 'Naftna Rafinerija \u201eBrod\u201c', location: 'Brod / BIH', year: '2019', type: 'Nov sistem', capacity: '75 t/h' },
-      { company: '\u201eElemir\u201c Petrohemija', location: 'Elemir', year: '2018', type: 'Modernizacija', capacity: '75 t/h' },
-      { company: 'Pivara \u201e\u010celarevo\u201c', location: '\u010celarevo', year: '2017', type: 'Modernizacija', capacity: '15 t/h' },
-      { company: 'Toplana \u201eJug\u201c', location: 'Ni\u0161', year: '2017', type: 'Nov sistem', capacity: '60 MW' },
-      { company: 'Toplana \u201e\u0160i\u0161ka\u201c', location: 'Ljubljana / SL', year: '2017', type: 'Nov sistem', capacity: '116 MW' },
-      { company: 'Toplana \u201eIstok\u201c', location: 'Novi Sad', year: '2015', type: 'Rekonstrukcija', capacity: '220 MW' },
-      { company: 'Toplana \u201eJug\u201c', location: 'Novi Sad', year: '2015', type: 'Modernizacija', capacity: '30 MW' },
-      { company: 'Toplana \u201eAD Banja Luka\u201c', location: 'Banja Luka / BIH', year: '2015', type: 'Rekonstrukcija', capacity: '116 MW' },
-      { company: 'Toplana \u201eJa\u0161i\u201c', location: 'Ja\u0161i / RO', year: '2015', type: 'Nov sistem', capacity: '58 MW' },
-      { company: '\u201eNIS Naftna Rafinerija\u201c', location: 'Pan\u010devo', year: '2013', type: 'Modernizacija', capacity: '110 t/h' },
-      { company: 'JP "Gradska Toplana"', location: 'Brod / BIH', year: '2013', type: 'Adaptacija', capacity: '15 MW' },
-      { company: 'Toplana \u201eFok\u0161ani\u201c', location: 'Fok\u0161ani / RO', year: '2013', type: 'Nov sistem', capacity: '58 MW' },
-      { company: 'Toplana \u201eSubotica\u201c', location: 'Subotica', year: '2012', type: 'Rekonstrukcija', capacity: '58 MW' },
-      { company: 'Toplana \u201ePetrovaradin\u201c', location: 'Novi Sad', year: '2012', type: 'Projektovanje', capacity: '3.15 MW' },
-      { company: 'Toplana \u201eCerak\u201c', location: 'Beograd', year: '2012', type: 'Modernizacija', capacity: '20 t/h' },
-      { company: 'TeTo \u201eSremska Mitrovica\u201c', location: 'Sremska Mitrovica', year: '2011', type: 'Adaptacija', capacity: '15 MW' },
-      { company: '\u201eHip Petrohemija\u201c AD', location: 'Pan\u010devo', year: '2011', type: 'Rekonstrukcija', capacity: '80 t/h' },
-      { company: 'Toplana \u201eSever\u201c', location: 'Novi Sad', year: '2011', type: 'Nov sistem', capacity: '116 MW' },
-      { company: '\u201eSoja Protein\u201c', location: 'Be\u010dej', year: '2011', type: 'Rekonstrukcija', capacity: '25 t/h' },
-      { company: 'Pivara "Trebjesa" AD', location: 'Nik\u0161i\u0107 / MNE', year: '2011', type: 'Modernizacija', capacity: '23 t/h' },
-      { company: 'Toplana \u201eMladenovac\u201c', location: 'Beograd', year: '2010', type: 'Modernizacija', capacity: '25 t/h' },
-      { company: 'Toplana \u201eZapad\u201c', location: 'Novi Sad', year: '2010', type: 'Adaptacija', capacity: '76.6 MW' },
-      { company: 'Toplana \u201eKrivi Vir\u201c', location: 'Ni\u0161', year: '2010', type: 'Modernizacija', capacity: '128 MW' },
-      { company: 'Toplana \u201eMajakovski\u201c', location: 'Ni\u0161', year: '2010', type: 'Nov sistem', capacity: '14 MW' },
-      { company: 'Toplana \u201ePrijedor\u201c', location: 'Prijedor / BIH', year: '2010', type: 'Modernizacija', capacity: '60 MW' },
-      { company: '\u201eApatinska Pivara\u201c', location: 'Apatin', year: '2008', type: 'Modernizacija', capacity: '47 t/h' },
-      { company: 'Montavar \u2013 Lola', location: 'Beograd', year: '2008', type: 'Projektovanje', capacity: '34.6 MW' },
-      { company: 'Toplana \u201eTaftalid\u017ee\u201c', location: 'Skoplje / NMK', year: '2008', type: 'Modernizacija', capacity: '46 MW' },
-      { company: 'Toplana \u201eIstok\u201c', location: 'Skoplje / NMK', year: '2008', type: 'Modernizacija', capacity: '70 MW' },
-      { company: 'Toplana \u201eBe\u010dej\u201c', location: 'Be\u010dej', year: '2006', type: 'Modernizacija', capacity: '20 MW' },
-      { company: 'Toplana \u201eZapad\u201c', location: 'Novi Sad', year: '2006', type: 'Nov sistem', capacity: '140 MW' },
-      { company: 'Toplana \u201eKru\u0161evac\u201c', location: 'Kru\u0161evac', year: '2006', type: 'Nov sistem', capacity: '32 MW' },
-      { company: '\u0160e\u0107erana \u201eSenta\u201c', location: 'Senta', year: '2006', type: 'Modernizacija', capacity: '80 t/h' },
-      { company: 'Toplana \u201e\u010ca\u010dak\u201c', location: '\u010ca\u010dak', year: '2004', type: 'Projektovanje', capacity: '45 MW' },
-      { company: 'Toplana \u201eJug\u201c', location: 'Novi Sad', year: '2003', type: 'Nov sistem', capacity: '58 MW' },
-      { company: '\u201eSC Banjica\u201c', location: 'Beograd', year: '2003', type: 'Nov sistem', capacity: '1.75 MW' },
-      { company: 'Toplana \u201ePrijedor\u201c', location: 'Prijedor / BIH', year: '2002', type: 'Nov sistem', capacity: '60 MW' },
-      { company: 'Toplana \u201e\u010celinac\u201c', location: '\u010celinac / BIH', year: '2002', type: 'Adaptacija', capacity: '4.5 MW' },
-      { company: 'Toplana \u201eGradi\u0161ka\u201c', location: 'Gradi\u0161ka / BIH', year: '2002', type: 'Rekonstrukcija', capacity: '24 MW' },
-      { company: 'RTB \u2013 Bor', location: 'Bor', year: '2001', type: 'Nov sistem', capacity: '58 MW' },
-      { company: '\u201eLofolen D.D.\u201c', location: 'Loznica', year: '1999', type: 'Nov sistem', capacity: '3 t/h' },
-      { company: 'Toplana \u201eSenta\u201c', location: 'Senta', year: '1998', type: 'Modernizacija', capacity: '50 t/h' },
-      { company: 'Medicinski Centar \u201ePrizren\u201c', location: 'Prizren', year: '1995', type: 'Projektovanje', capacity: '3.5 MW' },
-      { company: '\u201eUljara Kru\u0161evac\u201c', location: 'Kru\u0161evac', year: '1995', type: 'Nov sistem', capacity: '10 t/h' },
-      { company: '\u201eFabrika Kablova Jagodina\u201c', location: 'Jagodina', year: '1995', type: 'Nov sistem', capacity: '10 t/h' },
-      { company: '\u201eKompo\u201c', location: 'Svilajnac', year: '1994', type: 'Nov sistem', capacity: '3.5 MW' },
-      { company: 'Toplana \u201ePri\u0161tina\u201c', location: 'Pri\u0161tina', year: '1994', type: 'Rekonstrukcija', capacity: '29 MW' },
-      { company: '\u201eTehhnoproces\u201c', location: 'Ni\u0161', year: '1994', type: 'Nov sistem', capacity: '0.4 MW' },
-      { company: '\u201eFRUTO\u201c', location: 'Blace', year: '1993', type: 'Nov sistem', capacity: '7 t/h' },
-      { company: '\u017delezni\u010dka stanica \u201eTop\u010dider\u201c', location: 'Beograd', year: '1992', type: 'Nov sistem', capacity: '0.5 MW' },
-      { company: '\u201eInpro\u201c', location: '\u0110akovica', year: '1992', type: 'Nov sistem', capacity: '20 MW' },
-      { company: 'Toplana \u201eBor\u201c', location: 'Bor', year: '1992', type: 'Nov sistem', capacity: '58 MW' },
-      { company: '\u0160e\u0107erana \u201eSenta\u201c', location: 'Senta', year: '1991', type: 'Rekonstrukcija', capacity: '100 t/h' },
-      { company: 'Toplana \u201eKo\u0161ice\u201c', location: 'Ko\u0161ice / SK', year: '1991', type: 'Nov sistem', capacity: '1 MW' },
-      { company: 'Toplana \u201eDetva\u201c', location: 'Detva / SK', year: '1991', type: 'Nov sistem', capacity: '23 MW' },
-      { company: 'Toplana \u201eSenta\u201c', location: 'Senta', year: '1990', type: 'Modernizacija', capacity: '80 t/h' },
-      { company: 'Toplana \u201eSubotica\u201c', location: 'Subotica', year: '1990', type: 'Nov sistem', capacity: '23 MW' },
-      { company: 'Toplana \u201eZagreb\u201c', location: 'Zagreb / CRO', year: '1990', type: 'Nov sistem', capacity: '80 t/h' },
-      { company: 'Toplana \u201e\u0110akovica\u201c', location: '\u0110akovica', year: '1989', type: 'Nov sistem', capacity: '20 MW' },
-      { company: 'Toplana \u201eMakedonska Kamenica\u201c', location: 'Makedonska Kamenica / NMK', year: '1989', type: 'Nov sistem', capacity: '80 t/h' },
-      { company: 'Toplana \u201eKikinda\u201c', location: 'Kikinda', year: '1988', type: 'Nov sistem', capacity: '18.6 MW' },
-      { company: 'Toplana \u201eSubotica\u201c', location: 'Subotica', year: '1988', type: 'Nov sistem', capacity: '23 MW' },
-      { company: 'Toplana \u201e\u0160i\u0161ka\u201c', location: 'Ljubljana / SL', year: '1988', type: 'Nov sistem', capacity: '116 MW' },
-      { company: 'Toplana \u201eZapad\u201c', location: 'Novi Sad', year: '1987', type: 'Nov sistem', capacity: '58 MW' },
-      { company: '\u201eFabrika Kablova Jagodina\u201c', location: 'Jagodina', year: '1987', type: 'Nov sistem', capacity: '29 MW' },
-      { company: 'Toplana \u201eSubotica\u201c', location: 'Subotica', year: '1987', type: 'Nov sistem', capacity: '58 MW' },
-      { company: 'Toplana \u201ePan\u010devo\u201c', location: 'Pan\u010devo', year: '1987', type: 'Nov sistem', capacity: '23 MW' },
-      { company: 'Elektrana \u201eZagreb\u201c', location: 'Zagreb / CRO', year: '1987', type: 'Nov sistem', capacity: '116 MW' },
-      { company: 'Toplana \u201eMaribor\u201c', location: 'Maribor / SL', year: '1987', type: 'Nov sistem', capacity: '35 MW' },
-      { company: 'Toplana \u201eSkoplje\u201c', location: 'Skoplje / NMK', year: '1987', type: 'Nov sistem', capacity: '58 MW' },
-      { company: 'Toplana \u201eAerodrom\u201c', location: 'Beograd', year: '1986', type: 'Nov sistem', capacity: '23 MW' },
-      { company: 'Toplana \u201eZapad\u201c', location: 'Novi Sad', year: '1986', type: 'Nov sistem', capacity: '9.3 MW' },
-      { company: 'Toplana \u201eZagreb\u201c', location: 'Zagreb / CRO', year: '1986', type: 'Nov sistem', capacity: '116 MW' },
-      { company: 'Toplana \u201eKarlovac\u201c', location: 'Karlovac / CRO', year: '1986', type: 'Nov sistem', capacity: '58 MW' },
-      { company: 'Toplana \u201eMakedonska Kamenica\u201c', location: 'Makedonska Kamenica / NMK', year: '1986', type: 'Nov sistem', capacity: '12.5 MW' },
-      { company: 'Toplana \u201eBijelo Polje\u201c', location: 'Bijelo Polje / MNE', year: '1986', type: 'Nov sistem', capacity: '7 MW' },
-      { company: 'Toplana \u201eBe\u010dej\u201c', location: 'Be\u010dej', year: '1985', type: 'Nov sistem', capacity: '10 MW' },
-      { company: '\u201eStra\u017ea\u201c Staklara', location: 'Hum na Sutli / CRO', year: '1985', type: 'Nov sistem', capacity: '2.9 MW' },
-      { company: '\u201eProleter\u201c', location: 'Kotor Varo\u0161 / MNE', year: '1985', type: 'Nov sistem', capacity: '50 t/h' },
-      { company: 'Toplana \u201eBanovo Brdo\u201c', location: 'Beograd', year: '1984', type: 'Nov sistem', capacity: '29 MW' },
-      { company: 'Toplana \u201e\u0160pansko\u201c', location: 'Zagreb / CRO', year: '1984', type: 'Nov sistem', capacity: '7 MW' },
-      { company: 'Toplana \u201eTrbovlje\u201c', location: 'Trbovlje / SL', year: '1984', type: 'Nov sistem', capacity: '17.4 MW' },
-      { company: 'Toplana \u201eAD Banja Luka\u201c', location: 'Banja Luka / BIH', year: '1984', type: 'Nov sistem', capacity: '72 MW' },
-      { company: 'Toplana \u201eMoste\u201c', location: 'Ljubljana / SL', year: '1984', type: 'Nov sistem', capacity: '58 MW' },
-      { company: 'Toplana \u201ePan\u010devo\u201c', location: 'Pan\u010devo', year: '1983', type: 'Nov sistem', capacity: '30 MW' },
-      { company: 'Toplana \u201eBor\u201c', location: 'Bor', year: '1983', type: 'Nov sistem', capacity: '116 MW' },
-      { company: '\u201eHrastnik\u201c', location: 'Trbovlje / SL', year: '1983', type: 'Nov sistem', capacity: '15 MW' },
-      { company: '\u201eFabrika Stakla Para\u0107in\u201c', location: 'Para\u0107in', year: '1982', type: 'Nov sistem', capacity: '2.4 MW' },
-      { company: 'Toplana \u201eBanovo Brdo\u201c', location: 'Beograd', year: '1982', type: 'Nov sistem', capacity: '58 MW' },
-      { company: 'Fabrika Automobila', location: 'Priboj / BIH', year: '1982', type: 'Nov sistem', capacity: '20 MW' },
-      { company: 'Toplana \u201eDoboj\u201c', location: 'Doboj / BIH', year: '1982', type: 'Nov sistem', capacity: '58 MW' },
-      { company: '\u201eJastrebac\u201c', location: 'Ni\u0161', year: '1981', type: 'Nov sistem', capacity: '1.16 MW' },
-      { company: 'Toplana \u201eLipik\u201c', location: 'Lipik / CRO', year: '1981', type: 'Nov sistem', capacity: '0.6 MW' },
-      { company: 'Elektrana \u201eZagreb\u201c', location: 'Zagreb / CRO', year: '1981', type: 'Nov sistem', capacity: '58 MW' },
-      { company: 'Toplana \u201eKosovska Mitrovica\u201c', location: 'Kosovska Mitrovica', year: '1980', type: 'Nov sistem', capacity: '9.3 MW' },
-      { company: 'Toplana \u201eKikinda\u201c', location: 'Kikinda', year: '1980', type: 'Nov sistem', capacity: '18.6 MW' },
-      { company: 'Toplana \u201eKru\u0161evac\u201c', location: 'Kru\u0161evac', year: '1980', type: 'Nov sistem', capacity: '70 MW' },
-      { company: '\u201eG.S. Sarajevo\u201c', location: 'Sarajevo / BIH', year: '1980', type: 'Nov sistem', capacity: '28 MW' },
-      { company: '\u201eJugoturbina\u201c', location: 'Karlovac / CRO', year: '1980', type: 'Nov sistem', capacity: '37.2 MW' },
-      { company: 'Toplana \u201e\u0160pansko\u201c', location: 'Zagreb / CRO', year: '1980', type: 'Nov sistem', capacity: '14 MW' },
-      { company: '\u201eFeronikl\u201c', location: 'Glogovac / CRO', year: '1980', type: 'Nov sistem', capacity: '18.6 MW' },
-      { company: 'Toplana \u201eSarajevo\u201c', location: 'Sarajevo / BIH', year: '1980', type: 'Nov sistem', capacity: '14 MW' },
-      { company: 'Toplana \u201ePri\u0161tina\u201c', location: 'Pri\u0161tina', year: '1979', type: 'Nov sistem', capacity: '29 MW' },
-      { company: 'Toplana \u201eBajina Ba\u0161ta\u201c', location: 'Bajina Ba\u0161ta', year: '1979', type: 'Nov sistem', capacity: '0.92 MW' },
-      { company: 'Toplana \u201eMirijevo\u201c', location: 'Beograd', year: '1979', type: 'Nov sistem', capacity: '23.2 MW' },
-      { company: 'Toplana \u201e\u0110akovica\u201c', location: '\u0110akovica', year: '1979', type: 'Nov sistem', capacity: '18.6 MW' },
-      { company: 'Toplana \u201eZapad\u201c', location: 'Novi Sad', year: '1979', type: 'Nov sistem', capacity: '67.3 MW' },
-      { company: 'Toplana \u201eMaribor\u201c', location: 'Maribor / SL', year: '1979', type: 'Nov sistem', capacity: '35 MW' },
-      { company: 'Toplana \u201eZvornik\u201c', location: 'Zvornik / BIH', year: '1979', type: 'Nov sistem', capacity: '4.6 MW' },
-      { company: 'Toplana \u201eZagreb\u201c', location: 'Zagreb / CRO', year: '1979', type: 'Nov sistem', capacity: '116 MW' },
-      { company: 'Toplana \u201eSarajevo\u201c', location: 'Sarajevo / BIH', year: '1979', type: 'Nov sistem', capacity: '21 MW' },
-      { company: 'Toplana \u201eIstok\u201c', location: 'Skoplje / NMK', year: '1979', type: 'Nov sistem', capacity: '139.5 MW' },
-      { company: 'Toplana \u201eZapad\u201c', location: 'Skoplje / NMK', year: '1979', type: 'Nov sistem', capacity: '46.6 MW' },
-      { company: '\u201eStaklenici Split\u201c', location: 'Split / CRO', year: '1979', type: 'Nov sistem', capacity: '25.6 MW' },
-      { company: 'Toplana \u201eMirijevo\u201c', location: 'Beograd', year: '1978', type: 'Nov sistem', capacity: '11.6 MW' },
-      { company: 'Toplana \u201eZapad\u201c', location: 'Novi Sad', year: '1978', type: 'Nov sistem', capacity: '58 MW' },
-      { company: 'Fabrika Otkivaka \u201eJa\u0161a Tomi\u0107\u201c', location: 'Ja\u0161a Tomi\u0107', year: '1978', type: 'Nov sistem', capacity: '10.5 MW' },
-      { company: '\u201eIvo Lola Ribar\u201c', location: 'Beograd', year: '1978', type: 'Nov sistem', capacity: '2.3 MW' },
-      { company: '\u201eBeogradske Elektrane\u201c', location: 'Beograd', year: '1978', type: 'Nov sistem', capacity: '46.4 MW' },
-      { company: 'Toplana \u201eMoste\u201c', location: 'Ljubljana / SL', year: '1978', type: 'Nov sistem', capacity: '58 MW' },
-      { company: '\u201eG.S. Sarajevo\u201c', location: 'Sarajevo / BIH', year: '1978', type: 'Nov sistem', capacity: '7 MW' },
-      { company: '\u201eToplifikacija\u201c', location: 'Skoplje / NMK', year: '1978', type: 'Nov sistem', capacity: '140 MW' },
-      { company: 'Toplana \u201eKarlovac\u201c', location: 'Karlovac / CRO', year: '1978', type: 'Nov sistem', capacity: '58 MW' },
-      { company: '\u201eSGP Nova Gorica\u201c', location: 'Nova Gorica / SL', year: '1978', type: 'Nov sistem', capacity: '7 MW' },
-      { company: '\u201ePoljoprivredno Dobro Krivaja\u201c', location: 'Stara Moravica', year: '1977', type: 'Nov sistem', capacity: '4.6 MW' },
-      { company: '\u201eAgrovojvodina\u201c', location: 'Novi Sad', year: '1977', type: 'Nov sistem', capacity: '27.9 MW' },
-      { company: '\u201eElektrovojvodina\u201c', location: 'Novi Sad', year: '1977', type: 'Nov sistem', capacity: '23.3 MW' },
-      { company: '\u201eElektroprivreda\u201c', location: 'Zagreb / CRO', year: '1977', type: 'Nov sistem', capacity: '58 MW' },
-      { company: 'Toplana \u201eLjubljana\u201c', location: 'Ljubljana / SL', year: '1977', type: 'Nov sistem', capacity: '116 MW' },
-      { company: 'Toplana \u201eBanja Luka\u201c', location: 'Banja Luka / BIH', year: '1977', type: 'Nov sistem', capacity: '58 MW' },
-      { company: '\u201eElektrovojvodina\u201c', location: 'Novi Sad', year: '1976', type: 'Nov sistem', capacity: '41.8 MW' },
-      { company: 'Toplana \u201e\u0160i\u0161ka\u201c', location: 'Ljubljana / SL', year: '1976', type: 'Nov sistem', capacity: '14 MW' },
-      { company: 'Toplana \u201ePri\u0161tina\u201c', location: 'Pri\u0161tina', year: '1975', type: 'Nov sistem', capacity: '114 MW' },
-      { company: 'Elektrana \u201eZagreb\u201c', location: 'Zagreb / CRO', year: '1975', type: 'Nov sistem', capacity: '58 MW' },
-      { company: '\u201eElektroprivreda\u201c', location: 'Zagreb / CRO', year: '1975', type: 'Nov sistem', capacity: '58 MW' },
-      { company: 'Toplana \u201eGornji Zemun\u201c', location: 'Zemun', year: '1974', type: 'Nov sistem', capacity: '14 MW' },
-      { company: '\u201eInstalater Sarajevo\u201c', location: 'Sarajevo / BIH', year: '1974', type: 'Nov sistem', capacity: '11.6 MW' },
-      { company: 'Toplana \u201eKranj\u201c', location: 'Kranj / SL', year: '1974', type: 'Nov sistem', capacity: '11.6 MW' },
-      { company: 'Toplana \u201eJesenice\u201c', location: 'Jesenice / SL', year: '1974', type: 'Nov sistem', capacity: '42 MW' },
-      { company: 'Toplana \u201ePrijedor\u201c', location: 'Prijedor / BIH', year: '1974', type: 'Nov sistem', capacity: '37.2 MW' },
-      { company: '\u201eBeogradske Elektrane\u201c', location: 'Beograd', year: '1973', type: 'Nov sistem', capacity: '46.6 MW' },
-      { company: '\u201eGradsko Stambeno Preduze\u0107e\u201c', location: 'Beograd', year: '1972', type: 'Nov sistem', capacity: '4.6 MW' },
-      { company: '\u201eImpros\u201c', location: 'Beograd', year: '1972', type: 'Nov sistem', capacity: '18.6 MW' },
-      { company: 'Toplana \u201eGornji Zemun\u201c', location: 'Zemun', year: '1972', type: 'Nov sistem', capacity: '18.6 MW' },
-      { company: 'Toplana \u201eKranj\u201c', location: 'Kranj / SL', year: '1972', type: 'Nov sistem', capacity: '23.2 MW' },
-      { company: 'Toplana \u201eBanja Luka\u201c', location: 'Banja Luka / BIH', year: '1972', type: 'Nov sistem', capacity: '116 MW' },
-      { company: '\u201e4. Juli\u201c', location: 'U\u017eice', year: '1971', type: 'Nov sistem', capacity: '5.8 MW' },
-      { company: 'Toplana \u201eKragujevac\u201c', location: 'Kragujevac', year: '1971', type: 'Nov sistem', capacity: '60.6 MW' },
-      { company: '\u201eElektrovojvodina\u201c', location: 'Novi Sad', year: '1971', type: 'Nov sistem', capacity: '70 MW' },
-      { company: 'Valjaonica Bakra \u201eSevojno\u201c', location: 'Sevojno', year: '1971', type: 'Nov sistem', capacity: '42 MW' },
-      { company: '\u201eLipovica\u201c', location: 'Lipljan', year: '1971', type: 'Nov sistem', capacity: '20 t/h' },
-      { company: '\u201eInstalater Sarajevo\u201c', location: 'Sarajevo / BIH', year: '1971', type: 'Nov sistem', capacity: '4.6 MW' },
-      { company: 'Toplana \u201eBanja Luka\u201c', location: 'Banja Luka / BIH', year: '1971', type: 'Nov sistem', capacity: '14 MW' },
-      { company: '\u201eMeblo\u201c', location: 'Nova Gorica / SL', year: '1971', type: 'Nov sistem', capacity: '7 MW' },
-      { company: 'Toplana \u201eLjubljana\u201c', location: 'Ljubljana / SL', year: '1971', type: 'Nov sistem', capacity: '116 MW' },
-      { company: 'Elektrana \u201eZagreb\u201c', location: 'Zagreb / CRO', year: '1971', type: 'Nov sistem', capacity: '80 t/h' },
-      { company: 'Rafinerija \u0160e\u0107era \u201eSremska Mitrovica\u201c', location: 'Sremska Mitrovica', year: '1970', type: 'Nov sistem', capacity: '64 t/h' },
-      { company: '\u201eIndustrija Stakla Pan\u010devo\u201c', location: 'Pan\u010devo', year: '1970', type: 'Nov sistem', capacity: '1.75 MW' },
-      { company: '\u201eElektrovojvodina\u201c', location: 'Novi Sad', year: '1970', type: 'Nov sistem', capacity: '4.6 MW' },
-      { company: '\u201eSIV Beograd\u201c', location: 'Beograd', year: '1970', type: 'Nov sistem', capacity: '9.2 MW' },
-      { company: 'Ortopedska Bolnica \u201eBanjica\u201c', location: 'Beograd', year: '1970', type: 'Nov sistem', capacity: '9.2 MW' },
-      { company: '\u201eGradsko Stambeno Preduze\u0107e\u201c', location: 'Beograd', year: '1970', type: 'Nov sistem', capacity: '4.6 MW' },
-      { company: 'Elektrana \u201eZagreb\u201c', location: 'Zagreb / CRO', year: '1970', type: 'Nov sistem', capacity: '50 t/h' },
-      { company: '\u0160e\u0107erana \u201eBranjin Vrh\u201c', location: 'Branjin Vrh / CRO', year: '1970', type: 'Nov sistem', capacity: '64 t/h' },
-      { company: 'Skup\u0161tina Op\u0161tine Banja Luka', location: 'Banja Luka / BIH', year: '1970', type: 'Nov sistem', capacity: '14 MW' },
-      { company: '\u201eElektroprivreda\u201c', location: 'Zagreb / CRO', year: '1970', type: 'Nov sistem', capacity: '174 MW' },
-      { company: '\u201eToplifikacija\u201c', location: 'Skoplje / NMK', year: '1970', type: 'Nov sistem', capacity: '139.5 MW' },
-      { company: 'Fabrika Vagona \u201eKraljevo\u201c', location: 'Kraljevo', year: '1969', type: 'Nov sistem', capacity: '20.9 MW' },
-      { company: '\u201eStambeno Preduze\u0107e Ni\u0161\u201c', location: 'Ni\u0161', year: '1969', type: 'Nov sistem', capacity: '9.2 MW' },
-      { company: 'Termo-elektri\u010dna Stanica \u201eSisak\u201c', location: 'Sisak / CRO', year: '1969', type: 'Nov sistem', capacity: '40 t/h' },
-      { company: '\u201eInstalater Sarajevo\u201c', location: 'Sarajevo / BIH', year: '1969', type: 'Nov sistem', capacity: '14 MW' },
-      { company: '\u201eOberhof\u201c', location: 'Oberhof / DE', year: '1969', type: 'Nov sistem', capacity: '4.6 MW' },
-      { company: '\u201eGradsko Stambeno Preduze\u0107e\u201c', location: 'Beograd', year: '1968', type: 'Nov sistem', capacity: '76.9 MW' },
-      { company: 'Toplana \u201eKragujevac\u201c', location: 'Kragujevac', year: '1968', type: 'Nov sistem', capacity: '23.3 MW' },
-      { company: '\u201eLesonit\u201c', location: 'Ilirska Bistrica / SL', year: '1968', type: 'Nov sistem', capacity: '28 MW' },
-      { company: 'Vojno-medicinska Akademija', location: 'Beograd', year: '1967', type: 'Nov sistem', capacity: '23.2 MW' },
-      { company: '\u201eKomgrap\u201c', location: 'Beograd', year: '1967', type: 'Nov sistem', capacity: '37.2 MW' },
-      { company: '\u201eMerima\u201c', location: 'Kru\u0161evac', year: '1967', type: 'Nov sistem', capacity: '50 t/h' },
-      { company: 'Pivara \u201eApatin\u201c', location: 'Apatin', year: '1967', type: 'Nov sistem', capacity: '20 t/h' },
-      { company: '\u201eVaso Mi\u0161kin \u2013 Crni\u201c', location: 'Sarajevo / BIH', year: '1967', type: 'Nov sistem', capacity: '40 t/h' },
-      { company: '\u201eUkrina\u201c', location: 'Derventa / BIH', year: '1967', type: 'Nov sistem', capacity: '20 t/h' },
-      { company: 'Toplana \u201eZagreb\u201c', location: 'Zagreb / CRO', year: '1967', type: 'Nov sistem', capacity: '80 t/h' },
-      { company: '\u201eMiloje Zaki\u0107\u201c', location: 'Kru\u0161evac', year: '1966', type: 'Nov sistem', capacity: '20 t/h' },
-      { company: '\u201eToplifikacija\u201c', location: 'Skoplje / NMK', year: '1966', type: 'Nov sistem', capacity: '46.6 MW' },
-      { company: 'Toplana \u201eJug\u201c', location: 'Novi Sad', year: '1965', type: 'Nov sistem', capacity: '69.9 MW' },
-      { company: '\u010celičana \u201eSkoplje\u201c', location: 'Skoplje / NMK', year: '1964', type: 'Nov sistem', capacity: '96 MW' },
-      { company: '\u010celičana \u201eJesenice\u201c', location: 'Jesenice / SL', year: '1962', type: 'Nov sistem', capacity: '32 t/h' },
-      { company: 'Rafinerija \u0160e\u0107era \u201eSremska Mitrovica\u201c', location: 'Sremska Mitrovica', year: '1961', type: 'Nov sistem', capacity: '20 t/h' },
-      { company: 'Termo-elektri\u010dna Stanica \u201eTrbovlje\u201c', location: 'Trbovlje / SL', year: '1961', type: 'Nov sistem', capacity: '60 t/h' },
+      { company: 'Toplana \u201eMirijevo\u201c', location: 'Beograd', year: '2023', type: 'Modernizacija', capacity: '122.9 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eKrivi Vir\u201c', location: 'Ni\u0161', year: '2023', type: 'Modernizacija', capacity: '127.7 MW', fuel: 'oil-gas' },
+      { company: 'British American Tobacco', location: 'Vranje', year: '2022', type: 'Modernizacija', capacity: '4.54 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eBor\u201c', location: 'Bor', year: '2022', type: 'Rekonstrukcija', capacity: '58 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eCerak\u201c', location: 'Beograd', year: '2022', type: 'Modernizacija', capacity: '232.6 MW + 20 t/h', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eZapad\u201c', location: 'Novi Sad', year: '2022', type: 'Rekonstrukcija', capacity: '40 MW', fuel: 'multi-fuel' },
+      { company: 'Toplana \u201e\u0160i\u0161ka\u201c', location: 'Ljubljana / SL', year: '2022', type: 'Rekonstrukcija', capacity: '116 MW', fuel: 'oil-gas' },
+      { company: 'KC \u201eSrbija\u201c', location: 'Beograd', year: '2021', type: 'Modernizacija', capacity: '40.4 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eValjevo\u201c', location: 'Valjevo', year: '2021', type: 'Modernizacija', capacity: '50 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eVo\u017edovac\u201c', location: 'Beograd', year: '2020', type: 'Modernizacija', capacity: '232.6 MW + 20 t/h', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eKru\u0161evac\u201c', location: 'Kru\u0161evac', year: '2020', type: 'Rekonstrukcija', capacity: '30 MW', fuel: 'coal' },
+      { company: 'Toplana \u201eJug\u201c', location: 'Novi Sad', year: '2019', type: 'Nov sistem', capacity: '8 MW', fuel: 'oil-gas' },
+      { company: 'Tigar Tyres', location: 'Pirot', year: '2019', type: 'Modernizacija', capacity: '32 t/h', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eDunav\u201c', location: 'Beograd', year: '2019', type: 'Modernizacija', capacity: '348.9 MW + 20 t/h', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eNovi Beograd\u201c', location: 'Beograd', year: '2019', type: 'Rekonstrukcija', capacity: '232 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eKonjarnik\u201c', location: 'Beograd', year: '2019', type: 'Modernizacija', capacity: '232.6 MW + 20 t/h', fuel: 'oil-gas' },
+      { company: 'Naftna Rafinerija \u201eBrod\u201c', location: 'Brod / BIH', year: '2019', type: 'Nov sistem', capacity: '75 t/h', fuel: 'oil-gas' },
+      { company: '\u201eElemir\u201c Petrohemija', location: 'Elemir', year: '2018', type: 'Modernizacija', capacity: '75 t/h', fuel: 'heat-recovery' },
+      { company: 'Pivara \u201e\u010celarevo\u201c', location: '\u010celarevo', year: '2017', type: 'Modernizacija', capacity: '15 t/h', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eJug\u201c', location: 'Ni\u0161', year: '2017', type: 'Nov sistem', capacity: '60 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201e\u0160i\u0161ka\u201c', location: 'Ljubljana / SL', year: '2017', type: 'Nov sistem', capacity: '116 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eIstok\u201c', location: 'Novi Sad', year: '2015', type: 'Rekonstrukcija', capacity: '220 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eJug\u201c', location: 'Novi Sad', year: '2015', type: 'Modernizacija', capacity: '30 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eAD Banja Luka\u201c', location: 'Banja Luka / BIH', year: '2015', type: 'Rekonstrukcija', capacity: '116 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eJa\u0161i\u201c', location: 'Ja\u0161i / RO', year: '2015', type: 'Nov sistem', capacity: '58 MW', fuel: 'oil-gas' },
+      { company: '\u201eNIS Naftna Rafinerija\u201c', location: 'Pan\u010devo', year: '2013', type: 'Modernizacija', capacity: '110 t/h', fuel: 'multi-fuel' },
+      { company: 'JP "Gradska Toplana"', location: 'Brod / BIH', year: '2013', type: 'Adaptacija', capacity: '15 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eFok\u0161ani\u201c', location: 'Fok\u0161ani / RO', year: '2013', type: 'Nov sistem', capacity: '58 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eSubotica\u201c', location: 'Subotica', year: '2012', type: 'Rekonstrukcija', capacity: '58 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201ePetrovaradin\u201c', location: 'Novi Sad', year: '2012', type: 'Projektovanje', capacity: '3.15 MW', fuel: 'biomass' },
+      { company: 'Toplana \u201eCerak\u201c', location: 'Beograd', year: '2012', type: 'Modernizacija', capacity: '20 t/h', fuel: 'oil-gas' },
+      { company: 'TeTo \u201eSremska Mitrovica\u201c', location: 'Sremska Mitrovica', year: '2011', type: 'Adaptacija', capacity: '15 MW', fuel: 'oil-gas' },
+      { company: '\u201eHip Petrohemija\u201c AD', location: 'Pan\u010devo', year: '2011', type: 'Rekonstrukcija', capacity: '80 t/h', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eSever\u201c', location: 'Novi Sad', year: '2011', type: 'Nov sistem', capacity: '116 MW', fuel: 'oil-gas' },
+      { company: '\u201eSoja Protein\u201c', location: 'Be\u010dej', year: '2011', type: 'Rekonstrukcija', capacity: '25 t/h', fuel: 'oil-gas' },
+      { company: 'Pivara "Trebjesa" AD', location: 'Nik\u0161i\u0107 / MNE', year: '2011', type: 'Modernizacija', capacity: '23 t/h', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eMladenovac\u201c', location: 'Beograd', year: '2010', type: 'Modernizacija', capacity: '25 t/h', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eZapad\u201c', location: 'Novi Sad', year: '2010', type: 'Adaptacija', capacity: '76.6 MW', fuel: 'multi-fuel' },
+      { company: 'Toplana \u201eKrivi Vir\u201c', location: 'Ni\u0161', year: '2010', type: 'Modernizacija', capacity: '128 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eMajakovski\u201c', location: 'Ni\u0161', year: '2010', type: 'Nov sistem', capacity: '14 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201ePrijedor\u201c', location: 'Prijedor / BIH', year: '2010', type: 'Modernizacija', capacity: '60 MW', fuel: 'oil-gas' },
+      { company: '\u201eApatinska Pivara\u201c', location: 'Apatin', year: '2008', type: 'Modernizacija', capacity: '47 t/h', fuel: 'oil-gas' },
+      { company: 'Montavar \u2013 Lola', location: 'Beograd', year: '2008', type: 'Projektovanje', capacity: '34.6 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eTaftalid\u017ee\u201c', location: 'Skoplje / NMK', year: '2008', type: 'Modernizacija', capacity: '46 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eIstok\u201c', location: 'Skoplje / NMK', year: '2008', type: 'Modernizacija', capacity: '70 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eBe\u010dej\u201c', location: 'Be\u010dej', year: '2006', type: 'Modernizacija', capacity: '20 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eZapad\u201c', location: 'Novi Sad', year: '2006', type: 'Nov sistem', capacity: '140 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eKru\u0161evac\u201c', location: 'Kru\u0161evac', year: '2006', type: 'Nov sistem', capacity: '32 MW', fuel: 'coal' },
+      { company: '\u0160e\u0107erana \u201eSenta\u201c', location: 'Senta', year: '2006', type: 'Modernizacija', capacity: '80 t/h', fuel: 'coal' },
+      { company: 'Toplana \u201e\u010ca\u010dak\u201c', location: '\u010ca\u010dak', year: '2004', type: 'Projektovanje', capacity: '45 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eJug\u201c', location: 'Novi Sad', year: '2003', type: 'Nov sistem', capacity: '58 MW', fuel: 'oil-gas' },
+      { company: '\u201eSC Banjica\u201c', location: 'Beograd', year: '2003', type: 'Nov sistem', capacity: '1.75 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201ePrijedor\u201c', location: 'Prijedor / BIH', year: '2002', type: 'Nov sistem', capacity: '60 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201e\u010celinac\u201c', location: '\u010celinac / BIH', year: '2002', type: 'Adaptacija', capacity: '4.5 MW', fuel: 'coal' },
+      { company: 'Toplana \u201eGradi\u0161ka\u201c', location: 'Gradi\u0161ka / BIH', year: '2002', type: 'Rekonstrukcija', capacity: '24 MW', fuel: 'oil-gas' },
+      { company: 'RTB \u2013 Bor', location: 'Bor', year: '2001', type: 'Nov sistem', capacity: '58 MW', fuel: 'oil-gas' },
+      { company: '\u201eLofolen D.D.\u201c', location: 'Loznica', year: '1999', type: 'Nov sistem', capacity: '3 t/h', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eSenta\u201c', location: 'Senta', year: '1998', type: 'Modernizacija', capacity: '50 t/h', fuel: 'oil-gas' },
+      { company: 'Medicinski Centar \u201ePrizren\u201c', location: 'Prizren', year: '1995', type: 'Projektovanje', capacity: '3.5 MW', fuel: 'multi-fuel' },
+      { company: '\u201eUljara Kru\u0161evac\u201c', location: 'Kru\u0161evac', year: '1995', type: 'Nov sistem', capacity: '10 t/h', fuel: 'multi-fuel' },
+      { company: '\u201eFabrika Kablova Jagodina\u201c', location: 'Jagodina', year: '1995', type: 'Nov sistem', capacity: '10 t/h', fuel: 'oil-gas' },
+      { company: '\u201eKompo\u201c', location: 'Svilajnac', year: '1994', type: 'Nov sistem', capacity: '3.5 MW', fuel: 'coal' },
+      { company: 'Toplana \u201ePri\u0161tina\u201c', location: 'Pri\u0161tina', year: '1994', type: 'Rekonstrukcija', capacity: '29 MW', fuel: 'oil-gas' },
+      { company: '\u201eTehhnoproces\u201c', location: 'Ni\u0161', year: '1994', type: 'Nov sistem', capacity: '0.4 MW', fuel: 'power-to-heat' },
+      { company: '\u201eFRUTO\u201c', location: 'Blace', year: '1993', type: 'Nov sistem', capacity: '7 t/h', fuel: 'oil-gas' },
+      { company: '\u017delezni\u010dka stanica \u201eTop\u010dider\u201c', location: 'Beograd', year: '1992', type: 'Nov sistem', capacity: '0.5 MW', fuel: 'power-to-heat' },
+      { company: '\u201eInpro\u201c', location: '\u0110akovica', year: '1992', type: 'Nov sistem', capacity: '20 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eBor\u201c', location: 'Bor', year: '1992', type: 'Nov sistem', capacity: '58 MW', fuel: 'oil-gas' },
+      { company: '\u0160e\u0107erana \u201eSenta\u201c', location: 'Senta', year: '1991', type: 'Rekonstrukcija', capacity: '100 t/h', fuel: 'coal' },
+      { company: 'Toplana \u201eKo\u0161ice\u201c', location: 'Ko\u0161ice / SK', year: '1991', type: 'Nov sistem', capacity: '1 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eDetva\u201c', location: 'Detva / SK', year: '1991', type: 'Nov sistem', capacity: '23 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eSenta\u201c', location: 'Senta', year: '1990', type: 'Modernizacija', capacity: '80 t/h', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eSubotica\u201c', location: 'Subotica', year: '1990', type: 'Nov sistem', capacity: '23 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eZagreb\u201c', location: 'Zagreb / CRO', year: '1990', type: 'Nov sistem', capacity: '80 t/h', fuel: 'oil-gas' },
+      { company: 'Toplana \u201e\u0110akovica\u201c', location: '\u0110akovica', year: '1989', type: 'Nov sistem', capacity: '20 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eMakedonska Kamenica\u201c', location: 'Makedonska Kamenica / NMK', year: '1989', type: 'Nov sistem', capacity: '80 t/h', fuel: 'coal' },
+      { company: 'Toplana \u201eKikinda\u201c', location: 'Kikinda', year: '1988', type: 'Nov sistem', capacity: '18.6 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eSubotica\u201c', location: 'Subotica', year: '1988', type: 'Nov sistem', capacity: '23 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201e\u0160i\u0161ka\u201c', location: 'Ljubljana / SL', year: '1988', type: 'Nov sistem', capacity: '116 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eZapad\u201c', location: 'Novi Sad', year: '1987', type: 'Nov sistem', capacity: '58 MW', fuel: 'oil-gas' },
+      { company: '\u201eFabrika Kablova Jagodina\u201c', location: 'Jagodina', year: '1987', type: 'Nov sistem', capacity: '29 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eSubotica\u201c', location: 'Subotica', year: '1987', type: 'Nov sistem', capacity: '58 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201ePan\u010devo\u201c', location: 'Pan\u010devo', year: '1987', type: 'Nov sistem', capacity: '23 MW', fuel: 'oil-gas' },
+      { company: 'Elektrana \u201eZagreb\u201c', location: 'Zagreb / CRO', year: '1987', type: 'Nov sistem', capacity: '116 MW', fuel: 'coal' },
+      { company: 'Toplana \u201eMaribor\u201c', location: 'Maribor / SL', year: '1987', type: 'Nov sistem', capacity: '35 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eSkoplje\u201c', location: 'Skoplje / NMK', year: '1987', type: 'Nov sistem', capacity: '58 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eAerodrom\u201c', location: 'Beograd', year: '1986', type: 'Nov sistem', capacity: '23 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eZapad\u201c', location: 'Novi Sad', year: '1986', type: 'Nov sistem', capacity: '9.3 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eZagreb\u201c', location: 'Zagreb / CRO', year: '1986', type: 'Nov sistem', capacity: '116 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eKarlovac\u201c', location: 'Karlovac / CRO', year: '1986', type: 'Nov sistem', capacity: '58 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eMakedonska Kamenica\u201c', location: 'Makedonska Kamenica / NMK', year: '1986', type: 'Nov sistem', capacity: '12.5 MW', fuel: 'coal' },
+      { company: 'Toplana \u201eBijelo Polje\u201c', location: 'Bijelo Polje / MNE', year: '1986', type: 'Nov sistem', capacity: '7 MW', fuel: 'coal' },
+      { company: 'Toplana \u201eBe\u010dej\u201c', location: 'Be\u010dej', year: '1985', type: 'Nov sistem', capacity: '10 MW', fuel: 'oil-gas' },
+      { company: '\u201eStra\u017ea\u201c Staklara', location: 'Hum na Sutli / CRO', year: '1985', type: 'Nov sistem', capacity: '2.9 MW', fuel: 'heat-recovery' },
+      { company: '\u201eProleter\u201c', location: 'Kotor Varo\u0161 / MNE', year: '1985', type: 'Nov sistem', capacity: '50 t/h', fuel: 'coal' },
+      { company: 'Toplana \u201eBanovo Brdo\u201c', location: 'Beograd', year: '1984', type: 'Nov sistem', capacity: '29 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201e\u0160pansko\u201c', location: 'Zagreb / CRO', year: '1984', type: 'Nov sistem', capacity: '7 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eTrbovlje\u201c', location: 'Trbovlje / SL', year: '1984', type: 'Nov sistem', capacity: '17.4 MW', fuel: 'coal' },
+      { company: 'Toplana \u201eAD Banja Luka\u201c', location: 'Banja Luka / BIH', year: '1984', type: 'Nov sistem', capacity: '72 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eMoste\u201c', location: 'Ljubljana / SL', year: '1984', type: 'Nov sistem', capacity: '58 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201ePan\u010devo\u201c', location: 'Pan\u010devo', year: '1983', type: 'Nov sistem', capacity: '30 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eBor\u201c', location: 'Bor', year: '1983', type: 'Nov sistem', capacity: '116 MW', fuel: 'oil-gas' },
+      { company: '\u201eHrastnik\u201c', location: 'Trbovlje / SL', year: '1983', type: 'Nov sistem', capacity: '15 MW', fuel: 'coal' },
+      { company: '\u201eFabrika Stakla Para\u0107in\u201c', location: 'Para\u0107in', year: '1982', type: 'Nov sistem', capacity: '2.4 MW', fuel: 'heat-recovery' },
+      { company: 'Toplana \u201eBanovo Brdo\u201c', location: 'Beograd', year: '1982', type: 'Nov sistem', capacity: '58 MW', fuel: 'oil-gas' },
+      { company: 'Fabrika Automobila', location: 'Priboj / BIH', year: '1982', type: 'Nov sistem', capacity: '20 MW', fuel: 'coal' },
+      { company: 'Toplana \u201eDoboj\u201c', location: 'Doboj / BIH', year: '1982', type: 'Nov sistem', capacity: '58 MW', fuel: 'coal' },
+      { company: '\u201eJastrebac\u201c', location: 'Ni\u0161', year: '1981', type: 'Nov sistem', capacity: '1.16 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eLipik\u201c', location: 'Lipik / CRO', year: '1981', type: 'Nov sistem', capacity: '0.6 MW', fuel: 'heat-recovery' },
+      { company: 'Elektrana \u201eZagreb\u201c', location: 'Zagreb / CRO', year: '1981', type: 'Nov sistem', capacity: '58 MW', fuel: 'coal' },
+      { company: 'Toplana \u201eKosovska Mitrovica\u201c', location: 'Kosovska Mitrovica', year: '1980', type: 'Nov sistem', capacity: '9.3 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eKikinda\u201c', location: 'Kikinda', year: '1980', type: 'Nov sistem', capacity: '18.6 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eKru\u0161evac\u201c', location: 'Kru\u0161evac', year: '1980', type: 'Nov sistem', capacity: '70 MW', fuel: 'coal' },
+      { company: '\u201eG.S. Sarajevo\u201c', location: 'Sarajevo / BIH', year: '1980', type: 'Nov sistem', capacity: '28 MW', fuel: 'oil-gas' },
+      { company: '\u201eJugoturbina\u201c', location: 'Karlovac / CRO', year: '1980', type: 'Nov sistem', capacity: '37.2 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201e\u0160pansko\u201c', location: 'Zagreb / CRO', year: '1980', type: 'Nov sistem', capacity: '14 MW', fuel: 'oil-gas' },
+      { company: '\u201eFeronikl\u201c', location: 'Glogovac / CRO', year: '1980', type: 'Nov sistem', capacity: '18.6 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eSarajevo\u201c', location: 'Sarajevo / BIH', year: '1980', type: 'Nov sistem', capacity: '14 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201ePri\u0161tina\u201c', location: 'Pri\u0161tina', year: '1979', type: 'Nov sistem', capacity: '29 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eBajina Ba\u0161ta\u201c', location: 'Bajina Ba\u0161ta', year: '1979', type: 'Nov sistem', capacity: '0.92 MW', fuel: 'power-to-heat' },
+      { company: 'Toplana \u201eMirijevo\u201c', location: 'Beograd', year: '1979', type: 'Nov sistem', capacity: '23.2 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201e\u0110akovica\u201c', location: '\u0110akovica', year: '1979', type: 'Nov sistem', capacity: '18.6 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eZapad\u201c', location: 'Novi Sad', year: '1979', type: 'Nov sistem', capacity: '67.3 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eMaribor\u201c', location: 'Maribor / SL', year: '1979', type: 'Nov sistem', capacity: '35 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eZvornik\u201c', location: 'Zvornik / BIH', year: '1979', type: 'Nov sistem', capacity: '4.6 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eZagreb\u201c', location: 'Zagreb / CRO', year: '1979', type: 'Nov sistem', capacity: '116 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eSarajevo\u201c', location: 'Sarajevo / BIH', year: '1979', type: 'Nov sistem', capacity: '21 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eIstok\u201c', location: 'Skoplje / NMK', year: '1979', type: 'Nov sistem', capacity: '139.5 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eZapad\u201c', location: 'Skoplje / NMK', year: '1979', type: 'Nov sistem', capacity: '46.6 MW', fuel: 'oil-gas' },
+      { company: '\u201eStaklenici Split\u201c', location: 'Split / CRO', year: '1979', type: 'Nov sistem', capacity: '25.6 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eMirijevo\u201c', location: 'Beograd', year: '1978', type: 'Nov sistem', capacity: '11.6 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eZapad\u201c', location: 'Novi Sad', year: '1978', type: 'Nov sistem', capacity: '58 MW', fuel: 'oil-gas' },
+      { company: 'Fabrika Otkivaka \u201eJa\u0161a Tomi\u0107\u201c', location: 'Ja\u0161a Tomi\u0107', year: '1978', type: 'Nov sistem', capacity: '10.5 MW', fuel: 'oil-gas' },
+      { company: '\u201eIvo Lola Ribar\u201c', location: 'Beograd', year: '1978', type: 'Nov sistem', capacity: '2.3 MW', fuel: 'oil-gas' },
+      { company: '\u201eBeogradske Elektrane\u201c', location: 'Beograd', year: '1978', type: 'Nov sistem', capacity: '46.4 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eMoste\u201c', location: 'Ljubljana / SL', year: '1978', type: 'Nov sistem', capacity: '58 MW', fuel: 'oil-gas' },
+      { company: '\u201eG.S. Sarajevo\u201c', location: 'Sarajevo / BIH', year: '1978', type: 'Nov sistem', capacity: '7 MW', fuel: 'oil-gas' },
+      { company: '\u201eToplifikacija\u201c', location: 'Skoplje / NMK', year: '1978', type: 'Nov sistem', capacity: '140 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eKarlovac\u201c', location: 'Karlovac / CRO', year: '1978', type: 'Nov sistem', capacity: '58 MW', fuel: 'oil-gas' },
+      { company: '\u201eSGP Nova Gorica\u201c', location: 'Nova Gorica / SL', year: '1978', type: 'Nov sistem', capacity: '7 MW', fuel: 'oil-gas' },
+      { company: '\u201ePoljoprivredno Dobro Krivaja\u201c', location: 'Stara Moravica', year: '1977', type: 'Nov sistem', capacity: '4.6 MW', fuel: 'oil-gas' },
+      { company: '\u201eAgrovojvodina\u201c', location: 'Novi Sad', year: '1977', type: 'Nov sistem', capacity: '27.9 MW', fuel: 'oil-gas' },
+      { company: '\u201eElektrovojvodina\u201c', location: 'Novi Sad', year: '1977', type: 'Nov sistem', capacity: '23.3 MW', fuel: 'oil-gas' },
+      { company: '\u201eElektroprivreda\u201c', location: 'Zagreb / CRO', year: '1977', type: 'Nov sistem', capacity: '58 MW', fuel: 'coal' },
+      { company: 'Toplana \u201eLjubljana\u201c', location: 'Ljubljana / SL', year: '1977', type: 'Nov sistem', capacity: '116 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eBanja Luka\u201c', location: 'Banja Luka / BIH', year: '1977', type: 'Nov sistem', capacity: '58 MW', fuel: 'oil-gas' },
+      { company: '\u201eElektrovojvodina\u201c', location: 'Novi Sad', year: '1976', type: 'Nov sistem', capacity: '41.8 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201e\u0160i\u0161ka\u201c', location: 'Ljubljana / SL', year: '1976', type: 'Nov sistem', capacity: '14 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201ePri\u0161tina\u201c', location: 'Pri\u0161tina', year: '1975', type: 'Nov sistem', capacity: '114 MW', fuel: 'oil-gas' },
+      { company: 'Elektrana \u201eZagreb\u201c', location: 'Zagreb / CRO', year: '1975', type: 'Nov sistem', capacity: '58 MW', fuel: 'coal' },
+      { company: '\u201eElektroprivreda\u201c', location: 'Zagreb / CRO', year: '1975', type: 'Nov sistem', capacity: '58 MW', fuel: 'coal' },
+      { company: 'Toplana \u201eGornji Zemun\u201c', location: 'Zemun', year: '1974', type: 'Nov sistem', capacity: '14 MW', fuel: 'oil-gas' },
+      { company: '\u201eInstalater Sarajevo\u201c', location: 'Sarajevo / BIH', year: '1974', type: 'Nov sistem', capacity: '11.6 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eKranj\u201c', location: 'Kranj / SL', year: '1974', type: 'Nov sistem', capacity: '11.6 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eJesenice\u201c', location: 'Jesenice / SL', year: '1974', type: 'Nov sistem', capacity: '42 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201ePrijedor\u201c', location: 'Prijedor / BIH', year: '1974', type: 'Nov sistem', capacity: '37.2 MW', fuel: 'oil-gas' },
+      { company: '\u201eBeogradske Elektrane\u201c', location: 'Beograd', year: '1973', type: 'Nov sistem', capacity: '46.6 MW', fuel: 'oil-gas' },
+      { company: '\u201eGradsko Stambeno Preduze\u0107e\u201c', location: 'Beograd', year: '1972', type: 'Nov sistem', capacity: '4.6 MW', fuel: 'oil-gas' },
+      { company: '\u201eImpros\u201c', location: 'Beograd', year: '1972', type: 'Nov sistem', capacity: '18.6 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eGornji Zemun\u201c', location: 'Zemun', year: '1972', type: 'Nov sistem', capacity: '18.6 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eKranj\u201c', location: 'Kranj / SL', year: '1972', type: 'Nov sistem', capacity: '23.2 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eBanja Luka\u201c', location: 'Banja Luka / BIH', year: '1972', type: 'Nov sistem', capacity: '116 MW', fuel: 'oil-gas' },
+      { company: '\u201e4. Juli\u201c', location: 'U\u017eice', year: '1971', type: 'Nov sistem', capacity: '5.8 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eKragujevac\u201c', location: 'Kragujevac', year: '1971', type: 'Nov sistem', capacity: '60.6 MW', fuel: 'oil-gas' },
+      { company: '\u201eElektrovojvodina\u201c', location: 'Novi Sad', year: '1971', type: 'Nov sistem', capacity: '70 MW', fuel: 'oil-gas' },
+      { company: 'Valjaonica Bakra \u201eSevojno\u201c', location: 'Sevojno', year: '1971', type: 'Nov sistem', capacity: '42 MW', fuel: 'oil-gas' },
+      { company: '\u201eLipovica\u201c', location: 'Lipljan', year: '1971', type: 'Nov sistem', capacity: '20 t/h', fuel: 'oil-gas' },
+      { company: '\u201eInstalater Sarajevo\u201c', location: 'Sarajevo / BIH', year: '1971', type: 'Nov sistem', capacity: '4.6 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eBanja Luka\u201c', location: 'Banja Luka / BIH', year: '1971', type: 'Nov sistem', capacity: '14 MW', fuel: 'oil-gas' },
+      { company: '\u201eMeblo\u201c', location: 'Nova Gorica / SL', year: '1971', type: 'Nov sistem', capacity: '7 MW', fuel: 'multi-fuel' },
+      { company: 'Toplana \u201eLjubljana\u201c', location: 'Ljubljana / SL', year: '1971', type: 'Nov sistem', capacity: '116 MW', fuel: 'oil-gas' },
+      { company: 'Elektrana \u201eZagreb\u201c', location: 'Zagreb / CRO', year: '1971', type: 'Nov sistem', capacity: '80 t/h', fuel: 'coal' },
+      { company: 'Rafinerija \u0160e\u0107era \u201eSremska Mitrovica\u201c', location: 'Sremska Mitrovica', year: '1970', type: 'Nov sistem', capacity: '64 t/h', fuel: 'coal' },
+      { company: '\u201eIndustrija Stakla Pan\u010devo\u201c', location: 'Pan\u010devo', year: '1970', type: 'Nov sistem', capacity: '1.75 MW', fuel: 'oil-gas' },
+      { company: '\u201eElektrovojvodina\u201c', location: 'Novi Sad', year: '1970', type: 'Nov sistem', capacity: '4.6 MW', fuel: 'oil-gas' },
+      { company: '\u201eSIV Beograd\u201c', location: 'Beograd', year: '1970', type: 'Nov sistem', capacity: '9.2 MW', fuel: 'oil-gas' },
+      { company: 'Ortopedska Bolnica \u201eBanjica\u201c', location: 'Beograd', year: '1970', type: 'Nov sistem', capacity: '9.2 MW', fuel: 'oil-gas' },
+      { company: '\u201eGradsko Stambeno Preduze\u0107e\u201c', location: 'Beograd', year: '1970', type: 'Nov sistem', capacity: '4.6 MW', fuel: 'oil-gas' },
+      { company: 'Elektrana \u201eZagreb\u201c', location: 'Zagreb / CRO', year: '1970', type: 'Nov sistem', capacity: '50 t/h', fuel: 'coal' },
+      { company: '\u0160e\u0107erana \u201eBranjin Vrh\u201c', location: 'Branjin Vrh / CRO', year: '1970', type: 'Nov sistem', capacity: '64 t/h', fuel: 'coal' },
+      { company: 'Skup\u0161tina Op\u0161tine Banja Luka', location: 'Banja Luka / BIH', year: '1970', type: 'Nov sistem', capacity: '14 MW', fuel: 'oil-gas' },
+      { company: '\u201eElektroprivreda\u201c', location: 'Zagreb / CRO', year: '1970', type: 'Nov sistem', capacity: '174 MW', fuel: 'coal' },
+      { company: '\u201eToplifikacija\u201c', location: 'Skoplje / NMK', year: '1970', type: 'Nov sistem', capacity: '139.5 MW', fuel: 'oil-gas' },
+      { company: 'Fabrika Vagona \u201eKraljevo\u201c', location: 'Kraljevo', year: '1969', type: 'Nov sistem', capacity: '20.9 MW', fuel: 'oil-gas' },
+      { company: '\u201eStambeno Preduze\u0107e Ni\u0161\u201c', location: 'Ni\u0161', year: '1969', type: 'Nov sistem', capacity: '9.2 MW', fuel: 'oil-gas' },
+      { company: 'Termo-elektri\u010dna Stanica \u201eSisak\u201c', location: 'Sisak / CRO', year: '1969', type: 'Nov sistem', capacity: '40 t/h', fuel: 'coal' },
+      { company: '\u201eInstalater Sarajevo\u201c', location: 'Sarajevo / BIH', year: '1969', type: 'Nov sistem', capacity: '14 MW', fuel: 'oil-gas' },
+      { company: '\u201eOberhof\u201c', location: 'Oberhof / DE', year: '1969', type: 'Nov sistem', capacity: '4.6 MW', fuel: 'oil-gas' },
+      { company: '\u201eGradsko Stambeno Preduze\u0107e\u201c', location: 'Beograd', year: '1968', type: 'Nov sistem', capacity: '76.9 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eKragujevac\u201c', location: 'Kragujevac', year: '1968', type: 'Nov sistem', capacity: '23.3 MW', fuel: 'oil-gas' },
+      { company: '\u201eLesonit\u201c', location: 'Ilirska Bistrica / SL', year: '1968', type: 'Nov sistem', capacity: '28 MW', fuel: 'coal' },
+      { company: 'Vojno-medicinska Akademija', location: 'Beograd', year: '1967', type: 'Nov sistem', capacity: '23.2 MW', fuel: 'oil-gas' },
+      { company: '\u201eKomgrap\u201c', location: 'Beograd', year: '1967', type: 'Nov sistem', capacity: '37.2 MW', fuel: 'oil-gas' },
+      { company: '\u201eMerima\u201c', location: 'Kru\u0161evac', year: '1967', type: 'Nov sistem', capacity: '50 t/h', fuel: 'oil-gas' },
+      { company: 'Pivara \u201eApatin\u201c', location: 'Apatin', year: '1967', type: 'Nov sistem', capacity: '20 t/h', fuel: 'oil-gas' },
+      { company: '\u201eVaso Mi\u0161kin \u2013 Crni\u201c', location: 'Sarajevo / BIH', year: '1967', type: 'Nov sistem', capacity: '40 t/h', fuel: 'coal' },
+      { company: '\u201eUkrina\u201c', location: 'Derventa / BIH', year: '1967', type: 'Nov sistem', capacity: '20 t/h', fuel: 'coal' },
+      { company: 'Toplana \u201eZagreb\u201c', location: 'Zagreb / CRO', year: '1967', type: 'Nov sistem', capacity: '80 t/h', fuel: 'oil-gas' },
+      { company: '\u201eMiloje Zaki\u0107\u201c', location: 'Kru\u0161evac', year: '1966', type: 'Nov sistem', capacity: '20 t/h', fuel: 'coal' },
+      { company: '\u201eToplifikacija\u201c', location: 'Skoplje / NMK', year: '1966', type: 'Nov sistem', capacity: '46.6 MW', fuel: 'oil-gas' },
+      { company: 'Toplana \u201eJug\u201c', location: 'Novi Sad', year: '1965', type: 'Nov sistem', capacity: '69.9 MW', fuel: 'oil-gas' },
+      { company: '\u010celičana \u201eSkoplje\u201c', location: 'Skoplje / NMK', year: '1964', type: 'Nov sistem', capacity: '96 MW', fuel: 'coal' },
+      { company: '\u010celičana \u201eJesenice\u201c', location: 'Jesenice / SL', year: '1962', type: 'Nov sistem', capacity: '32 t/h', fuel: 'coal' },
+      { company: 'Rafinerija \u0160e\u0107era \u201eSremska Mitrovica\u201c', location: 'Sremska Mitrovica', year: '1961', type: 'Nov sistem', capacity: '20 t/h', fuel: 'coal' },
+      { company: 'Termo-elektri\u010dna Stanica \u201eTrbovlje\u201c', location: 'Trbovlje / SL', year: '1961', type: 'Nov sistem', capacity: '60 t/h', fuel: 'coal' },
     ];
 
     const tbody = document.getElementById('refsBody');
@@ -1005,15 +1373,28 @@
 
     countLabel.textContent = ALL_REFS.length + (ALL_REFS.length === 1 ? ' referenca' : ALL_REFS.length < 5 ? ' reference' : ' referenci');
 
+    const FUEL_ICONS = {
+      'oil-gas':       'assets/5_reference/fuels_old/nafta.svg',
+      'multi-fuel':    'assets/5_reference/fuels_old/visogorivni.svg',
+      'biomass':       'assets/5_reference/fuels_old/list.svg',
+      'coal':          'assets/5_reference/fuels_old/ugalj.svg',
+      'heat-recovery': 'assets/5_reference/fuels_old/povrat toplote.svg',
+      'power-to-heat': 'assets/5_reference/fuels_old/grejanje-na-struju.svg',
+    };
+
     function renderRows(from, to) {
       ALL_REFS.slice(from, to).forEach(ref => {
         const tr = document.createElement('tr');
+        const fuelIcon = ref.fuel && FUEL_ICONS[ref.fuel]
+          ? '<img src="' + FUEL_ICONS[ref.fuel] + '" style="width:20px;height:20px;opacity:0.7" alt="' + ref.fuel + '">'
+          : '';
         tr.innerHTML =
           '<td class="col-company">' + ref.company + '</td>' +
           '<td>' + ref.location + '</td>' +
           '<td class="col-year">' + ref.year + '</td>' +
           '<td>' + ref.type + '</td>' +
-          '<td class="col-capacity">' + ref.capacity + '</td>';
+          '<td class="col-capacity">' + ref.capacity + '</td>' +
+          '<td style="text-align:center">' + fuelIcon + '</td>';
         tbody.appendChild(tr);
       });
     }
@@ -1021,6 +1402,29 @@
     renderRows(0, INITIAL);
     loaded = INITIAL;
     refsRemaining.textContent = ALL_REFS.length - INITIAL;
+
+    // Populate PREGLED PORTFOLIJA stats immediately on load
+    (function() {
+      const uniqueLocations = new Set(ALL_REFS.map(r => r.location)).size;
+      const years = ALL_REFS.map(r => parseInt(r.year)).filter(y => !isNaN(y));
+      const minYear = Math.min(...years);
+      const maxYear = Math.max(...years, 2026);
+      const yearSpan = maxYear - minYear + 1;
+      const avgPerYear = Math.round(ALL_REFS.length / yearSpan);
+      document.getElementById('rsTotalProjects').textContent = ALL_REFS.length;
+      document.getElementById('rsUniqueLocations').textContent = uniqueLocations + '+';
+      document.getElementById('rsYearRange').textContent = minYear + '–' + maxYear;
+      document.getElementById('rsAvgPerYear').textContent = '~' + avgPerYear;
+    })();
+
+    // Reveal PREGLED PORTFOLIJA when it scrolls into view
+    new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          document.getElementById('refsSummary').classList.add('rs-in');
+        }
+      });
+    }, { rootMargin: '0px 0px -80px 0px', threshold: 0 }).observe(document.getElementById('refsSummary'));
 
     showMoreBtn.addEventListener('click', () => {
       if (loaded >= ALL_REFS.length) return;
@@ -1078,30 +1482,7 @@
 
         newRows.forEach(tr => rowObs.observe(tr));
 
-        // Compute + inject summary stats
-        const uniqueLocations = new Set(ALL_REFS.map(r => r.location)).size;
-        const years = ALL_REFS.map(r => parseInt(r.year)).filter(y => !isNaN(y));
-        const minYear = Math.min(...years);
-        const maxYear = Math.max(...years, 2026);
-        const yearSpan = maxYear - minYear + 1;
-        const avgPerYear = Math.round(ALL_REFS.length / yearSpan);
-        document.getElementById('rsTotalProjects').textContent = ALL_REFS.length;
-        document.getElementById('rsUniqueLocations').textContent = uniqueLocations + '+';
-        document.getElementById('rsYearRange').textContent = minYear + '–' + maxYear;
-        document.getElementById('rsAvgPerYear').textContent = '~' + avgPerYear;
-
-        // Show summary when last row enters viewport
-        const summaryEl = document.getElementById('refsSummary');
-        const lastRow = newRows[newRows.length - 1];
-        const summaryObs = new IntersectionObserver((entries) => {
-          entries.forEach(e => {
-            if (e.isIntersecting) {
-              summaryEl.classList.add('rs-in');
-              summaryObs.unobserve(e.target);
-            }
-          });
-        }, { rootMargin: '0px 0px -80px 0px', threshold: 0 });
-        summaryObs.observe(lastRow);
+        // Stats already populated on page load; section reveal handled by IntersectionObserver above
       }, DURATION + 200);
     });
   </script>

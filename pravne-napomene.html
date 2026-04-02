@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <link rel="icon" type="image/png" href="assets/0_logo/mik-favicon.png">
+  <meta charset="UTF-8" />
+  <meta name="description" content="Pravne napomene MIK Projekt — opšte informacije, intelektualna svojina i merodavno pravo." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pravne napomene | MIK Projekt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&family=IBM+Plex+Sans:wght@200;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="nav.css?v=9">
+  <link rel="stylesheet" href="footer.css?v=5">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    .inner { max-width: 1280px; margin: 0 auto; width: 100%; padding: 0 var(--px); }
+    :root {
+      --red: #cc2229; --dark: #111111; --dark2: #000;
+      --gray-bg: #f5f5f5; --border: #e6e6e6;
+      --text-muted: #5a5a5a; --text-dim: #787878; --text-nav: #3c3c3c;
+      --px: 80px; --transition: 0.2s ease;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'IBM Plex Sans', sans-serif; color: var(--dark); background: #fff; overflow-x: hidden; }
+    img { display: block; max-width: 100%; }
+
+    /* ─── NAV ── */
+    @media (max-width: 860px) {
+    }
+
+    /* ─── PAGE HEADER ── */
+    .page-header { background: var(--dark2); padding: 72px 0 56px; }
+    .page-header-eyebrow { margin-bottom: 8px; }
+    
+    .page-header-eyebrow span { font-size: 13px; font-weight: 600; color: var(--red); letter-spacing: 0.06em; line-height: 26px; display: block; }
+    .page-header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 64px; }
+    .page-header-title { font-size: clamp(40px, 4.5vw, 60px); font-weight: 700; line-height: 1.05; color: #fff; letter-spacing: -0.025em; }
+    .page-header-body { font-size: 15px; line-height: 1.65; color: #888; max-width: 360px; flex-shrink: 0; }
+
+    /* ─── LEGAL CONTENT ── */
+    .legal-section { background: #fff; }
+    .legal-section .inner { padding-top: 72px; padding-bottom: 80px; display: grid; grid-template-columns: 240px 1fr; gap: 80px; align-items: flex-start; }
+    .legal-sidebar { position: sticky; top: 84px; display: flex; flex-direction: column; gap: 4px; }
+    .legal-sidebar-link { font-size: 13px; color: var(--text-muted); text-decoration: none; padding: 6px 0 6px 12px; border-left: 2px solid transparent; transition: color var(--transition), border-color var(--transition); line-height: 1.4; }
+    .legal-sidebar-link:hover { color: var(--dark); border-left-color: var(--border); }
+    .legal-content { display: flex; flex-direction: column; gap: 48px; }
+    .legal-block { display: flex; flex-direction: column; gap: 12px; scroll-margin-top: 84px; }
+    .legal-block h2 { font-size: 20px; font-weight: 600; color: var(--dark); letter-spacing: -0.01em; }
+    .legal-block p { font-size: 15px; line-height: 1.75; color: var(--text-muted); }
+    .legal-block address { font-style: normal; font-size: 15px; line-height: 1.75; color: var(--text-muted); }
+    .legal-block address a { color: var(--dark); text-decoration: none; transition: color var(--transition); }
+    .legal-block address a:hover { color: var(--red); }
+    .legal-divider { height: 1px; background: var(--border); }
+    .legal-updated { font-size: 12px; color: var(--text-dim); margin-top: -32px; }
+
+    /* ─── FOOTER ── */
+
+    /* ─── RESPONSIVE ── */
+    @media (max-width: 1100px) { :root { --px: 48px; } }
+    @media (max-width: 900px) {
+      :root { --px: 32px; }
+      .page-header { padding: 48px 0 40px; }
+      .page-header-top { flex-direction: column; gap: 16px; }
+      .legal-section .inner { grid-template-columns: 1fr; gap: 0; }
+      .legal-sidebar { display: none; }
+    }
+    @media (max-width: 480px) { :root { --px: 16px; } }
+  </style>
+</head>
+<body>
+
+  <div id="nav-root"></div>
+  <script src="nav.js?v=6"></script>
+  <script>MikNav.init('pravne-napomene');</script>
+
+  <!-- ─── PAGE HEADER ── -->
+  <section class="page-header">
+    <div class="inner">
+      <div class="page-header-eyebrow">
+        <span>MIK PROJEKT</span>
+      </div>
+      <div class="page-header-top">
+        <h1 class="page-header-title">Pravne napomene</h1>
+        <p class="page-header-body">Informacije o upotrebi ovog vebsajta, intelektualnoj svojini i merodavnom pravu.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── LEGAL CONTENT ── -->
+  <section class="legal-section">
+    <div class="inner">
+
+      <nav class="legal-sidebar" aria-label="Sekcije">
+        <a href="#adresa" class="legal-sidebar-link">Adresa</a>
+        <a href="#opste" class="legal-sidebar-link">Opšte informacije</a>
+        <a href="#svojina" class="legal-sidebar-link">Intelektualna svojina</a>
+        <a href="#linkovi" class="legal-sidebar-link">Spoljašnji linkovi</a>
+        <a href="#odgovornost" class="legal-sidebar-link">Ograničenje odgovornosti</a>
+        <a href="#pravo" class="legal-sidebar-link">Merodavno pravo</a>
+        <a href="#izmene" class="legal-sidebar-link">Izmene</a>
+      </nav>
+
+      <div class="legal-content">
+        <p class="legal-updated">Poslednje ažuriranje: mart 2026.</p>
+
+        <div class="legal-block" id="adresa">
+          <h2>Adresa</h2>
+          <address>
+            MIK Projekt d.o.o.<br>
+            Višegradska 6A<br>
+            11000 Beograd, Srbija<br><br>
+            Tel: <a href="tel:+381113660030">+381 11 366 00 30</a>
+            <a href="https://www.linkedin.com/company/mikprojekt/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="footer-social-link"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>/mikprojekt</a><br>
+            Faks: +381 11 306 51 06<br>
+            Email: <a href="mailto:office@mikprojekt.com">office@mikprojekt.com</a>
+          </address>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-block" id="opste">
+          <h2>Opšte informacije</h2>
+          <p>Sadržaj ovog vebsajta namenjen je isključivo u opšte informativne svrhe. Sve informacije objavljene na sajtu ne predstavljaju stručni savet niti ugovornu obavezu kompanije MIK Projekt. Kompanija zadržava pravo izmene sadržaja bez prethodnog obaveštenja.</p>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-block" id="svojina">
+          <h2>Intelektualna svojina</h2>
+          <p>Sav sadržaj ovog vebsajta — uključujući tekstove, grafike, logotipe, fotografije i softver — vlasništvo je kompanije MIK Projekt i zaštićen je međunarodnim zakonima o autorskim pravima. Neovlašćeno kopiranje, distribucija ili upotreba sadržaja bez pisanog odobrenja je zabranjena.</p>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-block" id="linkovi">
+          <h2>Spoljašnji linkovi</h2>
+          <p>Ovaj vebsajt može da sadrži linkove prema vebsajtovima trećih strana. MIK Projekt ne kontroliše sadržaj tih sajtova i ne preuzima odgovornost za njihove politike privatnosti ili sadržaj. Linkovi se pružaju isključivo radi pogodnosti korisnika.</p>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-block" id="odgovornost">
+          <h2>Ograničenje odgovornosti</h2>
+          <p>MIK Projekt ne preuzima odgovornost za eventualnu netačnost informacija objavljenih na ovom sajtu, kao ni za štetu nastalu korišćenjem ili nemogućnošću korišćenja sadržaja. Sadržaj se pruža „takav kakav je" bez garancija bilo koje vrste.</p>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-block" id="pravo">
+          <h2>Merodavno pravo</h2>
+          <p>Ove pravne napomene tumače se u skladu sa zakonima Republike Srbije. Za sve sporeve koji mogu nastati u vezi sa upotrebom ovog vebsajta nadležni su sudovi u Beogradu.</p>
+        </div>
+
+        <div class="legal-divider"></div>
+
+        <div class="legal-block" id="izmene">
+          <h2>Izmene ovih pravnih napomena</h2>
+          <p>MIK Projekt zadržava pravo izmene ovih pravnih napomena u bilo kom trenutku. Preporučujemo povremenu proveru ove stranice kako biste bili upoznati sa aktuelnom verzijom napomena. Nastavak korišćenja vebsajta posle objave izmena podrazumeva prihvatanje izmenjenih uslova.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ── -->
+  <div id="footer-root"></div>
+  <script src="footer.js?v=6"></script>
+  <script>MikFooter.init();</script>
+
+  <script>
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

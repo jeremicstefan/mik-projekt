@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <link rel="icon" type="image/png" href="assets/0_logo/mik-favicon.png">
+  <meta charset="UTF-8" />
+  <meta name="description" content="Karijera u MIK Projektu — postanite deo tima koji gradi budućnost industrijske energije." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karijera | MIK Projekt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&family=IBM+Plex+Sans:wght@200;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="nav.css?v=9">
+  <link rel="stylesheet" href="footer.css?v=5">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    .inner { max-width: 1280px; margin: 0 auto; width: 100%; padding: 0 var(--px); }
+    :root {
+      --red: #cc2229; --dark: #111111; --dark2: #000;
+      --gray-bg: #f5f5f5; --border: #e6e6e6;
+      --text-muted: #5a5a5a; --text-dim: #787878; --text-nav: #3c3c3c;
+      --px: 80px; --transition: 0.2s ease;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'IBM Plex Sans', sans-serif; color: var(--dark); background: #fff; overflow-x: hidden; }
+    img { display: block; max-width: 100%; }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ─── NAV ── */
+    @media (max-width: 860px) {
+    }
+
+    /* ─── PAGE HEADER ── */
+    .page-header { background: var(--dark2); padding: 72px 0 56px; }
+    .page-header-eyebrow { margin-bottom: 8px; }
+    
+    .page-header-eyebrow span { font-size: 13px; font-weight: 600; color: var(--red); letter-spacing: 0.06em; line-height: 26px; display: block; }
+    .page-header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 64px; }
+    .page-header-title { font-size: clamp(40px, 4.5vw, 60px); font-weight: 700; line-height: 1.05; color: #fff; letter-spacing: -0.025em; }
+    .page-header-body { font-size: 15px; line-height: 1.65; color: #888; max-width: 360px; flex-shrink: 0; }
+
+    /* ─── PITCH ── */
+    .careers-pitch-section { background: #fff; }
+    .careers-pitch-section .inner { padding-top: 72px; padding-bottom: 64px; }
+    .careers-pitch { max-width: 680px; display: flex; flex-direction: column; gap: 20px; }
+    .careers-pitch h2 { font-size: clamp(26px, 2.5vw, 36px); font-weight: 700; color: var(--dark); letter-spacing: -0.02em; line-height: 1.2; }
+    .careers-pitch p { font-size: 15px; line-height: 1.7; color: var(--text-muted); }
+
+    /* ─── STATS ── */
+    .stats-bar { background: #fff; }
+    .stats-bar .inner { display: flex; padding-top: 0; padding-bottom: 64px; gap: 24px; }
+    .stat { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 24px 16px; position: relative; border: 1px solid #e5e7eb; border-radius: 4px; }
+    .stat::before, .stat::after { content: ''; position: absolute; width: 8px; height: 8px; border-color: var(--red); border-style: solid; }
+    .stat::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+    .stat::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+    .stat-label { font-size: 11px; font-weight: 500; color: var(--red); letter-spacing: 0.06em; }
+    .stat-value { font-family: 'IBM Plex Mono', monospace; font-size: clamp(22px, 2.2vw, 32px); font-weight: 700; color: var(--dark); letter-spacing: 0.02em; }
+    .stat-desc { font-size: 12px; color: var(--text-dim); text-align: center; }
+
+    /* ─── POSITIONS ── */
+    .careers-section { background: #fff; }
+    .careers-section .inner { padding-top: 0; padding-bottom: 80px; display: flex; flex-direction: column; gap: 32px; }
+    .careers-section-title { font-size: clamp(20px, 2vw, 28px); font-weight: 700; color: var(--dark); letter-spacing: -0.02em; }
+
+    /* Job list */
+    .job-list { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .job-row { border-bottom: 1px solid var(--border); }
+    .job-row:last-child { border-bottom: none; }
+    .job-row-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 20px 24px; cursor: pointer; transition: background var(--transition); user-select: none; }
+    .job-row-header:hover { background: var(--gray-bg); }
+    .job-row.open .job-row-header { background: var(--gray-bg); }
+    .job-row-left { display: flex; flex-direction: column; gap: 6px; }
+    .job-row-title { font-size: 16px; font-weight: 600; color: var(--dark); letter-spacing: -0.01em; }
+    .job-row-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .job-tag { font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 3px; border: 1px solid var(--border); color: var(--text-muted); background: #fff; }
+    .job-tag--red { border-color: #f5c6c8; color: var(--red); background: #fff5f5; }
+    .job-row-right { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+    .job-row-location { font-size: 13px; color: var(--text-dim); white-space: nowrap; }
+    .job-chevron { width: 16px; height: 16px; flex-shrink: 0; color: var(--text-dim); transition: transform var(--transition); }
+    .job-row.open .job-chevron { transform: rotate(180deg); }
+    .job-row-body { display: none; padding: 0 24px 28px; border-top: 1px solid var(--border); }
+    .job-row.open .job-row-body { display: block; }
+    .job-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding-top: 28px; }
+    .job-detail-main { display: flex; flex-direction: column; gap: 24px; }
+    .job-detail-section { display: flex; flex-direction: column; gap: 10px; }
+    .job-detail-section h4 { font-size: 11px; font-weight: 600; color: var(--text-dim); letter-spacing: 0.08em; }
+    .job-detail-section p { font-size: 14px; line-height: 1.7; color: var(--text-muted); }
+    .job-detail-section ul { padding-left: 16px; display: flex; flex-direction: column; gap: 6px; }
+    .job-detail-section li { font-size: 14px; line-height: 1.6; color: var(--text-muted); }
+    .job-detail-sidebar { display: flex; flex-direction: column; gap: 20px; }
+    .job-info-block { display: flex; flex-direction: column; gap: 4px; }
+    .job-info-label { font-size: 11px; font-weight: 600; color: var(--text-dim); letter-spacing: 0.07em; }
+    .job-info-value { font-size: 14px; color: var(--dark); }
+    .job-apply-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--red); color: #fff; text-decoration: none; border-radius: 4px; padding: 12px 24px; font-size: 14px; font-weight: 500; transition: background var(--transition); margin-top: 8px; }
+    .job-apply-btn:hover { background: #a81b21; }
+    .job-row--filled .job-row-title { color: var(--text-muted); }
+    .job-row--filled .job-row-header:hover { background: #fafafa; }
+    .job-row--filled.open .job-row-header { background: #fafafa; }
+    .job-tag--filled { border-color: #e0e0e0; color: var(--text-dim); background: #fff; }
+    .careers-no-more { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-dim); padding: 16px 20px; border: 1px solid var(--border); border-radius: 6px; }
+    .careers-no-more svg { flex-shrink: 0; color: var(--text-dim); }
+    .careers-no-more a { color: var(--dark); text-decoration: none; border-bottom: 1px solid var(--border); transition: border-color var(--transition), color var(--transition); }
+    .careers-no-more a:hover { color: var(--red); border-color: var(--red); }
+    @media (max-width: 700px) {
+      .job-detail-grid { grid-template-columns: 1fr; gap: 24px; }
+      .job-row-right { display: none; }
+    }
+
+    /* ─── FOOTER ── */
+
+    /* ─── RESPONSIVE ── */
+    @media (max-width: 1100px) { :root { --px: 48px; } }
+    @media (max-width: 900px) {
+      :root { --px: 32px; }
+      .page-header { padding: 48px 0 40px; }
+      .page-header-top { flex-direction: column; gap: 16px; }
+      .stats-bar .inner { flex-wrap: wrap; }
+      .stat { flex: 1 1 calc(50% - 12px); }
+    }
+    @media (max-width: 480px) {
+      :root { --px: 16px; }
+      .stats-section .inner { grid-template-columns: 1fr 1fr; }
+        .careers-empty { padding: 48px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="nav-root"></div>
+  <script src="nav.js?v=6"></script>
+  <script>MikNav.init('karijera');</script>
+
+  <!-- ─── PAGE HEADER ── -->
+  <section class="page-header">
+    <div class="inner">
+      <div class="page-header-eyebrow">
+        <span>MIK PROJEKT</span>
+      </div>
+      <div class="page-header-top">
+        <h1 class="page-header-title">Karijera</h1>
+        <p class="page-header-body">Gradimo budućnost industrijske energije. Pridružite se timu koji realizuje kompleksna energetska postrojenja širom regiona.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PITCH ── -->
+  <section class="careers-pitch-section">
+    <div class="inner">
+      <div class="careers-pitch reveal">
+        <h2>Postanite deo MIK Projekta</h2>
+        <p>Aktivno tražimo kvalifikovane profesionalce koji žele da grade karijeru u oblasti kotlovskih sistema, termotehničkog inženjerstva, projektovanja i industrijskog održavanja.</p>
+        <p>Nudimo dinamično radno okruženje, rad na zahtevnim projektima u Srbiji i regionu, i mogućnost profesionalnog razvoja u kompaniji sa više od šest decenija nasleđa.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── STATS ── -->
+  <section class="stats-bar">
+    <div class="inner">
+      <div class="stat reveal">
+        <span class="stat-label">ISKUSTVO</span>
+        <span class="stat-value">60+</span>
+        <span class="stat-desc">Godina u industrijskoj energetici</span>
+      </div>
+      <div class="stat reveal reveal-delay-1">
+        <span class="stat-label">KAPACITET</span>
+        <span class="stat-value">20.000+</span>
+        <span class="stat-desc">Instaliranih megavata</span>
+      </div>
+      <div class="stat reveal reveal-delay-2">
+        <span class="stat-label">TIM</span>
+        <span class="stat-value">15+</span>
+        <span class="stat-desc">Inženjera i tehničara</span>
+      </div>
+      <div class="stat reveal reveal-delay-3">
+        <span class="stat-label">LOKACIJE</span>
+        <span class="stat-value">2</span>
+        <span class="stat-desc">Lokacije u Srbiji</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── POSITIONS ── -->
+  <section class="careers-section">
+    <div class="inner">
+
+      <h2 class="careers-section-title reveal">Otvorene pozicije</h2>
+
+      <div class="job-list reveal">
+
+        <!-- Row 1 -->
+        <div class="job-row">
+          <div class="job-row-header" onclick="toggleJob(this)">
+            <div class="job-row-left">
+              <span class="job-row-title">Inženjer za projektovanje termoenergetskih sistema</span>
+              <div class="job-row-meta">
+                <span class="job-tag job-tag--red">Novo</span>
+                <span class="job-tag">Inženjerstvo</span>
+                <span class="job-tag">Puno radno vreme</span>
+                <span class="job-tag">Senior</span>
+              </div>
+            </div>
+            <div class="job-row-right">
+              <span class="job-row-location">Beograd, Srbija</span>
+              <svg class="job-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3,6 8,11 13,6"/>
+              </svg>
+            </div>
+          </div>
+          <div class="job-row-body">
+            <div class="job-detail-grid">
+              <div class="job-detail-main">
+                <div class="job-detail-section">
+                  <h4>O POZICIJI</h4>
+                  <p>Tražimo iskusnog inženjera mašinstva koji će biti deo tima zaduženog za projektovanje, dimenzionisanje i tehničku dokumentaciju kotlovskih i termoenergetskih sistema za industrijske i javne objekte. Pozicija podrazumeva direktan rad sa klijentima i učešće na projektima od faze idejnog rešenja do puštanja postrojenja u rad.</p>
+                </div>
+                <div class="job-detail-section">
+                  <h4>OPIS POSLA</h4>
+                  <ul>
+                    <li>Projektovanje parnih i vrelovodnih kotlovskih postrojenja snage 500 kW – 20 MW</li>
+                    <li>Izrada tehničkih specifikacija i proračuna (toplotni, hidraulički, čvrstoća)</li>
+                    <li>Izrada kompletne projektne dokumentacije u skladu sa srpskim i EU propisima</li>
+                    <li>Koordinacija sa timovima za nabavku, montažu i puštanje u rad</li>
+                    <li>Tehnička podrška na terenu tokom montaže i probnog rada</li>
+                    <li>Komunikacija sa klijentima i izrada tehničkih ponuda</li>
+                  </ul>
+                </div>
+                <div class="job-detail-section">
+                  <h4>ZAHTEVI</h4>
+                  <ul>
+                    <li>VSS — Mašinski fakultet, smer Termotehnike, TTE ili procesna tehnika</li>
+                    <li>Minimum 5 godina iskustva na projektovanju energetskih ili procesnih sistema</li>
+                    <li>Poznavanje standarda EN 12953, EN 13480, PED 2014/68/EU</li>
+                    <li>Iskustvo sa CAD alatima (AutoCAD, SolidWorks ili ekvivalent)</li>
+                    <li>Aktivno poznavanje engleskog jezika (tehnička dokumentacija dobavljača)</li>
+                    <li>Licenca odgovornog projektanta — prednost</li>
+                  </ul>
+                </div>
+                <div class="job-detail-section">
+                  <h4>NUDIMO</h4>
+                  <ul>
+                    <li>Konkurentna primanja usklađena sa iskustvom</li>
+                    <li>Rad na kompleksnim projektima za vodeće industrijske kompanije u regionu</li>
+                    <li>Stručno usavršavanje i međunarodne obuke kod partnera proizvođača</li>
+                    <li>Stabilno okruženje u kompaniji sa više od 60 godina kontinuiranog rada</li>
+                    <li>Privatno zdravstveno osiguranje</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="job-detail-sidebar">
+                <div class="job-info-block">
+                  <span class="job-info-label">SEKTOR</span>
+                  <span class="job-info-value">Inženjerstvo i projektovanje</span>
+                </div>
+                <div class="job-info-block">
+                  <span class="job-info-label">LOKACIJA</span>
+                  <span class="job-info-value">Beograd — Višegradska 6A</span>
+                </div>
+                <div class="job-info-block">
+                  <span class="job-info-label">TIP ANGAŽOVANJA</span>
+                  <span class="job-info-value">Puno radno vreme, na neodređeno</span>
+                </div>
+                <div class="job-info-block">
+                  <span class="job-info-label">NIVO ISKUSTVA</span>
+                  <span class="job-info-value">Senior (5+ godina)</span>
+                </div>
+                <div class="job-info-block">
+                  <span class="job-info-label">ROK ZA PRIJAVU</span>
+                  <span class="job-info-value">30. april 2026.</span>
+                </div>
+                <div class="job-info-block">
+                  <span class="job-info-label">OBJAVLJENO</span>
+                  <span class="job-info-value">1. april 2026.</span>
+                </div>
+                <a href="mailto:office@mikprojekt.com?subject=Prijava — Inženjer za projektovanje termoenergetskih sistema" class="job-apply-btn">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  Pošalji prijavu
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="job-row job-row--filled">
+          <div class="job-row-header" onclick="toggleJob(this)">
+            <div class="job-row-left">
+              <span class="job-row-title">Tehničar za servis i održavanje kotlovskih postrojenja</span>
+              <div class="job-row-meta">
+                <span class="job-tag job-tag--filled">Popunjeno</span>
+                <span class="job-tag">Servis i održavanje</span>
+                <span class="job-tag">Puno radno vreme</span>
+                <span class="job-tag">Mid-level</span>
+              </div>
+            </div>
+            <div class="job-row-right">
+              <span class="job-row-location">Beograd, Srbija</span>
+              <svg class="job-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3,6 8,11 13,6"/>
+              </svg>
+            </div>
+          </div>
+          <div class="job-row-body">
+            <div class="job-detail-grid">
+              <div class="job-detail-main">
+                <div class="job-detail-section">
+                  <h4>O POZICIJI</h4>
+                  <p>Tražili smo tehničara za redovno servisiranje, dijagnostiku kvarova i preventivno održavanje kotlovskih postrojenja kod industrijskih i komunalnih klijenata. Pozicija je podrazumevala terenski rad na lokacijama klijenata širom Srbije.</p>
+                </div>
+                <div class="job-detail-section">
+                  <h4>OPIS POSLA</h4>
+                  <ul>
+                    <li>Redovni i vanredni servis parnih i vrelovodnih kotlova snage do 10 MW</li>
+                    <li>Dijagnostika i otklanjanje kvarova na gorionicima, automatici i sigurnosnoj opremi</li>
+                    <li>Puštanje u rad postrojenja posle remonta ili sezonskog zaustavljanja</li>
+                    <li>Vođenje servisnih izveštaja i tehničke dokumentacije</li>
+                    <li>Komunikacija sa klijentima i preporuke za poboljšanje rada postrojenja</li>
+                  </ul>
+                </div>
+                <div class="job-detail-section">
+                  <h4>ZAHTEVI</h4>
+                  <ul>
+                    <li>SSS/VŠS — mašinski, elektromašinski ili energetski smer</li>
+                    <li>Minimum 3 godine iskustva na održavanju energetskih ili procesnih sistema</li>
+                    <li>Poznavanje regulatorne opreme (Siemens, Honeywell, Kromschröder)</li>
+                    <li>Vozačka dozvola B kategorije (obavezan terenski rad)</li>
+                    <li>Sposobnost rada u smjenama i dežurstvima po pozivu</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="job-detail-sidebar">
+                <div class="job-info-block">
+                  <span class="job-info-label">SEKTOR</span>
+                  <span class="job-info-value">Servis i održavanje</span>
+                </div>
+                <div class="job-info-block">
+                  <span class="job-info-label">LOKACIJA</span>
+                  <span class="job-info-value">Beograd — Višegradska 6A</span>
+                </div>
+                <div class="job-info-block">
+                  <span class="job-info-label">TIP ANGAŽOVANJA</span>
+                  <span class="job-info-value">Puno radno vreme, na neodređeno</span>
+                </div>
+                <div class="job-info-block">
+                  <span class="job-info-label">NIVO ISKUSTVA</span>
+                  <span class="job-info-value">Mid-level (3+ godina)</span>
+                </div>
+                <div class="job-info-block">
+                  <span class="job-info-label">STATUS</span>
+                  <span class="job-info-value">Pozicija popunjena</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="job-row job-row--filled">
+          <div class="job-row-header" onclick="toggleJob(this)">
+            <div class="job-row-left">
+              <span class="job-row-title">Inženjer za montažu i puštanje u rad industrijskih sistema</span>
+              <div class="job-row-meta">
+                <span class="job-tag job-tag--filled">Popunjeno</span>
+                <span class="job-tag">Instalacija i montaža</span>
+                <span class="job-tag">Puno radno vreme</span>
+                <span class="job-tag">Senior</span>
+              </div>
+            </div>
+            <div class="job-row-right">
+              <span class="job-row-location">Beograd / Teren</span>
+              <svg class="job-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3,6 8,11 13,6"/>
+              </svg>
+            </div>
+          </div>
+          <div class="job-row-body">
+            <div class="job-detail-grid">
+              <div class="job-detail-main">
+                <div class="job-detail-section">
+                  <h4>O POZICIJI</h4>
+                  <p>Tražili smo iskusnog inženjera za vođenje montažnih radova na industrijskim energetskim postrojenjima. Pozicija je podrazumevala rukovođenje timom monterima i direktnu odgovornost za tehničku ispravnost i rokove isporuke projekata.</p>
+                </div>
+                <div class="job-detail-section">
+                  <h4>OPIS POSLA</h4>
+                  <ul>
+                    <li>Organizacija i nadzor montaže kotlovskih i termoenergetskih postrojenja na terenu</li>
+                    <li>Koordinacija sa projektantima, dobavljačima i nadzornim organima</li>
+                    <li>Hidrauličko i električno puštanje u rad postrojenja</li>
+                    <li>Merenje i podešavanje parametara rada prema projektnoj dokumentaciji</li>
+                    <li>Obuka osoblja naručioca za rukovanje i osnovno održavanje</li>
+                    <li>Izrada atesta, protokola i završne dokumentacije</li>
+                  </ul>
+                </div>
+                <div class="job-detail-section">
+                  <h4>ZAHTEVI</h4>
+                  <ul>
+                    <li>VSS — Mašinski fakultet, energetski ili procesni smer</li>
+                    <li>Minimum 5 godina iskustva na montaži industrijskih postrojenja</li>
+                    <li>Iskustvo u čitanju izometrija, P&ID dijagrama i elektro šema</li>
+                    <li>Licenca za puštanje u rad posuda pod pritiskom — prednost</li>
+                    <li>Spremnost na česte terenske odlaske u regionu (30–50% radnog vremena)</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="job-detail-sidebar">
+                <div class="job-info-block">
+                  <span class="job-info-label">SEKTOR</span>
+                  <span class="job-info-value">Instalacija i montaža</span>
+                </div>
+                <div class="job-info-block">
+                  <span class="job-info-label">LOKACIJA</span>
+                  <span class="job-info-value">Beograd + terenska putovanja</span>
+                </div>
+                <div class="job-info-block">
+                  <span class="job-info-label">TIP ANGAŽOVANJA</span>
+                  <span class="job-info-value">Puno radno vreme, na neodređeno</span>
+                </div>
+                <div class="job-info-block">
+                  <span class="job-info-label">NIVO ISKUSTVA</span>
+                  <span class="job-info-value">Senior (5+ godina)</span>
+                </div>
+                <div class="job-info-block">
+                  <span class="job-info-label">STATUS</span>
+                  <span class="job-info-value">Pozicija popunjena</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- No more open positions notice -->
+      <div class="careers-no-more reveal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Trenutno nema više otvorenih pozicija. Za spontane prijave pišite nam na <a href="mailto:office@mikprojekt.com?subject=Spontana prijava">office@mikprojekt.com</a>.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ── -->
+  <div id="footer-root"></div>
+  <script src="footer.js?v=6"></script>
+  <script>MikFooter.init();</script>
+
+  <script>
+    function toggleJob(header) {
+      const row = header.closest('.job-row');
+      row.classList.toggle('open');
+    }
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

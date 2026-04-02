@@ -1,0 +1,109 @@
+/* ─── FOOTER ─────────────────────────────────────────────────────────────── */
+
+.footer {
+  background: var(--dark2);
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-content {
+  display: flex;
+  gap: 80px;
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+.footer-brand {
+  width: 280px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.footer-brand-logo {
+  height: 48px;
+  width: auto;
+  display: block;
+  align-self: flex-start;
+}
+.footer-brand p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #8c8c8c;
+}
+
+.footer-cols {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.footer-col-title {
+  font-size: 11px;
+  font-weight: 500;
+  color: #646464;
+  letter-spacing: 0.06em;
+}
+.footer-col a {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #b4b4b4;
+  text-decoration: none;
+  transition: color var(--transition);
+}
+.footer-col a:hover { color: #fff; }
+
+.footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #999;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+.footer-social-link:hover { color: #fff; transform: translateY(-1px); }
+
+.footer-bottom {
+  border-top: 1px solid #282828;
+}
+.footer-bottom .inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+.footer-bottom span,
+.footer-bottom a {
+  font-size: 12px;
+  color: #505050;
+  text-decoration: none;
+  transition: color var(--transition);
+}
+.footer-bottom a:hover { color: #888; }
+.footer-bottom-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.footer-bottom-li {
+  display: flex;
+  align-items: center;
+  color: #505050;
+  transition: color var(--transition);
+}
+.footer-bottom-li:hover { color: #fff; }
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .footer-content { flex-direction: column; gap: 40px; padding-top: 48px; padding-bottom: 48px; }
+  .footer-brand { width: 100%; }
+  .footer-cols { flex-wrap: wrap; gap: 32px; }
+  .footer-bottom .inner { flex-direction: column; gap: 8px; text-align: center; }
+}

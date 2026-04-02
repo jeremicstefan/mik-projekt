@@ -9,11 +9,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&family=IBM+Plex+Sans:wght@200;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="nav.css?v=9">
+  <link rel="stylesheet" href="footer.css?v=5">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     .inner { max-width: 1280px; margin: 0 auto; width: 100%; padding: 0 var(--px); }
     :root {
-      --red: #cc2229; --dark: #111111; --dark2: #1e1e1e;
+      --red: #cc2229; --dark: #111111; --dark2: #000;
       --gray-bg: #f5f5f5; --border: #e6e6e6;
       --text-muted: #5a5a5a; --text-dim: #787878; --text-nav: #3c3c3c;
       --px: 80px; --transition: 0.2s ease;
@@ -28,31 +30,6 @@
     .reveal-delay-2 { transition-delay: 0.2s; }
 
     /* ─── NAV ── */
-    .nav { position: sticky; top: 0; z-index: 100; height: 64px; background: #000; transition: box-shadow 0.3s ease; }
-    .nav .inner { height: 100%; display: flex; align-items: center; justify-content: space-between; }
-    .nav.scrolled { box-shadow: 0 2px 24px rgba(0,0,0,0.55); }
-    .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
-    .nav-logo img { height: 48px; width: auto; display: block; }
-    .nav-links { display: flex; gap: 40px; align-items: stretch; align-self: stretch; list-style: none; }
-    .nav-links li { display: flex; align-items: center; position: relative; }
-    .nav-links a { font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.72); text-decoration: none; letter-spacing: -0.01em; position: relative; display: flex; align-items: center; align-self: stretch; transition: color var(--transition); }
-    .nav-links a::after { content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 2px; background: var(--red); transition: width var(--transition); }
-    .nav-links a:hover { color: rgba(255,255,255,0.88); }
-    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-    .nav-links a.active { font-weight: 600; color: #fff; }
-    .nav-cta { background: var(--red); color: #fff; border: none; border-radius: 4px; padding: 11px 20px; font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; text-decoration: none; transition: background var(--transition), transform var(--transition); white-space: nowrap; }
-    .nav-cta:hover { background: #a81b21; transform: translateY(-1px); }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
-    .hamburger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: transform 0.3s ease, opacity 0.3s ease; }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    .nav-drawer { display: none; position: fixed; top: 64px; left: 0; right: 0; background: #fff; border-bottom: 1px solid var(--border); padding: 24px var(--px); flex-direction: column; gap: 0; z-index: 99; transform: translateY(-10px); opacity: 0; transition: transform 0.25s ease, opacity 0.25s ease; pointer-events: none; }
-    .nav-drawer.open { transform: translateY(0); opacity: 1; pointer-events: all; }
-    .nav-drawer a { display: block; font-size: 16px; font-weight: 400; color: var(--text-nav); text-decoration: none; padding: 14px 0; border-bottom: 1px solid var(--border); transition: color var(--transition); }
-    .nav-drawer a:hover { color: var(--dark); }
-    .nav-drawer a.active { font-weight: 600; color: var(--dark); }
-    .nav-drawer .nav-cta { margin-top: 20px; text-align: center; display: block; }
 
     /* ─── SHARED ── */
     .eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
@@ -113,64 +90,21 @@
     .cta-subtitle { font-size: 16px; line-height: 1.625; color: #b4b4b4; max-width: 700px; }
 
     /* ─── FOOTER ── */
-    .footer { background: var(--dark2); display: flex; flex-direction: column; }
-    .footer-content { display: flex; gap: 80px; padding-top: 64px; padding-bottom: 64px; }
-    .footer-brand { width: 280px; flex-shrink: 0; display: flex; flex-direction: column; gap: 16px; }
-    .footer-brand-logo { height: 48px; width: auto; display: block; align-self: flex-start; }
-    .footer-brand p { font-size: 13px; line-height: 1.7; color: #8c8c8c; }
-    .footer-cols { flex: 1; display: flex; justify-content: space-between; gap: 40px; }
-    .footer-col { display: flex; flex-direction: column; gap: 14px; }
-    .footer-col-title { font-size: 11px; font-weight: 500; color: #646464; letter-spacing: 0.06em; }
-    .footer-col a { font-size: 13px; line-height: 1.5; color: #b4b4b4; text-decoration: none; transition: color var(--transition); }
-    .footer-col a:hover { color: #fff; }
-    .footer-bottom { border-top: 1px solid #282828; }
-    .footer-bottom .inner { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; padding-bottom: 24px; }
-    .footer-bottom span, .footer-bottom a { font-size: 12px; color: #505050; text-decoration: none; transition: color var(--transition); }
-    .footer-bottom a:hover { color: #888; }
 
     /* ─── MEGA NAV ── */
-    .nav-mega-item { position: relative; }
-    .nav-mega-trigger { display: flex; align-items: center; gap: 5px; font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.72); text-decoration: none; letter-spacing: -0.01em; position: relative; display: flex; align-items: center; align-self: stretch; transition: color var(--transition); }
-    .nav-mega-trigger::after { content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 2px; background: var(--red); transition: width var(--transition); }
-    .nav-mega-trigger:hover,
-    .nav-mega-item.mega-open .nav-mega-trigger { color: rgba(255,255,255,0.88); }
-    .nav-mega-trigger:hover::after,
-    .nav-mega-item.mega-open .nav-mega-trigger::after { width: 100%; }
-    .nav-mega-chevron { width: 10px; height: 10px; stroke: currentColor; fill: none; stroke-width: 1.8; flex-shrink: 0; transition: transform 0.2s ease; margin-top: 1px; }
-    .nav-mega-item.mega-open .nav-mega-chevron { transform: rotate(180deg); }
-    .mega-panel { position: fixed; top: 64px; left: 0; right: 0; background: #fff; border-top: 2px solid var(--red); border-bottom: 1px solid var(--border); box-shadow: 0 16px 48px rgba(0,0,0,0.09); z-index: 98; opacity: 0; pointer-events: none; transform: translateY(-6px); transition: opacity 0.18s ease, transform 0.18s ease; }
-    .mega-panel.mega-visible { opacity: 1; pointer-events: all; transform: translateY(0); }
-    .mega-inner-wrap { padding-top: 28px; padding-bottom: 32px; display: flex; flex-direction: column; gap: 18px; }
-    .mega-top { display: flex; align-items: center; justify-content: space-between; }
-    .mega-label { font-size: 11px; font-weight: 500; color: var(--text-dim); letter-spacing: 0.07em; }
-    .mega-all-link { font-size: 13px; font-weight: 500; color: var(--red); text-decoration: none; transition: opacity var(--transition); }
-    .mega-all-link:hover { opacity: 0.7; }
-    .mega-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
-    .mega-item { display: flex; flex-direction: column; gap: 9px; text-decoration: none; color: inherit; border-radius: 4px; padding: 8px 8px 12px; transition: background var(--transition); }
-    .mega-item:hover { background: var(--gray-bg); }
-    .mega-item-img { height: 96px; border-radius: 4px; overflow: hidden; background: #ebebeb; background-size: cover; background-position: center; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; }
-    .mega-item-img span { font-size: 11px; font-weight: 500; color: #999; letter-spacing: 0.04em; text-align: center; padding: 0 10px; line-height: 1.4; }
-    .mega-item-name { font-size: 14px; font-weight: 600; color: var(--dark); line-height: 1.2; }
-    .mega-item-desc { font-size: 12px; line-height: 1.55; color: var(--text-muted); }
+    @media (max-width: 860px) {
+    }
 
     /* ─── RESPONSIVE ── */
     @media (max-width: 1100px) { :root { --px: 48px; } .hero-left { width: 440px; } }
     @media (max-width: 900px) {
       :root { --px: 32px; }
-      .nav-links, .nav-cta { display: none; }
-      .hamburger { display: flex; }
-      .nav-drawer { display: flex; }
-      .mega-panel { display: none; }
       .hero { height: auto; padding-top: 40px; padding-bottom: 0; }
       .hero .inner { flex-direction: column; gap: 24px; }
       .hero-left { width: 100%; }
       .hero-image { width: 100%; height: 280px; flex-shrink: 0; }
       .hero-image-wrap { border-bottom-left-radius: 48px; }
       .features-grid { grid-template-columns: 1fr; }
-      .footer-content { flex-direction: column; gap: 40px; padding-top: 48px; padding-bottom: 48px; }
-      .footer-brand { width: 100%; }
-      .footer-cols { flex-wrap: wrap; gap: 32px; }
-      .footer-bottom .inner { flex-direction: column; gap: 8px; text-align: center; }
       .split-section .inner { grid-template-columns: 1fr; gap: 48px; }
     }
     @media (max-width: 480px) { :root { --px: 20px; } .hero-image { height: 220px; } }
@@ -178,78 +112,9 @@
 </head>
 <body>
 
-  <nav class="nav" id="nav">
-    <div class="inner">
-      <a class="nav-logo" href="index.html">
-        <img src="assets/0_logo/mik-logo-light-no-est.png" alt="MIK Projekt" />
-      </a>
-      <ul class="nav-links">
-        <li><a href="index.html">Početna</a></li>
-        <li><a href="o-nama.html">O nama</a></li>
-        <li class="nav-mega-item" id="megaItem">
-          <a href="usluge.html" class="nav-mega-trigger active" id="megaTrigger">
-            Naše usluge
-            <svg class="nav-mega-chevron" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg">
-              <polyline points="1,3 5,7 9,3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-        </li>
-        <li><a href="projekti.html">Projekti</a></li>
-        <li><a href="dokumentacija.html">Dokumentacija</a></li>
-      </ul>
-      <a class="nav-cta" href="index.html#cta">Kontakt</a>
-      <button class="hamburger" id="hamburger" aria-label="Meni">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
-
-  <!-- Mega panel -->
-  <div class="mega-panel" id="megaPanel">
-    <div class="inner mega-inner-wrap">
-      <div class="mega-top">
-        <span class="mega-label">POSLOVNE OBLASTI</span>
-        <a href="usluge.html" class="mega-all-link">Sve usluge →</a>
-      </div>
-      <div class="mega-grid">
-        <a class="mega-item" href="kotlovski-sistemi.html">
-          <div class="mega-item-img" style="background-image:url('assets/1_navigation/nav_kotlovski-sistem.png'); background-position: calc(50% - 5px) calc(50% + 5%);"></div>
-          <span class="mega-item-name">Kotlovski sistemi</span>
-          <span class="mega-item-desc">Industrijska kotlovska postrojenja za različita goriva</span>
-        </a>
-        <a class="mega-item" href="inzenjerstvo.html">
-          <div class="mega-item-img" style="background-image:url('assets/1_navigation/nav_inzenjerstvo.png'); background-size: 110%; background-repeat: no-repeat;"></div>
-          <span class="mega-item-name">Inženjerstvo</span>
-          <span class="mega-item-desc">Projektovanje energetskih i termotehničkih sistema</span>
-        </a>
-        <a class="mega-item" href="proizvodnja.html">
-          <div class="mega-item-img" style="background-image:url('assets/1_navigation/nav_proizvodnja.png')"></div>
-          <span class="mega-item-name">Proizvodnja</span>
-          <span class="mega-item-desc">Precizna izrada komponenti i kompleksnih sistema</span>
-        </a>
-        <a class="mega-item" href="instalacija-montaza.html">
-          <div class="mega-item-img" style="background-image:url('assets/1_navigation/nav_instalacija-sistem.png')"></div>
-          <span class="mega-item-name">Instalacija sistema</span>
-          <span class="mega-item-desc">Stručna montaža i puštanje u rad postrojenja</span>
-        </a>
-        <a class="mega-item" href="usluge-i-odrzavanje.html">
-          <div class="mega-item-img" style="background-image:url('assets/1_navigation/nav_servis_i_odrzavanje.png'); background-size: 70%; background-repeat: no-repeat; background-color: #fff;"></div>
-          <span class="mega-item-name">Servis i održavanje</span>
-          <span class="mega-item-desc">Dugoročna tehnička podrška i optimizacija sistema</span>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Mobile drawer -->
-  <div class="nav-drawer" id="navDrawer">
-    <a href="index.html" onclick="closeDrawer()">Početna</a>
-    <a href="o-nama.html" onclick="closeDrawer()">O nama</a>
-    <a href="usluge.html" class="active" onclick="closeDrawer()">Naše usluge</a>
-    <a href="projekti.html" onclick="closeDrawer()">Projekti</a>
-    <a href="dokumentacija.html" onclick="closeDrawer()">Dokumentacija</a>
-    <a href="index.html#cta" class="nav-cta" onclick="closeDrawer()">Kontakt</a>
-  </div>
+  <div id="nav-root"></div>
+  <script src="nav.js?v=6"></script>
+  <script>MikNav.init('usluge-i-odrzavanje');</script>
 
   <!-- ─── HERO ── -->
   <section class="hero">
@@ -351,65 +216,14 @@
   </section>
 
   <!-- ─── FOOTER ── -->
-  <footer class="footer">
-    <div class="inner">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <img src="assets/0_logo/mik-favicon.png" alt="MIK Projekt" class="footer-brand-logo" />
-          <p>Prodaja, montaža i održavanje kotlova, termoenergetskih postrojenja i industrijskih energetskih sistema.</p>
-        </div>
-        <div class="footer-cols">
-          <div class="footer-col">
-            <span class="footer-col-title">KOMPANIJA</span>
-            <a href="o-nama.html">O nama</a>
-            <a href="projekti.html">Projekti</a>
-            <a href="dokumentacija.html">Dokumentacija</a>
-          </div>
-          <div class="footer-col">
-            <span class="footer-col-title">USLUGE</span>
-            <a href="inzenjerstvo.html">Inženjerstvo</a>
-            <a href="kotlovski-sistemi.html">Kotlovski sistemi</a>
-            <a href="proizvodnja.html">Proizvodnja</a>
-            <a href="instalacija-montaza.html">Instalacija i montaža</a>
-            <a href="usluge-i-odrzavanje.html">Servis i održavanje</a>
-          </div>
-          <div class="footer-col">
-            <span class="footer-col-title">KONTAKT</span>
-            <a href="#">Beograd, Srbija</a>
-            <a href="mailto:info@mik.rs">info@mik.rs</a>
-            <a href="tel:+38111123456">+381 11 123 4567</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="inner">
-        <span>© 2026 MIK. Sva prava zadržana.</span>
-        <a href="#">Politika privatnosti</a>
-      </div>
-    </div>
-  </footer>
+  <div id="footer-root"></div>
+  <script src="footer.js?v=6"></script>
+  <script>MikFooter.init();</script>
 
   <script>
-    const nav = document.getElementById('nav');
-    const hamburger = document.getElementById('hamburger');
-    const drawer = document.getElementById('navDrawer');
-    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 10); });
-    hamburger.addEventListener('click', () => { const o = hamburger.classList.toggle('open'); drawer.classList.toggle('open', o); });
-    function closeDrawer() { hamburger.classList.remove('open'); drawer.classList.remove('open'); }
-    document.addEventListener('click', (e) => { if (!nav.contains(e.target) && !drawer.contains(e.target)) closeDrawer(); });
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }); }, { threshold: 0.12 });
     reveals.forEach(el => observer.observe(el));
-    const megaItem = document.getElementById('megaItem');
-    const megaPanel = document.getElementById('megaPanel');
-    if (megaItem && megaPanel) {
-      let t;
-      const open = () => { clearTimeout(t); megaItem.classList.add('mega-open'); megaPanel.classList.add('mega-visible'); };
-      const close = () => { t = setTimeout(() => { megaItem.classList.remove('mega-open'); megaPanel.classList.remove('mega-visible'); }, 120); };
-      megaItem.addEventListener('mouseenter', open); megaItem.addEventListener('mouseleave', close);
-      megaPanel.addEventListener('mouseenter', open); megaPanel.addEventListener('mouseleave', close);
-    }
   </script>
   <script defer src="/_vercel/insights/script.js"></script>
 <script>

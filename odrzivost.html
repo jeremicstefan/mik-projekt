@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <link rel="icon" type="image/png" href="assets/0_logo/mik-favicon.png">
+  <meta charset="UTF-8" />
+  <meta name="description" content="Održivost i zelena energetika — MIK Projekt vodi ka dekarbonizaciji industrije." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Održivost | MIK Projekt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&family=IBM+Plex+Sans:wght@200;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="nav.css?v=9">
+  <link rel="stylesheet" href="footer.css?v=5">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    .inner { max-width: 1280px; margin: 0 auto; width: 100%; padding: 0 var(--px); }
+    :root {
+      --red: #cc2229; --dark: #111111; --dark2: #000;
+      --gray-bg: #f5f5f5; --border: #e6e6e6;
+      --text-muted: #5a5a5a; --text-dim: #787878; --text-nav: #3c3c3c;
+      --green: #1a7a4a;
+      --px: 80px; --transition: 0.2s ease;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'IBM Plex Sans', sans-serif; color: var(--dark); background: #fff; overflow-x: hidden; }
+    img { display: block; max-width: 100%; }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ─── NAV ── */
+    @media (max-width: 860px) {
+    }
+
+    /* ─── PAGE HEADER ── */
+    .page-header { background: #0d1a12; padding: 72px 0 56px; }
+    .page-header-eyebrow { margin-bottom: 8px; }
+    .page-header-eyebrow .eyebrow-line { width: 16px; height: 1px; background: #4caf7d; }
+    .page-header-eyebrow span { font-size: 11px; font-weight: 500; color: #4caf7d; letter-spacing: 0.08em; }
+    .page-header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 64px; }
+    .page-header-title { font-size: clamp(40px, 4.5vw, 60px); font-weight: 700; line-height: 1.05; color: #fff; letter-spacing: -0.025em; }
+    .page-header-body { font-size: 15px; line-height: 1.65; color: #7aad8e; max-width: 360px; flex-shrink: 0; }
+
+    /* ─── QUOTE BAND ── */
+    .quote-band { background: #f0f7f3; border-top: 1px solid #c8e6d5; border-bottom: 1px solid #c8e6d5; }
+    .quote-band .inner { padding-top: 48px; padding-bottom: 48px; }
+    .quote-text { font-size: clamp(18px, 2vw, 24px); font-weight: 300; color: var(--dark); line-height: 1.5; max-width: 800px; letter-spacing: -0.01em; }
+    .quote-text strong { font-weight: 600; }
+
+    /* ─── FOCUS AREAS ── */
+    .focus-section { background: #fff; }
+    .focus-section .inner { padding-top: 72px; padding-bottom: 80px; display: flex; flex-direction: column; gap: 48px; }
+    .focus-intro { max-width: 640px; display: flex; flex-direction: column; gap: 12px; }
+    .focus-eyebrow { font-size: 11px; font-weight: 600; color: var(--green); letter-spacing: 0.08em; }
+    .focus-title { font-size: clamp(26px, 2.5vw, 36px); font-weight: 700; color: var(--dark); letter-spacing: -0.02em; line-height: 1.2; }
+    .focus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .focus-card { background: #fff; padding: 32px 28px; display: flex; flex-direction: column; gap: 14px; transition: background var(--transition); }
+    .focus-card:hover { background: #f9fcfa; }
+    .focus-card-num { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 700; color: var(--green); letter-spacing: 0.04em; }
+    .focus-card-title { font-size: 16px; font-weight: 600; color: var(--dark); line-height: 1.3; }
+    .focus-card-body { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+
+    /* ─── TRANSITION SECTION ── */
+    .transition-section { background: #0d1a12; }
+    .transition-section .inner { padding-top: 72px; padding-bottom: 72px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .transition-text { display: flex; flex-direction: column; gap: 20px; }
+    .transition-label { font-size: 11px; font-weight: 600; color: #4caf7d; letter-spacing: 0.08em; }
+    .transition-title { font-size: clamp(24px, 2.5vw, 34px); font-weight: 700; color: #fff; line-height: 1.2; letter-spacing: -0.02em; }
+    .transition-body { font-size: 15px; line-height: 1.7; color: #7aad8e; }
+    .transition-cta { display: inline-flex; align-items: center; gap: 8px; background: #4caf7d; color: #fff; text-decoration: none; border-radius: 4px; padding: 13px 24px; font-size: 14px; font-weight: 500; align-self: flex-start; transition: background var(--transition); }
+    .transition-cta:hover { background: #3d9a6b; }
+    .transition-commitments { display: flex; flex-direction: column; gap: 16px; }
+    .commitment { display: flex; align-items: flex-start; gap: 14px; padding: 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; }
+    .commitment-icon { width: 32px; height: 32px; background: rgba(76,175,125,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .commitment-icon svg { width: 14px; height: 14px; color: #4caf7d; }
+    .commitment-text h4 { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+    .commitment-text p { font-size: 13px; color: #7aad8e; line-height: 1.5; }
+
+    /* ─── FOOTER ── */
+
+    /* ─── RESPONSIVE ── */
+    @media (max-width: 1100px) { :root { --px: 48px; } }
+    @media (max-width: 900px) {
+      :root { --px: 32px; }
+      .page-header { padding: 48px 0 40px; }
+      .page-header-top { flex-direction: column; gap: 16px; }
+      .focus-grid { grid-template-columns: 1fr; }
+      .transition-section .inner { grid-template-columns: 1fr; gap: 48px; }
+    }
+    @media (max-width: 640px) { .focus-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 480px) { :root { --px: 16px; } }
+  </style>
+</head>
+<body>
+
+  <div id="nav-root"></div>
+  <script src="nav.js?v=6"></script>
+  <script>MikNav.init('odrzivost');</script>
+
+  <!-- ─── PAGE HEADER ── -->
+  <section class="page-header">
+    <div class="inner">
+      <div class="page-header-eyebrow">
+        <span>ZELENA ENERGETIKA</span>
+      </div>
+      <div class="page-header-top">
+        <h1 class="page-header-title">Održivost</h1>
+        <p class="page-header-body">U MIK Projektu prepoznajemo hitnu potrebu za rešavanjem problema globalnog zagrevanja i vodimo industriju ka čistijoj energetskoj budućnosti.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── QUOTE ── -->
+  <section class="quote-band">
+    <div class="inner">
+      <p class="quote-text reveal"><strong>Pokrećemo zeleniju budućnost sa MIK Projektom</strong> — razvijamo rešenja koja optimizuju energetsku efikasnost, smanjuju emisije i podržavaju globalnu tranziciju ka čistim izvorima energije.</p>
+    </div>
+  </section>
+
+  <!-- ─── FOCUS AREAS ── -->
+  <section class="focus-section">
+    <div class="inner">
+      <div class="focus-intro reveal">
+        <span class="focus-eyebrow">5 STRATEŠKIH OBLASTI</span>
+        <h2 class="focus-title">Modernizacija za zeleniju budućnost</h2>
+      </div>
+      <div class="focus-grid">
+        <div class="focus-card reveal">
+          <span class="focus-card-num">01</span>
+          <h3 class="focus-card-title">Modernizacija i adaptacija</h3>
+          <p class="focus-card-body">Nadogradnja zastarelih postrojenja naprednim tehnologijama za smanjenje emisija CO₂ i NOₓ, uz povećanje energetske efikasnosti i produženje radnog veka sistema.</p>
+        </div>
+        <div class="focus-card reveal reveal-delay-1">
+          <span class="focus-card-num">02</span>
+          <h3 class="focus-card-title">Sistemi za rekuperaciju toplote</h3>
+          <p class="focus-card-body">Implementacija rešenja za iskorišćavanje otpadne toplote iz industrijskih procesa, smanjujući ukupnu potrošnju energije i troškove poslovanja.</p>
+        </div>
+        <div class="focus-card reveal reveal-delay-2">
+          <span class="focus-card-num">03</span>
+          <h3 class="focus-card-title">Biomasa i energija iz otpada</h3>
+          <p class="focus-card-body">Projektovanje i ugradnja sistema koji koriste biomasu i industrijski otpad kao goriva, promovišući obnovljive izvore i kružnu ekonomiju u energetici.</p>
+        </div>
+        <div class="focus-card reveal">
+          <span class="focus-card-num">04</span>
+          <h3 class="focus-card-title">Multi-fuel sistemi</h3>
+          <p class="focus-card-body">Razvoj fleksibilnih energetskih sistema koji omogućavaju tranziciju ka čistijim gorivima, pružajući industrijskim klijentima dugoročnu energetsku sigurnost.</p>
+        </div>
+        <div class="focus-card reveal reveal-delay-1">
+          <span class="focus-card-num">05</span>
+          <h3 class="focus-card-title">Visokoefikasni fosilni kotlovi</h3>
+          <p class="focus-card-body">Projektovanje opreme s maksimalnom efikasnošću sagorevanja i minimalnim emisijama, obezbeđujući pouzdanu proizvodnju energije uz smanjeni uticaj na životnu sredinu.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── GLOBAL TRANSITION ── -->
+  <section class="transition-section">
+    <div class="inner">
+      <div class="transition-text reveal">
+        <span class="transition-label">GLOBALNA ENERGETSKA TRANZICIJA</span>
+        <h2 class="transition-title">Predanost dekarbonizaciji i inovacijama</h2>
+        <p class="transition-body">MIK Projekt podržava međunarodne napore ka niskougljičnoj budućnosti. Kroz inovativna partnerstva i kontinuiranu modernizaciju, postavljamo nove standarde odgovornosti u industrijskoj energetici Srbije i šire.</p>
+        <a href="kontakt.html" class="transition-cta">Razgovarajte s nama</a>
+      </div>
+      <div class="transition-commitments reveal reveal-delay-1">
+        <div class="commitment">
+          <div class="commitment-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="commitment-text">
+            <h4>Smanjenje emisija CO₂ i NOₓ</h4>
+            <p>Primena naprednih sistema sagorevanja koji minimizuju emisije štetnih gasova</p>
+          </div>
+        </div>
+        <div class="commitment">
+          <div class="commitment-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="commitment-text">
+            <h4>Obnovljivi izvori i biomasa</h4>
+            <p>Aktivna integracija obnovljivih goriva u industrijske energetske sisteme</p>
+          </div>
+        </div>
+        <div class="commitment">
+          <div class="commitment-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="commitment-text">
+            <h4>Efikasnost do 98,5%</h4>
+            <p>Postizanje vrhunskih parametara efikasnosti u kotlovskim i termoenergetskim sistemima</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ── -->
+  <div id="footer-root"></div>
+  <script src="footer.js?v=6"></script>
+  <script>MikFooter.init();</script>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
