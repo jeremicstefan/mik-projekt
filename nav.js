@@ -89,16 +89,36 @@
     + '<div class="nav-drawer" id="navDrawer">'
     +   '<a href="index.html" onclick="closeDrawer()"'   + a(idx) + '>Po\u010detna</a>'
     +   '<a href="o-nama.html" onclick="closeDrawer()"'  + a(ona) + '>O nama</a>'
-    +   '<a href="usluge.html" onclick="closeDrawer()"'  + a(usl) + '>Na\u0161e usluge</a>'
-    +   '<a href="projekti.html" onclick="closeDrawer()"' + a(prj) + '>Projekti</a>'
-    +   '<span class="drawer-label">Ostalo</span>'
-    +   '<div class="drawer-sub">'
-    +     '<a href="karijera.html" onclick="closeDrawer()">Karijera</a>'
-    +     '<a href="cesta-pitanja.html" onclick="closeDrawer()">&#268;esta pitanja</a>'
-    +     '<a href="dokumentacija.html" onclick="closeDrawer()">Dokumentacija</a>'
-    +     '<a href="odrzivost.html" onclick="closeDrawer()">Odr&#382;ivost</a>'
-    +     '<a href="pravne-napomene.html" onclick="closeDrawer()">Pravne napomene</a>'
+
+    +   '<div class="drawer-accordion' + (usl ? ' open' : '') + '" id="drawerUsluge">'
+    +     '<button class="drawer-accordion-trigger' + (usl ? ' active' : '') + '">'
+    +       'Na\u0161e usluge' + chevron
+    +     '</button>'
+    +     '<div class="drawer-accordion-body">'
+    +       '<a href="kotlovski-sistemi.html" onclick="closeDrawer()">Kotlovski sistemi</a>'
+    +       '<a href="inzenjerstvo.html" onclick="closeDrawer()">In\u017eenjerstvo</a>'
+    +       '<a href="proizvodnja.html" onclick="closeDrawer()">Proizvodnja</a>'
+    +       '<a href="instalacija-montaza.html" onclick="closeDrawer()">Instalacija sistema</a>'
+    +       '<a href="usluge-i-odrzavanje.html" onclick="closeDrawer()">Servis i odr\u017eavanje</a>'
+    +       '<a href="usluge.html" class="drawer-accordion-all" onclick="closeDrawer()">Sve usluge \u2192</a>'
+    +     '</div>'
     +   '</div>'
+
+    +   '<a href="projekti.html" onclick="closeDrawer()"' + a(prj) + '>Projekti</a>'
+
+    +   '<div class="drawer-accordion' + (ost ? ' open' : '') + '" id="drawerOstalo">'
+    +     '<button class="drawer-accordion-trigger' + (ost ? ' active' : '') + '">'
+    +       'Ostalo' + chevron
+    +     '</button>'
+    +     '<div class="drawer-accordion-body">'
+    +       '<a href="karijera.html" onclick="closeDrawer()">Karijera</a>'
+    +       '<a href="cesta-pitanja.html" onclick="closeDrawer()">&#268;esta pitanja</a>'
+    +       '<a href="dokumentacija.html" onclick="closeDrawer()">Dokumentacija</a>'
+    +       '<a href="odrzivost.html" onclick="closeDrawer()">Odr&#382;ivost</a>'
+    +       '<a href="pravne-napomene.html" onclick="closeDrawer()">Pravne napomene</a>'
+    +     '</div>'
+    +   '</div>'
+
     +   '<a href="kontakt.html" class="nav-cta" onclick="closeDrawer()">Kontakt</a>'
     + '</div>\n'
     );
@@ -130,6 +150,16 @@
 
     document.addEventListener('click', function (e) {
       if (!nav.contains(e.target) && !drawer.contains(e.target)) closeDrawer();
+    });
+
+    // Drawer accordions (mobile)
+    drawer.querySelectorAll('.drawer-accordion-trigger').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var acc = btn.parentElement;
+        var isOpen = acc.classList.contains('open');
+        drawer.querySelectorAll('.drawer-accordion').forEach(function (a) { a.classList.remove('open'); });
+        if (!isOpen) acc.classList.add('open');
+      });
     });
 
     // Naše usluge mega panel

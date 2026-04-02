@@ -243,6 +243,74 @@
   color: var(--dark);
 }
 
+/* ─── DRAWER ACCORDIONS ───────────────────────────────────────── */
+
+.drawer-accordion-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-nav);
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  padding: 14px 0;
+  cursor: pointer;
+  font-family: 'IBM Plex Sans', sans-serif;
+  text-align: left;
+}
+
+.drawer-accordion-trigger.active {
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.drawer-accordion-trigger .nav-mega-chevron {
+  transition: transform 0.25s ease;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+
+.drawer-accordion.open .drawer-accordion-trigger .nav-mega-chevron {
+  transform: rotate(180deg);
+}
+
+.drawer-accordion-body {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease;
+}
+
+.drawer-accordion.open .drawer-accordion-body {
+  max-height: 400px;
+}
+
+.drawer-accordion-body a {
+  font-size: 14px;
+  color: var(--text-muted);
+  padding: 9px 0 9px 16px;
+  text-decoration: none;
+  border-left: 2px solid var(--border);
+  margin-left: 4px;
+  display: block;
+  transition: color var(--transition), border-color var(--transition);
+}
+
+.drawer-accordion-body a:hover {
+  color: var(--dark);
+  border-color: var(--dark);
+}
+
+.drawer-accordion-all {
+  font-weight: 600;
+  color: var(--red) !important;
+  border-color: var(--red) !important;
+}
+
 /* ─── MEGA TRIGGER (Naše usluge + Ostalo) ────────────────────────────── */
 
 .nav-mega-item {

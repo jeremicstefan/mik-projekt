@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@700&family=IBM+Plex+Sans:wght@200;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="nav.css?v=9">
+  <link rel="stylesheet" href="nav.css?v=10">
   <link rel="stylesheet" href="footer.css?v=5">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -66,22 +66,85 @@
 
     /* ─── RESPONSIVE ── */
     @media (max-width: 1100px) { :root { --px: 48px; } }
+    /* Desktop: tabs wrapper is transparent */
+    .faq-tabs { display: contents; }
+
     @media (max-width: 900px) {
-      :root { --px: 32px; }
-      .page-header { padding: 48px 0 40px; }
-      .page-header-top { flex-direction: column; gap: 16px; }
-      .faq-section .inner { grid-template-columns: 1fr; gap: 40px; }
-      .faq-sidebar { position: static; flex-direction: row; flex-wrap: wrap; gap: 4px; }
-      .faq-sidebar-link { border-left: none; border-bottom: 2px solid transparent; padding-left: 0; padding-bottom: 4px; font-size: 13px; }
-      .faq-sidebar-link.active { border-bottom-color: var(--red); border-left: none; }
+      :root { --px: 20px; }
+
+      /* ── Page header ── */
+      .page-header { padding: 36px 0 28px; }
+      .page-header-top { flex-direction: column; gap: 10px; }
+      .page-header-title { font-size: clamp(28px, 7vw, 44px); }
+      .page-header-body { font-size: 13px; max-width: 100%; }
+
+      /* ── FAQ layout ── */
+      .faq-section .inner { grid-template-columns: 1fr; gap: 0; padding-top: 0; padding-bottom: 48px; }
+
+      /* ── Sidebar → sticky tab bar ── */
+      .faq-sidebar {
+        position: sticky;
+        top: 64px;
+        z-index: 10;
+        background: #fff;
+        flex-direction: column;
+        gap: 0;
+        border-bottom: 1px solid var(--border);
+        margin: 0 calc(-1 * var(--px));
+        padding: 0 var(--px);
+      }
+
+      /* Tab strip */
+      .faq-tabs {
+        display: flex;
+        width: 100%;
+      }
+      .faq-sidebar-link {
+        flex: 1;
+        text-align: center;
+        border-left: none;
+        border-bottom: 2px solid transparent;
+        padding: 12px 4px 10px;
+        padding-left: 0;
+        font-size: 13px;
+        font-weight: 500;
+        white-space: nowrap;
+        margin-bottom: -1px;
+      }
+      .faq-sidebar-link.active {
+        border-bottom-color: var(--red);
+        border-left: none;
+        color: var(--dark);
+        font-weight: 600;
+      }
+
+      /* Toggle button in its own row */
+      .faq-toggle-btn {
+        align-self: flex-end;
+        margin: 8px 0;
+        font-size: 12px;
+        padding: 5px 10px;
+      }
+
+      /* ── FAQ content ── */
+      .faq-content { gap: 36px; }
+      .faq-group-title { font-size: 11px; margin-bottom: 10px; }
+      .faq-question { padding: 14px 0; gap: 12px; }
+      .faq-question-text { font-size: 14px; }
+      .faq-answer { font-size: 13px; }
+      .faq-item.open .faq-answer { padding-bottom: 14px; }
     }
-    @media (max-width: 480px) { :root { --px: 16px; } }
+
+    @media (max-width: 480px) {
+      :root { --px: 16px; }
+      .faq-sidebar-link { font-size: 12px; padding: 11px 2px 9px; }
+    }
   </style>
 </head>
 <body>
 
   <div id="nav-root"></div>
-  <script src="nav.js?v=6"></script>
+  <script src="nav.js?v=10"></script>
   <script>MikNav.init('cesta-pitanja');</script>
 
   <!-- ─── PAGE HEADER ── -->
@@ -103,9 +166,11 @@
 
       <!-- Sidebar nav -->
       <nav class="faq-sidebar" aria-label="Kategorije pitanja">
-        <a href="#opsta" class="faq-sidebar-link active">Opšta pitanja</a>
-        <a href="#tehnicka" class="faq-sidebar-link">Tehnička pitanja</a>
-        <a href="#prednosti" class="faq-sidebar-link">Prednosti saradnje</a>
+        <div class="faq-tabs">
+          <a href="#opsta" class="faq-sidebar-link active">Opšta pitanja</a>
+          <a href="#tehnicka" class="faq-sidebar-link">Tehnička pitanja</a>
+          <a href="#prednosti" class="faq-sidebar-link">Prednosti saradnje</a>
+        </div>
         <button class="faq-toggle-btn" id="faqToggleBtn">Otvori sve</button>
       </nav>
 
